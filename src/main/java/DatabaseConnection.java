@@ -7,7 +7,7 @@ public class DatabaseConnection {
     public void connect() throws SQLException {
         try {
             File dbfile = new File(".");
-            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\db\\QuizGen.db";
+            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\main\\java\\db\\QuizGen.db";
             // create a connection to the database3
             conn = DriverManager.getConnection(url);
 
