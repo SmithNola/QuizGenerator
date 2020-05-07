@@ -6,12 +6,13 @@ public class QuizApp {
     public static void main(String[] args) throws SQLException {
         boolean start = con.connect();
         if(start == true) {
-            signUp();
+            login();
             con.disconnect();
         }
     }
 
-    public static void signUp() throws SQLException {
+    //gets user sign up info
+    private static void signUp() throws SQLException {
         boolean taken;
         String username;
         String password;
@@ -46,5 +47,23 @@ public class QuizApp {
         //inserts user into database
         con.addUser(username,password);
         System.out.println("Your account has been created");
+    }
+    //Gets user login in info
+    private static void login() throws SQLException {
+        String username;
+        String password;
+        Boolean login;
+        Scanner keyboard = new Scanner(System.in);
+        do{
+            System.out.println("Enter username");
+            username = keyboard.nextLine();
+            System.out.println("Enter Password");
+            password = keyboard.nextLine();
+            login = con.checkLogin(username,password);
+            if(login == false){
+                System.out.println("Wrong username/password combination");
+            }
+        }while(login == false);
+        System.out.println("You have been signed in");
     }
 }

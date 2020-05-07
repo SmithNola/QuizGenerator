@@ -7,7 +7,7 @@ public class DatabaseConnection {
     public Boolean connect() throws SQLException {
         try {
             File dbfile = new File(".");
-            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\main\\java\\db\\QuizGen.db";
+            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\main\\db\\QuizGen.db";
             // create a connection to the database3
             conn = DriverManager.getConnection(url);
 
@@ -43,7 +43,23 @@ public class DatabaseConnection {
         st.executeUpdate();
     }
 
-    public void disconnect() throws SQLException{
+    public static boolean checkLogin(String username, String password) throws SQLException {
+        String user;
+        String query = "SELECT username FROM users WHERE username = ? AND password = ?";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1,username);
+        st.setString(2, password);
+        ResultSet names = st.executeQuery();
+        if(names.next()) {
+            user = names.getString("username");//will save username to userData later
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void disconnect() throws SQLException {
         try {
             if (conn != null) {
                 conn.close();
