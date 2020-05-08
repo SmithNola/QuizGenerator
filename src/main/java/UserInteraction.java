@@ -2,9 +2,32 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInteraction {
-    //The first page the user sees
-    public static void startPage(DatabaseConnection con) throws SQLException {
+    //decision to play or create
+    public static String homePage(String username){
         String choice;
+        System.out.println("Welcome " + username + " to the Quiz Generator.");
+
+        Scanner keyboard = new Scanner(System.in);
+        do {
+            System.out.println("Type 1 to begin playing or type 2 to begin creating");
+            choice = keyboard.nextLine();
+            if(!choice.equals("1") && !choice.equals("2")){
+                System.out.println("That was not a choice");
+            }
+        }while(!choice.equals("1") && !choice.equals("2"));
+
+        if(choice.equals("1")){
+            return "play";
+        }
+        else{
+            return "create";
+        }
+    }
+
+    //The first page the user sees
+    public static String startPage(DatabaseConnection con) throws SQLException {
+        String choice;
+        String username;
         System.out.println("Welcome to Quiz Generator");
         Scanner keyboard = new Scanner(System.in);
         do {
@@ -14,16 +37,18 @@ public class UserInteraction {
                 System.out.println("That was not a choice");
             }
         }while(!choice.equals("1") && !choice.equals("2"));
+
         if(choice.equals("1")){
-            signUp(con);
+            username = signUp(con);
         }
         else{
-            login(con);
+            username = login(con);
         }
+        return username;
     }
 
     //gets user sign up info
-    private static void signUp(DatabaseConnection con) throws SQLException {
+    private static String signUp(DatabaseConnection con) throws SQLException {
         boolean taken;
         String username;
         String password;
@@ -59,9 +84,10 @@ public class UserInteraction {
         con.addUser(username,password);
         System.out.println("Your account has been created");
         keyboard.close();
+        return username;
     }
     //Gets user login in info
-    private static void login(DatabaseConnection con) throws SQLException {
+    private static String login(DatabaseConnection con) throws SQLException {
         String username;
         String password;
         Boolean login;
@@ -78,5 +104,6 @@ public class UserInteraction {
         }while(login == false);
         System.out.println("You have been signed in");
         keyboard.close();
+        return username;
     }
 }
