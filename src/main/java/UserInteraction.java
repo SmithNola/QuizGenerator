@@ -2,12 +2,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInteraction {
+    public static Scanner keyboard = new Scanner(System.in);
     //decision to play or create
     public static String homePage(String username){
         String choice;
         System.out.println("Welcome " + username + " to the Quiz Generator.");
 
-        Scanner keyboard = new Scanner(System.in);
         do {
             System.out.println("Type 1 to begin playing or type 2 to begin creating");
             choice = keyboard.nextLine();
@@ -29,7 +29,7 @@ public class UserInteraction {
         String choice;
         String username;
         System.out.println("Welcome to Quiz Generator");
-        Scanner keyboard = new Scanner(System.in);
+
         do {
             System.out.println("Type 1 to sign up or 2 to login");
             choice = keyboard.nextLine();
@@ -54,7 +54,7 @@ public class UserInteraction {
         String password;
         String password2;
         System.out.println("Enter desired username.");
-        Scanner keyboard = new Scanner(System.in);
+
         username = keyboard.nextLine();
         taken = con.checkUsername(username);
         while(taken == true){//checks if username is taken
@@ -83,7 +83,6 @@ public class UserInteraction {
         //inserts user into database
         con.addUser(username,password);
         System.out.println("Your account has been created");
-        keyboard.close();
         return username;
     }
     //Gets user login in info
@@ -91,7 +90,7 @@ public class UserInteraction {
         String username;
         String password;
         Boolean login;
-        Scanner keyboard = new Scanner(System.in);
+
         do{
             System.out.println("Enter username");
             username = keyboard.nextLine();
@@ -103,7 +102,6 @@ public class UserInteraction {
             }
         }while(login == false);
         System.out.println("You have been signed in");
-        keyboard.close();
         return username;
     }
 }

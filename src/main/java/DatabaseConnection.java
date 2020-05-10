@@ -22,7 +22,7 @@ public class DatabaseConnection {
 
     //Will check if username already exits in database
     public static Boolean checkUsername(String username) throws SQLException {
-        String query = "SELECT username FROM users WHERE username = ?";
+        String query = "SELECT username FROM player WHERE username = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1,username);
         ResultSet names = st.executeQuery();
@@ -36,7 +36,7 @@ public class DatabaseConnection {
 
     //add user to database
     public static void addUser(String username, String password) throws SQLException {
-        String query = "INSERT INTO users (username,password) VALUES (?,?)";
+        String query = "INSERT INTO player (username,password) VALUES (?,?)";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
         st. setString(2, password);
@@ -45,7 +45,7 @@ public class DatabaseConnection {
 
     public static boolean checkLogin(String username, String password) throws SQLException {
         String user;
-        String query = "SELECT username FROM users WHERE username = ? AND password = ?";
+        String query = "SELECT username FROM player WHERE username = ? AND password = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1,username);
         st.setString(2, password);

@@ -9,12 +9,12 @@ public class QuizApp {
         if(start) {
             currentUser = new User(UserInteraction.startPage(con));//Will return the user's username
             choice = UserInteraction.homePage(currentUser.getUsername());//user decides to play or create
-            if(choice.equals("play")){
+            /*if(choice.equals("play")){
                 //call play class
             }
             else{
                 //call create class
-            }
+            }*/
             con.disconnect();
         }
     }
