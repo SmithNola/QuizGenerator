@@ -7,14 +7,14 @@ public class QuizApp {
         String choice;
         User currentUser;
         if(start) {
-            currentUser = new User(UserInteraction.startPage(con));//Will return the user's username
-            choice = UserInteraction.homePage(currentUser.getUsername());//user decides to play or create
+            currentUser = new User(AppInteraction.startPage(con));//Will return the user's username
+            choice = AppInteraction.homePage(currentUser.getUsername());//user decides to play or create
             if(choice.equals("play")){
                 //call play class
-            }
+           }
             else{
                 CreateView.displayQuizzes();//will display all the quizzes the user has made
-                UserInteraction.createView();
+                AppInteraction.createView();
             }
             con.disconnect();
         }

@@ -6,11 +6,6 @@ public class User {
         this.username = newUsername;
     }
 
-    public void setUsername(String newUsername){
-
-        this.username = newUsername;
-    }
-
     public String getUsername(){
 
         return username;
