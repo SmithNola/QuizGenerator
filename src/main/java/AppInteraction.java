@@ -1,7 +1,7 @@
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class UserInteraction {
+public class MainInteraction {
     private static Scanner keyboard = new Scanner(System.in);
     private static String choice;
     //decision to play or create
