@@ -13,11 +13,10 @@ public class QuizApp {
                 //call play class
             }
             else{
-                //call create class
+                CreateView.displayQuizzes();//will display all the quizzes the user has made
+                UserInteraction.createView();
             }
             con.disconnect();
         }
     }
-
-
 }
