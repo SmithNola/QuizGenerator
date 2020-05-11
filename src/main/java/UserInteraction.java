@@ -2,12 +2,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserInteraction {
-    public static Scanner keyboard = new Scanner(System.in);
+    private static Scanner keyboard = new Scanner(System.in);
+    private static String choice;
     //decision to play or create
     public static String homePage(String username){
-        String choice;
-        System.out.println("Welcome " + username + " to the Quiz Generator.");
 
+        System.out.println("Welcome " + username + " to the Quiz Generator.");
         do {
             System.out.println("Type 1 to begin playing or type 2 to begin creating");
             choice = keyboard.nextLine();
@@ -26,7 +26,6 @@ public class UserInteraction {
 
     //The first page the user sees
     public static String startPage(DatabaseConnection con) throws SQLException {
-        String choice;
         String username;
         System.out.println("Welcome to Quiz Generator");
 
@@ -85,7 +84,7 @@ public class UserInteraction {
         System.out.println("Your account has been created");
         return username;
     }
-    //Gets user login in info
+    //Gets user login info
     private static String login(DatabaseConnection con) throws SQLException {
         String username;
         String password;
@@ -103,5 +102,12 @@ public class UserInteraction {
         }while(login == false);
         System.out.println("You have been signed in");
         return username;
+    }
+
+    public static void createView(){
+        choice = keyboard.nextLine();
+        if(choice.equalsIgnoreCase("create")){
+           Creating.properties();
+        }
     }
 }
