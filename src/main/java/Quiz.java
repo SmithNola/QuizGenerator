@@ -1,41 +1,54 @@
-import java.util.Date;
+import java.util.ArrayList;
 
 public class Quiz {
     private String name = "";
-    private Boolean ordered = false;
-    private Date creationTime;
+    private int ordered = 0;
+    //private Date creationTime;
     private String creator = "";
-    private Question questions[];
+    private String genre = "";
+    private ArrayList<Question> question = new <Question> ArrayList();
 
     public void setName(String newName) {
-        this.name = name;
+        this.name = newName;
     }
 
-    public void setOrdered(Boolean ordered) {
-        this.ordered = ordered;
+    public void setOrdered(int newOrdered) {
+        this.ordered = newOrdered;
     }
 
-    public void setDate(Date newCreationTime){
+    /*public void setDate(java.sql.Date newCreationTime){
         this.creationTime = newCreationTime;
-    }
+    }*/
 
     public void setCreator(String newCreator){
         this.creator = newCreator;
+    }
+
+    public void setQuestion(Question newQuestion){
+        question.add(newQuestion);
+    }
+
+    public void setGenre(String newGenre){
+        this.genre = newGenre;
     }
 
     public String getName(){
         return this.name;
     }
 
-    public Boolean getOrdered(){
+    public int getOrdered(){
         return this.ordered;
     }
 
-    public Date getCreationTime(){
+    /*public Date getCreationTime(){
         return this.creationTime;
+    }*/
+
+    public String getCreator() {
+        return this.creator;
     }
 
-    public String getCreator(){
-        return this.creator;
+    public String getGenre(){
+        return this.genre;
     }
 }

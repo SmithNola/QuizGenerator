@@ -2,12 +2,12 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class QuizApp {
-    private DatabaseConnection con = new DatabaseConnection();
-    private String choice;
-    private Scanner keyboard = new Scanner(System.in);
-    public void main(String[] args) throws SQLException {
+    private static DatabaseConnection con = new DatabaseConnection();
+    private static Scanner keyboard = new Scanner(System.in);
+    public static void main(String[] args) throws SQLException {
+        String choice;
+        Boolean end;
         boolean start = con.connect();
-        //String choice;
         User currentUser;
         if(start) {
             currentUser = new User(startPage());//Will return the user's username
@@ -16,14 +16,15 @@ public class QuizApp {
                 //call play class
            }
             else{
-                // create class
+               end = CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
             }
             con.disconnect();
         }
     }
 
-    public String homePage(String username){
-
+    //User decides to play or create
+    public static String homePage(String username){
+        String choice;
         System.out.println("Welcome " + username + " to the Quiz Generator.");
         do {
             System.out.println("Type 1 to begin playing or type 2 to begin creating");
@@ -41,8 +42,9 @@ public class QuizApp {
         }
     }
 
-    //The first page the user sees
-    public String startPage() throws SQLException {
+    //The first page the user sees, user decides to login or sign up
+    public static String startPage() throws SQLException {
+        String choice;
         String username;
         System.out.println("Welcome to Quiz Generator");
 
@@ -64,7 +66,7 @@ public class QuizApp {
     }
 
     //gets user sign up info
-    private String signUp() throws SQLException {
+    private static String signUp() throws SQLException {
         boolean taken;
         String username;
         String password;
@@ -102,7 +104,7 @@ public class QuizApp {
         return username;
     }
 
-    private String login() throws SQLException {
+    private static String login() throws SQLException {
         String username;
         String password;
         Boolean login;
