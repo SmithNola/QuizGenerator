@@ -9,9 +9,13 @@ public class CreateView {
     }
 
     //will display all the quizzes the user has made
-    public static void displayQuizzes(){
+    private static void displayQuizzes(){
         System.out.println("These are the Quizzes You have created.\n");
         System.out.println("If you would like to edit a quiz type their number.\n" +
                 "If you would like begin creating type create.");
+    }
+
+    public Boolean beginCreate(){
+        return false;
     }
 }
