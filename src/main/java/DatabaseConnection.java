@@ -59,6 +59,10 @@ public class DatabaseConnection {
         }
     }
 
+    public Boolean saveQuiz(){
+        return false;
+    }
+
     public void disconnect() throws SQLException {
         try {
             if (conn != null) {
