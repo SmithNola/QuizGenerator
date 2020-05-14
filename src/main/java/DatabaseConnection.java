@@ -1,6 +1,8 @@
 import java.io.File;
 import java.sql.*;
 
+import static java.sql.Types.NULL;
+
 public class DatabaseConnection {
     private static Connection conn = null;
 
@@ -59,15 +61,35 @@ public class DatabaseConnection {
             return false;
         }
     }
-    //Saes quiz to the database
+    //Saves quiz to the database
     public static void saveQuiz(Quiz quiz) throws SQLException {
         String query = "INSERT INTO quiz (quiz_name,ordered,genre,time_created,player_id) VALUES (?,?,?,CURRENT_TIMESTAMP,?)";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, quiz.getName());
-        st. setInt(2, quiz.getOrdered());
+        st.setInt(2, quiz.getOrdered());
         st.setString(3, quiz.getGenre());
         st.setInt(4, getPlayerId(quiz.getCreator()));
-        st.executeUpdate();
+        int quizId = st.executeUpdate();
+        saveQuestions(quiz,quizId);
+    }
+
+    public static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
+        String query = "INSERT INTO question (question_name,quiz_id,position) VALUES (?,?,?)";
+        PreparedStatement st = conn.prepareStatement(query);
+        //saves each individual question to the database
+        for(int i = 0; i < quiz.getQuestions().size(); i++){
+            Question question = quiz.getQuestions().get(i);
+            st.setString(1, question.getName());
+            st.setInt(2, quizId);
+            //if quiz is orded will insert position otherwise will leave NULL
+            if(quiz.getOrdered() == 1){
+                st.setInt(3, question.getPosition());
+            }
+            else{
+                st.setInt(3, NULL);
+            }
+            st.executeUpdate();
+        }
     }
 
     //retrieves creator's Id
@@ -78,10 +100,6 @@ public class DatabaseConnection {
         ResultSet names = st.executeQuery();
         int user = names.getInt("player_id");
         return user;
-    }
-
-    public static void saveQuestion(){
-
     }
 
     public void disconnect() throws SQLException {
