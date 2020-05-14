@@ -6,7 +6,7 @@ public class Quiz {
     //private Date creationTime;
     private String creator = "";
     private String genre = "";
-    private ArrayList<Question> question = new <Question> ArrayList();
+    private ArrayList<Question> questions = new <Question> ArrayList();
 
     public void setName(String newName) {
         this.name = newName;
@@ -24,8 +24,8 @@ public class Quiz {
         this.creator = newCreator;
     }
 
-    public void setQuestion(Question newQuestion){
-        question.add(newQuestion);
+    public void setQuestion(Question newQuestions){
+        questions.add(newQuestions);
     }
 
     public void setGenre(String newGenre){
@@ -50,5 +50,9 @@ public class Quiz {
 
     public String getGenre(){
         return this.genre;
+    }
+
+    public ArrayList<Question> getQuestions(){
+        return this.questions;
     }
 }

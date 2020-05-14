@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Creating {
     private static Scanner keyboard = new Scanner(System.in);
     private static Quiz quiz = new Quiz();
+    private static int position = 1;
 
     public static void create(String username) throws SQLException {
         Boolean done;
@@ -24,6 +25,8 @@ public class Creating {
             return false;
         }
         else{
+            question.setPosition(position);
+            position++;
             askChoices(question);
             quiz.setQuestion(question);
             return true;
@@ -75,18 +78,14 @@ public class Creating {
             }
         }while(!orderedInput.equalsIgnoreCase("yes") && !orderedInput.equalsIgnoreCase("no"));
         if(orderedInput.equalsIgnoreCase("yes")){
-            ordered = 0;//represents true
+            ordered = 1;//represents true
         }
         else{
-            ordered = 1;//represents false
+            ordered = 0;//represents false
         }
         quiz.setOrdered(ordered);
         System.out.println("What genre is this quiz?");
         genre = keyboard.nextLine();
         quiz.setGenre(genre);
-    }
-
-    private void edit(){
-
     }
 }
