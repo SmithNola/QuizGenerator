@@ -7,7 +7,7 @@ public class DatabaseConnection {
     public Boolean connect() throws SQLException {
         try {
             File dbfile = new File(".");
-            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\main\\d\\QuizGen.db";
+            String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "\\src\\main\\db\\QuizGen.db";
             // create a connection to the database3
             conn = DriverManager.getConnection(url);
 
@@ -43,6 +43,7 @@ public class DatabaseConnection {
         st.executeUpdate();
     }
 
+    //Checks if user enters correct login info
     public static boolean checkLogin(String username, String password) throws SQLException {
         String user;
         String query = "SELECT username FROM player WHERE username = ? AND password = ?";
@@ -58,9 +59,29 @@ public class DatabaseConnection {
             return false;
         }
     }
+    //Saes quiz to the database
+    public static void saveQuiz(Quiz quiz) throws SQLException {
+        String query = "INSERT INTO quiz (quiz_name,ordered,genre,time_created,player_id) VALUES (?,?,?,CURRENT_TIMESTAMP,?)";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, quiz.getName());
+        st. setInt(2, quiz.getOrdered());
+        st.setString(3, quiz.getGenre());
+        st.setInt(4, getPlayerId(quiz.getCreator()));
+        st.executeUpdate();
+    }
 
-    public Boolean saveQuiz(){
-        return false;
+    //retrieves creator's Id
+    private static int getPlayerId(String creator) throws SQLException {
+        String query = "SELECT player_id FROM player WHERE username = ?";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, creator);
+        ResultSet names = st.executeQuery();
+        int user = names.getInt("player_id");
+        return user;
+    }
+
+    public static void saveQuestion(){
+
     }
 
     public void disconnect() throws SQLException {

@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.util.Scanner;
+
 public class CreateView {
 
     private static void howTo(){
@@ -15,7 +18,15 @@ public class CreateView {
                 "If you would like begin creating type create.");
     }
 
-    public Boolean beginCreate(){
+    public static Boolean beginCreate(String username) throws SQLException {
+        Scanner keyboard = new Scanner(System.in);
+        String choice;
+        displayQuizzes();
+        choice = keyboard.nextLine();
+        if(choice.equalsIgnoreCase("create")){
+            howTo();
+            Creating.create(username);
+        }
         return false;
     }
 }

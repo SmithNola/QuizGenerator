@@ -1,38 +1,69 @@
-import java.util.HashMap;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Creating {
     private static Scanner keyboard = new Scanner(System.in);
     private static Quiz quiz = new Quiz();
-    private static Question question = new Question();
 
-    public static void create(){
-
+    public static void create(String username) throws SQLException {
+        Boolean done;
+        quizProperties();
+        //asks user for question and choices
+        do {
+           done = createQuestion();
+        }while(done == true);
+        quiz.setCreator(username);
+        DatabaseConnection.saveQuiz(quiz);
     }
 
-    private static void askQuestion(){
+    private static Boolean createQuestion(){
+        Question question = new Question();
+        Boolean done = askQuestion(question);
+        if(done == false){
+            return false;
+        }
+        else{
+            askChoices(question);
+            quiz.setQuestion(question);
+            return true;
+        }
+    }
+
+    private static Boolean askQuestion(Question question){
         String questionName;
         System.out.println("Enter the question.");
         questionName = keyboard.nextLine();
-        question.setName(questionName);
+        if(!questionName.equalsIgnoreCase("finished")) {
+            question.setName(questionName);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    private static void askChoices(){
-        HashMap<Integer, String> choices = new HashMap<>();
+    private static void askChoices(Question question){
+        ArrayList <String> choices = new ArrayList<String>();
         String choice;
-        int choiceOrder = 1;
+        int answer;
         System.out.println("Enter the choices.");
         do{
             choice = keyboard.nextLine();
-            choices.put(choiceOrder,choice);
-            choiceOrder++;
-        }while(!choice.equals("\n"));
+            choices.add(choice);
+        }while(!choice.equals("done"));
+        System.out.println("Which one is the answer?");
+        choice = keyboard.nextLine();
+        answer = Integer.parseInt(choice);
+        question.setAnswer(answer);
+        question.setChoices(choices);
     }
 
-    private static void properties(){
+    private static void quizProperties(){
         String orderedInput;
         String quizName;
-        Boolean ordered;
+        int ordered;
+        String genre;
         System.out.println("What is the name of the quiz?");
         quizName = keyboard.nextLine();
         quiz.setName(quizName);
@@ -43,8 +74,16 @@ public class Creating {
                 System.out.println("Answer yes or no");
             }
         }while(!orderedInput.equalsIgnoreCase("yes") && !orderedInput.equalsIgnoreCase("no"));
-        ordered = Boolean.parseBoolean(orderedInput);
+        if(orderedInput.equalsIgnoreCase("yes")){
+            ordered = 0;//represents true
+        }
+        else{
+            ordered = 1;//represents false
+        }
         quiz.setOrdered(ordered);
+        System.out.println("What genre is this quiz?");
+        genre = keyboard.nextLine();
+        quiz.setGenre(genre);
     }
 
     private void edit(){
