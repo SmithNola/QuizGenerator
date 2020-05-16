@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CreateView {
@@ -12,8 +13,12 @@ public class CreateView {
     }
 
     //will display all the quizzes the user has made
-    private static void displayQuizzes(){
+    private static void displayQuizzes(String username) throws SQLException {
         System.out.println("These are the Quizzes You have created.\n");
+        ArrayList<String> quizzes = DatabaseConnection.retrieveUserQuiz(username);//user's quizzes
+        for(int i = 0;i < quizzes.size(); i++){
+           System.out.println(quizzes.get(i));
+        }
         System.out.println("If you would like to edit a quiz type their number.\n" +
                 "If you would like begin creating type create.");
     }
@@ -21,12 +26,15 @@ public class CreateView {
     public static Boolean beginCreate(String username) throws SQLException {
         Scanner keyboard = new Scanner(System.in);
         String choice;
-        displayQuizzes();
+        displayQuizzes(username);
         choice = keyboard.nextLine();
         if(choice.equalsIgnoreCase("create")){
             howTo();
             Creating.create(username);
+            return true;
         }
-        return false;
+        else{
+            return false;
+        }
     }
 }

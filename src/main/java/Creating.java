@@ -53,7 +53,9 @@ public class Creating {
         System.out.println("Enter the choices.");
         do{
             choice = keyboard.nextLine();
-            choices.add(choice);
+            if(!choice.equalsIgnoreCase("done")) {
+                choices.add(choice);
+            }
         }while(!choice.equals("done"));
         System.out.println("Which one is the answer?");
         choice = keyboard.nextLine();
