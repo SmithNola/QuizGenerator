@@ -1,4 +1,3 @@
-import java.io.File;
 import java.nio.file.Paths;
 import java.sql.*;
 
@@ -49,6 +48,21 @@ public class DatabaseConnection {
         st.setString(1, username);
         st. setString(2, password);
         st.executeUpdate();
+    }
+
+    public static ArrayList<String> retrieveUserQuiz(String username) throws SQLException {
+        String quizProperties;
+        ArrayList<String> quizzes = new ArrayList<String>();
+        String query = "SELECT quiz_name, genre, ordered, time_created FROM quiz INNER JOIN player ON player.player_id = quiz.player_id WHERE player.username = ? ;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1,username);
+        ResultSet names = st.executeQuery();
+        while(names.next()) {//puts each quiz property into one string for view
+            quizProperties = names.getString("quiz_name") + "\t" + names.getString("genre") + "\t" + names.getString("ordered")
+                    + "\t" + names.getString("time_created");
+            quizzes.add(quizProperties);
+        }
+        return quizzes;
     }
 
     //Checks if user enters correct login info

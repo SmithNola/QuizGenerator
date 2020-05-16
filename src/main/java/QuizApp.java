@@ -16,7 +16,9 @@ public class QuizApp {
                 //call play class
            }
             else{
-               end = CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
+                do {
+                    end = CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
+                }while(end == false);
             }
             con.disconnect();
         }
