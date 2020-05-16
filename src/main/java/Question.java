@@ -30,7 +30,7 @@ public class Question {
         return this.answer;
     }
 
-    public ArrayList getChoices(){
+    public ArrayList <String> getChoices(){
         return this.choices;
     }
 
