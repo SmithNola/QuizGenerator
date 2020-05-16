@@ -6,26 +6,52 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class DatabaseConnection {
-    private static Connection conn = null;
+    private static Connection conn;
 
-    public Boolean connect() throws SQLException {
+    private static String DATABASE_NAME = "QuizGen.db";
+    public static final Path p = Paths.get("src/main/db/QuizGen.db").toAbsolutePath();
+    public static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
+
+
+    public boolean connect() {
         try {
-            //File dbfile = new File(".");
-            //String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "/src/main/db/QuizGen.db";
-            Path p = Paths.get("src/main/db/QuizGen.db").toAbsolutePath();
-            String url = "jdbc:sqlite:" + p;
-            //System.out.println(dbfile.getAbsolutePath());
-            // create a connection to the database3
-            conn = DriverManager.getConnection(url);
-
-            System.out.println("Connection to Database has been established.");
+            conn = DriverManager.getConnection(CONNECTIONS_STRING);
+            System.out.println("Connection to " + DATABASE_NAME + " has been established.");
             return true;
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch(SQLException e) {
+            System.out.println("Couldn't connect to database: " + e.getMessage());
             return false;
         }
     }
+
+    public void disconnect() {
+        try {
+            if(conn != null) {
+                conn.close();
+                System.out.println("Connection to " + DATABASE_NAME + " has been terminated.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't close connection: " + e.getMessage());
+        }
+    }
+//    public Boolean connect() throws SQLException {
+//        try {
+//            //File dbfile = new File(".");
+//            //String url = "jdbc:sqlite:" + dbfile.getAbsolutePath() + "/src/main/db/QuizGen.db";
+//            Path p = Paths.get("src/main/db/QuizGen.db").toAbsolutePath();
+//            String url = "jdbc:sqlite:" + p;
+//            //System.out.println(dbfile.getAbsolutePath());
+//            // create a connection to the database3
+//            conn = DriverManager.getConnection(url);
+//
+//            System.out.println("Connection to Database has been established.");
+//            return true;
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//            return false;
+//        }
+//    }
 
     //Will check if username already exists in database
     public static Boolean checkUsername(String username) throws SQLException {
@@ -146,13 +172,13 @@ public class DatabaseConnection {
         return user;
     }
 
-    public void disconnect() throws SQLException {
-        try {
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+//    public void disconnect() throws SQLException {
+//        try {
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
 }
