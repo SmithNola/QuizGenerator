@@ -13,7 +13,7 @@ public class QuizApp {
             currentUser = new User(startPage());//Will return the user's username
             choice = homePage(currentUser.getUsername());//user decides to play or create
             if(choice.equals("play")){
-                //call play class
+                PlayView.displayQuizzes();
            }
             else{
                 do {
