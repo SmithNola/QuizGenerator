@@ -6,7 +6,6 @@ import static java.sql.Types.NULL;
 
 public class DatabaseConnection {
     private static Connection conn;
-
     private static final String DATABASE_NAME = "QuizGen.db";
     public static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
 
