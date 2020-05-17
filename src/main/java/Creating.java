@@ -8,12 +8,12 @@ public class Creating {
     private static int position = 1;
 
     public static void create(String username) throws SQLException {
-        Boolean done;
+        boolean done;
         quizProperties();
         //asks user for question and choices
         do {
            done = createQuestion();
-        }while(done == true);
+        }while(done);
         quiz.setCreator(username);
         DatabaseConnection.saveQuiz(quiz);
     }
@@ -21,7 +21,7 @@ public class Creating {
     private static Boolean createQuestion(){
         Question question = new Question();
         Boolean done = askQuestion(question);
-        if(done == false){
+        if(!done){
             return false;
         }
         else{

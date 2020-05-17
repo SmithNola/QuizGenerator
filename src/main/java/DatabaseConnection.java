@@ -11,7 +11,7 @@ public class DatabaseConnection {
     public static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
 
 
-    public boolean connect() {
+    public static boolean connect() {
         try {
             conn = DriverManager.getConnection(CONNECTIONS_STRING);
             System.out.println("Connection to " + DATABASE_NAME + " has been established.");
@@ -22,7 +22,7 @@ public class DatabaseConnection {
         }
     }
 
-    public void disconnect() {
+    public static void disconnect() {
         try {
             if (conn != null) {
                 conn.close();
@@ -34,16 +34,12 @@ public class DatabaseConnection {
     }
 
     //Will check if username already exists in database
-    public static Boolean checkUsername(String username) throws SQLException {
+    public static boolean checkUsername(String username) throws SQLException {
         String query = "SELECT username FROM player WHERE username = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
         ResultSet names = st.executeQuery();
-        if (names.next()) {
-            return true;
-        } else {
-            return false;
-        }
+        return names.next();
     }
 
     //add user to database
@@ -85,18 +81,16 @@ public class DatabaseConnection {
     }
 
     //Checks if user enters correct login info
-    public static boolean checkLogin(String username, String password) throws SQLException {
-        String user;
+    public static String checkLogin(String username, String password) throws SQLException {
         String query = "SELECT username FROM player WHERE username = ? AND password = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
         st.setString(2, password);
         ResultSet names = st.executeQuery();
         if (names.next()) {
-            user = names.getString("username");//will save username to userData later
-            return true;
+            return names.getString("username");//will save username to userData later
         } else {
-            return false;
+            return null;
         }
     }
 
