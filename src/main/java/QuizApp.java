@@ -2,25 +2,24 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class QuizApp {
-    private static DatabaseConnection con = new DatabaseConnection();
-    private static Scanner keyboard = new Scanner(System.in);
+    private static final Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) throws SQLException {
         String choice;
-        Boolean end;
-        boolean start = con.connect();
+        boolean end;
+        boolean start = DatabaseConnection.connect();
         User currentUser;
         if(start) {
             currentUser = new User(startPage());//Will return the user's username
             choice = homePage(currentUser.getUsername());//user decides to play or create
             if(choice.equals("play")){
-                //call play class
+                PlayView.displayQuizzes();
            }
             else{
                 do {
                     end = CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
-                }while(end == false);
+                }while(!end);
             }
-            con.disconnect();
+            DatabaseConnection.disconnect();
         }
     }
 
@@ -76,11 +75,11 @@ public class QuizApp {
         System.out.println("Enter desired username.");
 
         username = keyboard.nextLine();
-        taken = con.checkUsername(username);
-        while(taken == true){//checks if username is taken
+        taken = DatabaseConnection.checkUsername(username);
+        while(taken){//checks if username is taken
             System.out.println("Username is taken. Enter a different one.");
             username = keyboard.nextLine();
-            taken = con.checkUsername(username);
+            taken = DatabaseConnection.checkUsername(username);
         };
         System.out.println("Username is available");
 
@@ -101,7 +100,7 @@ public class QuizApp {
         }while(!password2.equals(password));
 
         //inserts user into database
-        con.addUser(username,password);
+        DatabaseConnection.addUser(username,password);
         System.out.println("Your account has been created");
         return username;
     }
@@ -109,18 +108,18 @@ public class QuizApp {
     private static String login() throws SQLException {
         String username;
         String password;
-        Boolean login;
+        String loginName;
 
         do{
             System.out.println("Enter username");
             username = keyboard.nextLine();
             System.out.println("Enter Password");
             password = keyboard.nextLine();
-            login = con.checkLogin(username,password);
-            if(login == false){
+            loginName = DatabaseConnection.checkLogin(username,password);
+            if(loginName == null){
                 System.out.println("Wrong username/password combination");
             }
-        }while(login == false);
+        }while(loginName == null);
         System.out.println("You have been signed in");
         return username;
     }

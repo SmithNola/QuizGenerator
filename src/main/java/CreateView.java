@@ -16,8 +16,8 @@ public class CreateView {
     private static void displayQuizzes(String username) throws SQLException {
         System.out.println("These are the Quizzes You have created.\n");
         ArrayList<String> quizzes = DatabaseConnection.retrieveUserQuiz(username);//user's quizzes
-        for(int i = 0;i < quizzes.size(); i++){
-           System.out.println(quizzes.get(i));
+        for (String quiz : quizzes) {
+            System.out.println(quiz);
         }
         System.out.println("If you would like to edit a quiz type their number.\n" +
                 "If you would like begin creating type create.");
