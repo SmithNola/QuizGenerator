@@ -23,18 +23,14 @@ public class CreateView {
                 "If you would like begin creating type create.");
     }
 
-    public static Boolean beginCreate(String username) throws SQLException {
+    public static void beginCreate(String username) throws SQLException {
         Scanner keyboard = new Scanner(System.in);
         String choice;
         displayQuizzes(username);
         choice = keyboard.nextLine();
-        if(choice.equalsIgnoreCase("create")){
+        if(choice.equalsIgnoreCase("create")) {
             howTo();
             Creating.create(username);
-            return true;
-        }
-        else{
-            return false;
         }
     }
 }

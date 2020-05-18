@@ -5,19 +5,16 @@ public class QuizApp {
     private static final Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) throws SQLException {
         String choice;
-        boolean end;
         boolean start = DatabaseConnection.connect();
         User currentUser;
         if(start) {
             currentUser = new User(startPage());//Will return the user's username
             choice = homePage(currentUser.getUsername());//user decides to play or create
             if(choice.equals("play")){
-                PlayView.displayQuizzes();
+                    PlayView.beginPlay();
            }
             else{
-                do {
-                    end = CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
-                }while(!end);
+                    CreateView.beginCreate(currentUser.getUsername());//Will take user to create page
             }
             DatabaseConnection.disconnect();
         }
