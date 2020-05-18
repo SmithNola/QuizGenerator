@@ -1,12 +1,29 @@
 import java.util.ArrayList;
 
 public class Quiz {
-    private String name = "";
-    private int ordered = 0;
-    //private Date creationTime;
-    private String creator = "";
-    private String genre = "";
-    private ArrayList<Question> questions = new <Question> ArrayList();
+    private int quizId;
+    private String name;
+    private int ordered;
+    private String creationTime;
+    private String creator;
+    private String genre;
+    private ArrayList<Question> questions;
+
+    public Quiz (int newQuizId, String newName, String newGenre, String newCreationTime, String newCreator){
+        this.quizId = newQuizId;
+        this.name = newName;
+        this.genre = newGenre;
+        this.creationTime = newCreationTime;
+        this.creator = newCreator;
+    }
+
+    public Quiz (){
+        this.quizId = 0;
+        this.name = "";
+        this.ordered = 0;
+        this.genre = "";
+        this.questions = new <Question> ArrayList();
+    }
 
     public void setName(String newName) {
         this.name = newName;
@@ -15,10 +32,6 @@ public class Quiz {
     public void setOrdered(int newOrdered) {
         this.ordered = newOrdered;
     }
-
-    /*public void setDate(java.sql.Date newCreationTime){
-        this.creationTime = newCreationTime;
-    }*/
 
     public void setCreator(String newCreator){
         this.creator = newCreator;
@@ -40,9 +53,9 @@ public class Quiz {
         return this.ordered;
     }
 
-    /*public Date getCreationTime(){
+    public String getCreationTime(){
         return this.creationTime;
-    }*/
+    }
 
     public String getCreator() {
         return this.creator;
@@ -54,5 +67,13 @@ public class Quiz {
 
     public ArrayList<Question> getQuestions(){
         return this.questions;
+    }
+
+    public int getQuizId(){
+        return this.quizId;
+    }
+
+    public String toString(){
+        return "" + this.name + "\t" + this.genre + "\t" + this.creationTime + "\t" + this.creator;
     }
 }

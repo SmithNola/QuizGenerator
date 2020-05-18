@@ -1,6 +1,6 @@
 public class Playing {
 
-    public void play(){
+    public static void play(){
     }
 
     private int askQuestion(){

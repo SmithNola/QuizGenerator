@@ -51,15 +51,15 @@ public class DatabaseConnection {
         st.executeUpdate();
     }
 
-    public static ArrayList<String> retrieveAllQuizzes() throws SQLException{
-        String quiz;
-        ArrayList <String> quizzes = new ArrayList<String>();
-        String query = "SELECT quiz.quiz_name, quiz.genre, quiz.time_created, player.username FROM quiz INNER JOIN player ON  player.player_id = quiz.player_id;";
+    public static ArrayList<Quiz> retrieveAllQuizzes() throws SQLException{
+        Quiz quiz;
+        ArrayList <Quiz> quizzes = new ArrayList<Quiz>();
+        String query = "SELECT quiz.quiz_Id, quiz.quiz_name, quiz.genre, quiz.time_created, player.username FROM quiz INNER JOIN player ON  player.player_id = quiz.player_id;";
         PreparedStatement st = conn.prepareStatement(query);
         ResultSet results = st.executeQuery();
         while (results.next()) {//puts each quiz property into one string for view
-            quiz = results.getString("quiz_name") + "\t" + results.getString("genre") + "\t" + results.getString("time_created")
-                    + "\t" + results.getString("username");
+            quiz = new Quiz(results.getInt("quiz_Id"), results.getString("quiz_name"), results.getString("genre"),
+                    results.getString("time_created"), results.getString("username"));
             quizzes.add(quiz);
         }
         return quizzes;
