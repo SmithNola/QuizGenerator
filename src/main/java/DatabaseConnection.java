@@ -54,12 +54,14 @@ public class DatabaseConnection {
     public static ArrayList<Quiz> retrieveAllQuizzes() throws SQLException{
         Quiz quiz;
         ArrayList <Quiz> quizzes = new ArrayList<Quiz>();
-        String query = "SELECT quiz.quiz_Id, quiz.quiz_name, quiz.genre, quiz.time_created, player.username FROM quiz INNER JOIN player ON  player.player_id = quiz.player_id;";
+        String query = "SELECT quiz.quiz_Id, quiz.quiz_name, quiz.genre, quiz.time_created, player.username,COUNT(question.quiz_id) as number_of_questions FROM quiz " +
+                        "INNER JOIN player ON  player.player_id = quiz.player_id " +
+                        "LEFT JOIN question ON quiz.quiz_id = question.quiz_id GROUP BY quiz.quiz_name;";
         PreparedStatement st = conn.prepareStatement(query);
         ResultSet results = st.executeQuery();
         while (results.next()) {//puts each quiz property into one string for view
             quiz = new Quiz(results.getInt("quiz_Id"), results.getString("quiz_name"), results.getString("genre"),
-                    results.getString("time_created"), results.getString("username"));
+                    results.getString("time_created"), results.getString("username"), results.getInt("number_of_questions"));
             quizzes.add(quiz);
         }
         return quizzes;
