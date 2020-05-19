@@ -3,8 +3,22 @@ import java.util.ArrayList;
 public class Question {
     private String name = "";
     private int answer = 1;
-    private ArrayList <String> choices = new <String> ArrayList();
-    private int position = 1;
+    private ArrayList <String> choices = new ArrayList <String>();
+    private int position = 0;
+
+    public Question (String newName, int newAnswer, ArrayList<String> newChoices, int newPosition){
+        this.name = newName;
+        this.answer = newAnswer;
+        this.choices = newChoices;
+        this.position = newPosition;
+    }
+
+    public Question(){
+        this.name = "";
+        this.answer = 1;
+        this.choices = new ArrayList <String>();
+        this.position = 0;
+    }
 
     public void setName(String newName){
         this.name = newName;

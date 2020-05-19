@@ -7,7 +7,7 @@ public class Quiz {
     private String creationTime;
     private String creator;
     private String genre;
-    private ArrayList<Question> questions;
+    private ArrayList<Question> questions = new <Question> ArrayList();
     private int numberOfQuestions;
 
     public Quiz (int newQuizId, String newName, String newGenre, String newCreationTime, String newCreator, int newNumberOfQuestions){
@@ -24,7 +24,6 @@ public class Quiz {
         this.name = "";
         this.ordered = 0;
         this.genre = "";
-        this.questions = new <Question> ArrayList();
     }
 
     public void setName(String newName) {
@@ -74,6 +73,8 @@ public class Quiz {
     public int getNumberOfQuestions(){
         return this.numberOfQuestions;
     }
+
+    public int getQuizId(){return this.quizId;}
 
     public String toString(){
         return "" + this.name + "\t" + this.genre + "\t" + this.creationTime + "\t" + this.creator;

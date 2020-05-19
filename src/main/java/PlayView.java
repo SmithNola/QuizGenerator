@@ -37,5 +37,6 @@ public class PlayView {
             keyboard.nextLine();
             play = keyboard.nextLine();
         }while(play.equalsIgnoreCase("No"));
+        Playing.play(quizzes.get(choice - 1));//begins playing quiz
     }
 }
