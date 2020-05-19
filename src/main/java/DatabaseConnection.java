@@ -50,6 +50,35 @@ public class DatabaseConnection {
         st.executeUpdate();
     }
 
+    public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
+        String query = "SELECT question.question_id, question.question_name, question.position, choice.choice_name FROM quiz " +
+                "LEFT JOIN question ON quiz.quiz_id = question.quiz_id " +
+                "LEFT JOIN choice ON question.question_id = choice.question_id " +
+                "WHERE quiz.quiz_id = ? AND choice.answer = 1;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, quiz.getQuizId());
+        ResultSet results = st.executeQuery();
+        while(results.next()){
+            ArrayList <String> choices = retrieveChoices(results.getInt("question_id"));
+            Question question = new Question(results.getString("question_name"), choices.indexOf(results.getString("choice_name")),choices,results.getInt("position") );
+            quiz.setQuestion(question);
+        }
+        return quiz;
+    }
+
+    public static ArrayList <String> retrieveChoices(int questionId) throws SQLException {
+        ArrayList <String> choices = new ArrayList<String>();
+        String query = "SELECT choice.choice_name FROM question " +
+                        "LEFT JOIN choice ON choice.question_id = question.question_id WHERE question.question_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, questionId);
+        ResultSet results = st.executeQuery();
+        while(results.next()){
+            choices.add(results.getString("choice_name"));
+        }
+        return choices;
+    }
+
     public static ArrayList<Quiz> retrieveAllQuizzes() throws SQLException{
         Quiz quiz;
         ArrayList <Quiz> quizzes = new ArrayList<Quiz>();

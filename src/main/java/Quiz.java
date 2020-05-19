@@ -75,6 +75,8 @@ public class Quiz {
         return this.numberOfQuestions;
     }
 
+    public int getQuizId(){return this.quizId;}
+
     public String toString(){
         return "" + this.name + "\t" + this.genre + "\t" + this.creationTime + "\t" + this.creator;
     }
