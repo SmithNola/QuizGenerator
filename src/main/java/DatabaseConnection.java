@@ -60,7 +60,7 @@ public class DatabaseConnection {
         ResultSet results = st.executeQuery();
         while(results.next()){
             ArrayList <String> choices = retrieveChoices(results.getInt("question_id"));
-            Question question = new Question(results.getString("question_name"), choices.indexOf(results.getString("choice_name")),choices,results.getInt("position") );
+            Question question = new Question(results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
             quiz.setQuestion(question);
         }
         return quiz;
@@ -168,12 +168,12 @@ public class DatabaseConnection {
             st.setString(1, choice);
             st.setInt(2, questionId);
             //if choice is the answer will set as answer other wise leave answer null
-            if (question.getAnswer() == i) {
+            if (question.getAnswer() == i + 1) {//if answer is equal to choice index
                 st.setInt(3, 1);
             } else {
-                st.setInt(3, NULL);
+                st.setInt(3, 0);
             }
-            st.executeUpdate();
+            st.executeUpdate();//save to database
         }
     }
 

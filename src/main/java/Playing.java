@@ -1,12 +1,21 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Playing {
 
     public static void play(Quiz quiz) throws SQLException {
+        Scanner keyboard = new Scanner(System.in);
         quiz = DatabaseConnection.retrieveQuestions(quiz);
-        for(Question question: quiz.getQuestions()){
-            displayQuestion(question);
+        ArrayList <Question> questions = quiz.getQuestions();
+        int [] answers = new int[quiz.getQuestions().size()];
+        for(int i = 0; i < quiz.getQuestions().size(); i++){//asks each question and saves answer
+            displayQuestion(quiz.getQuestions().get(i));
+            System.out.print("Answer: ");
+            answers[i] = keyboard.nextInt();
         }
+        int score = calculateScore(answers, questions);
+        System.out.println("Your Score is: " + score);
     }
 
     private static void displayQuestion(Question question){
@@ -16,9 +25,13 @@ public class Playing {
         }
     }
 
-    /*private int askQuestion(){
-        int answer = 1;
-        return answer;
-    }*/
-
+    private static int calculateScore(int [] answers, ArrayList<Question> questions){
+        double correctAnswers = 0;
+        for(int i = 0; i < questions.size(); i++){
+            if (answers[i] == questions.get(i).getAnswer()){
+                correctAnswers++;
+            }
+        }
+        return (int) ((correctAnswers / questions.size())*100);
+    }
 }
