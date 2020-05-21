@@ -1,3 +1,5 @@
+package org.example.help;
+
 public class User {
     private String username;
 

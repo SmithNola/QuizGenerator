@@ -1,0 +1,11 @@
+#title{
+    -fx-text-alignment: center;
+    -fx-font-size: 32px;
+}
+#outside{
+    -fx-alignment: center;
+    -fx-background-color: lightblue;
+}
+Button{
+    -fx-padding: 10px;
+}
