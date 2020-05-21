@@ -1,3 +1,8 @@
+package org.example.help;
+
+import org.example.help.CreateView;
+import org.example.help.PlayView;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -20,7 +25,7 @@ public class QuizApp {
         }
     }
 
-    //User decides to play or create
+    //org.example.help.User decides to play or create
     public static String homePage(String username){
         String choice;
         System.out.println("Welcome " + username + " to the Quiz Generator.");

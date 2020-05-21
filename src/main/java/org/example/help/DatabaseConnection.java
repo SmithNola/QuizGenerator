@@ -1,3 +1,7 @@
+package org.example.help;
+
+import org.example.help.Question;
+
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;

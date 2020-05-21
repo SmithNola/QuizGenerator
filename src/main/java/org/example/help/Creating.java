@@ -1,3 +1,8 @@
+package org.example.help;
+
+import org.example.help.DatabaseConnection;
+import org.example.help.Question;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
