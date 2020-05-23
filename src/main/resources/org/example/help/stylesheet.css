@@ -2,7 +2,8 @@
     -fx-text-alignment: center;
     -fx-font-size: 32px;
 }
-#outside{
+VBox{
+    -fx-spacing: 20px;
     -fx-alignment: center;
     -fx-background-color: lightblue;
 }
