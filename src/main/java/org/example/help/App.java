@@ -9,46 +9,18 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.nio.file.Paths;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
 
     @Override
-    public void start(Stage stage){
-        try {
-
-            Text title = new Text();
-            title.setText("Welcome to Quiz Generator");
-            title.setX(100);
-            title.setY(100);
-            Button loginButton = new Button("Login");
-            Button signUpButton = new Button("Sign Up");
-
-            VBox vbox = new VBox(title, loginButton, signUpButton);
-
-            vbox.getStylesheets().add(App.class.getResource("stylesheet.css").toExternalForm());
-            title.setId("title");
-            vbox.setId("outside");
-            //setting color to the scene
-            Color color = Color.rgb(153, 153, 255);
-
-            stage.setTitle("Quiz Generator");
-
-            scene = new Scene(vbox,800, 500);
-            scene.setFill(color);
-            stage.setScene(scene);
-
-            stage.show();
-        }catch(Exception e){
-            System.out.println(e);
-        }
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("startPage"), 800, 500);
+        scene.getStylesheets().add(App.class.getResource("stylesheet.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -62,6 +34,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+        String choice;
+        boolean start = DatabaseConnection.connect();
+        User currentUser;
     }
 
 }
