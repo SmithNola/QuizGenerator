@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="500" prefWidth="800" stylesheets="@playviewsheet.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.help.PlayViewController">
+    <children>
+        <HBox fx:id="top">
+            <children>
+                <Label fx:id="name" text="Name" />
+                <Label fx:id="genre" text="Genre" />
+                <Label fx:id="creator" text="Creator" />
+                <Label fx:id="date" text="Date Created" />
+            </children>
+        </HBox>
+        <HBox fx:id="bottom">
+            <children>
+                <Button fx:id="next" text="next" onAction="#switchToQuizInfo"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>
+

@@ -1,13 +1,14 @@
 package org.example.help;
 
 import javafx.fxml.FXML;
+
 import java.io.IOException;
 
 public class HomePageController {
 
     @FXML
     private void switchToPlay() throws IOException {
-        App.setRoot("play");
+        App.setRoot("playView");
     }
 
     @FXML
