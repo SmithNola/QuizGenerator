@@ -1,7 +1,5 @@
 package org.example.help;
 
-import org.example.help.Question;
-
 import java.util.ArrayList;
 
 public class Quiz {
