@@ -13,6 +13,6 @@ public class HomePageController {
 
     @FXML
     private void switchToCreate() throws IOException {
-        App.setRoot("create");
+        App.setRoot("createView");
     }
 }

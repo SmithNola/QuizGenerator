@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.help.PlayingController" prefHeight="400.0" prefWidth="600.0" stylesheets="@playingsheet.css">
+    <children>
+        <Label text="Quiz Info"/>
+        <Label text="Question"/>
+        <Label text="choices"/>
+        <Button text="Done" onAction="#switchToScore"/>
+    </children>
+</VBox>

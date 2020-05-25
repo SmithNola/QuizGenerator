@@ -1,5 +1,8 @@
 package org.example.help;
 
+import org.example.help.Question;
+import org.example.help.Quiz;
+
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
