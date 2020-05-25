@@ -9,4 +9,8 @@ public class QuizInfoController {
     private void switchToPlaying() throws IOException {
         App.setRoot("playing");
     }
+    @FXML
+    private void switchToEditing() throws IOException{
+        App.setRoot("editing");
+    }
 }

@@ -9,4 +9,5 @@
     <Label text="Total Plays"/>
     <Label text="# of Questions"/>
     <Button text="Play" onAction="#switchToPlaying"/>
+    <Button text="Edit" onAction="#switchToEditing"/>
 </VBox>
