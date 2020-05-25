@@ -35,5 +35,4 @@ public class App extends Application {
         boolean start = DatabaseConnection.connect();
         User currentUser;
     }
-
 }
