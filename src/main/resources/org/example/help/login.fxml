@@ -9,5 +9,6 @@
     <TextField fx:id="username" maxWidth="300"/>
     <Label fx:id="PasswordText" text = "Password"/>
     <TextField fx:id="password" maxWidth="300"/>
+    <Text fx:id="errorMessage"/>
     <Button fx:id="homePage" text = "Login" onAction="#switchToHomePage"/>
 </VBox>

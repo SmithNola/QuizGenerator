@@ -9,6 +9,6 @@
       <Text fx:id="title" text = "Welcome to Quiz Generator" />
       <Button fx:id="loginButton" text="Login" onAction="#switchToLogin"/>
       <Button fx:id="signUpButton" text="Sign Up" onAction="#switchToSignUp"/>
-      <Text fx:id="errorMessage" text = ""/>
+      <Text fx:id="errorMessage"/>
    </children>
 </VBox>
