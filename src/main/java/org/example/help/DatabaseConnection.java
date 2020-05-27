@@ -14,14 +14,11 @@ public class DatabaseConnection {
     private static final String DATABASE_NAME = "QuizGen.db";
     public static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
 
-
     public static boolean connect() {
         try {
             conn = DriverManager.getConnection(CONNECTIONS_STRING);
-            System.out.println("Connection to " + DATABASE_NAME + " has been established.");
             return true;
         } catch (SQLException e) {
-            System.out.println("Couldn't connect to database: " + e.getMessage());
             return false;
         }
     }

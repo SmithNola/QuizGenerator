@@ -9,8 +9,6 @@
       <Text fx:id="title" text = "Welcome to Quiz Generator" />
       <Button fx:id="loginButton" text="Login" onAction="#switchToLogin"/>
       <Button fx:id="signUpButton" text="Sign Up" onAction="#switchToSignUp"/>
+      <Text fx:id="errorMessage"/>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
 </VBox>
