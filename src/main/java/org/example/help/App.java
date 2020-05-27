@@ -15,7 +15,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("startPage"), 800, 500);
-        //scene.getStylesheets().add(App.class.getResource("stylesheet.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
@@ -31,8 +30,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-        String choice;
-        boolean start = DatabaseConnection.connect();
-        User currentUser;
     }
 }
