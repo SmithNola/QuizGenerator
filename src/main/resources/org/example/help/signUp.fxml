@@ -12,6 +12,7 @@
         <TextField fx:id="password" maxWidth="300" />
         <Label fx:id="rePasswordLabel" text = "Re-Type Password"/>
         <TextField fx:id="rePassword" maxWidth="300" />
+        <Text fx:id="errorMessage"/>
         <Button fx:id="signUpButton" text="Sign Up" onAction="#switchToHomePage"/>
     </children>
 </VBox>
