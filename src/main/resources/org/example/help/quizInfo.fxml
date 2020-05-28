@@ -6,19 +6,19 @@
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.help.QuizInfoController" prefHeight="400.0" prefWidth="600.0" stylesheets="@quizinfosheet.css">
     <HBox>
         <children>
-            <Label text="Quiz Name:"/>
+            <Label text="Quiz Name: "/>
             <Text fx:id="nameText"/>
         </children>
     </HBox>
     <HBox>
         <children>
-            <Label text="Creator:"/>
+            <Label text="Creator: "/>
             <Text fx:id="creatorText"/>
         </children>
     </HBox>
     <HBox>
         <children>
-            <Label text="# of Questions:"/>
+            <Label text="# of Questions: "/>
             <Text fx:id="numText"/>
         </children>
     </HBox>
