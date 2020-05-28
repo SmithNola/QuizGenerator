@@ -8,7 +8,7 @@ public class HomePageController {
 
     @FXML
     private void switchToPlay() throws Exception{
-        PlayViewController.start();
+        App.setRoot("playView");
     }
 
     @FXML

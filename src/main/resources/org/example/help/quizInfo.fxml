@@ -2,12 +2,26 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.Text?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.help.QuizInfoController" prefHeight="400.0" prefWidth="600.0" stylesheets="@quizinfosheet.css">
-    <Label text="Quiz Name"/>
-    <Label text="Creator"/>
-    <Label text="Total Plays"/>
-    <Label text="# of Questions"/>
+    <HBox>
+        <children>
+            <Label text="Quiz Name:"/>
+            <Text fx:id="nameText"/>
+        </children>
+    </HBox>
+    <HBox>
+        <children>
+            <Label text="Creator:"/>
+            <Text fx:id="creatorText"/>
+        </children>
+    </HBox>
+    <HBox>
+        <children>
+            <Label text="# of Questions:"/>
+            <Text fx:id="numText"/>
+        </children>
+    </HBox>
     <Button text="Play" onAction="#switchToPlaying"/>
     <Button text="Edit" onAction="#switchToEditing"/>
 </VBox>
