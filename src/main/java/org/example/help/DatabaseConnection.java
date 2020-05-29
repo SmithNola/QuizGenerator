@@ -34,6 +34,32 @@ public class DatabaseConnection {
         }
     }
 
+    public static void saveScore(double score, String username, int quizId) throws SQLException {
+
+        if(score >= 0 && quizId >= 1) {
+            String query = "INSERT INTO quiz_played (player_id, quiz_id, score) VALUES (?, ?, ?)";
+            PreparedStatement st = conn.prepareStatement(query);
+            String id = getIdFromUsername(username);
+            double rounded = round(score, 2);
+            String quizScore = String.valueOf(score);
+            String quizIdString = String.valueOf(quizId);
+            st.setString(1, id);
+            st.setString(2, quizIdString);
+            st.setString(3, quizScore);
+            st.executeUpdate();
+        } else {
+            System.out.println("Failed To Save");
+        }
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     //Will check if username already exists in database
     public static boolean checkUsername(String username) throws SQLException {
         String query = "SELECT username FROM player WHERE username = ?";
