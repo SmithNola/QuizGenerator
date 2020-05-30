@@ -7,7 +7,7 @@ import java.io.IOException;
 public class HomePageController {
 
     @FXML
-    private void switchToPlay() throws IOException {
+    private void switchToPlay() throws Exception{
         App.setRoot("playView");
     }
 
