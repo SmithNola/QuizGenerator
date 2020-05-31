@@ -3,7 +3,6 @@ package org.quizgen.controller;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import org.quizgen.App;
-import org.quizgen.controller.PlayViewController;
 import org.quizgen.model.Quiz;
 
 import java.io.IOException;

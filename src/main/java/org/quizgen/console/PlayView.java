@@ -1,7 +1,7 @@
 package org.quizgen.console;
 
-import org.quizgen.model.Quiz;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.Quiz;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

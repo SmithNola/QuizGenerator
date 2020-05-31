@@ -1,8 +1,8 @@
 package org.quizgen;
 
+import org.quizgen.console.CreateView;
 import org.quizgen.console.PlayView;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.console.CreateView;
 import org.quizgen.model.User;
 
 import java.sql.SQLException;

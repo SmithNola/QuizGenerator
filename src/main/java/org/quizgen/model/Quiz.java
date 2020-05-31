@@ -1,7 +1,5 @@
 package org.quizgen.model;
 
-import org.quizgen.model.Question;
-
 import java.util.ArrayList;
 
 public class Quiz {
