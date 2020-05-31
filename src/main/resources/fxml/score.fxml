@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.ScoreController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/scoresheet.css">
+    <Label text="Score"/>
+    <Label text="Question"/>
+    <Label text="choices"/>
+    <Label text="Answer"/>
+    <Label text="Your Choice"/>
+    <Button text="Done" onAction="#switchToPlayView"/>
+</VBox>
