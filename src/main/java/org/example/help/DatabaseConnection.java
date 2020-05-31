@@ -1,8 +1,5 @@
 package org.example.help;
 
-import org.example.help.Question;
-import org.example.help.Quiz;
-
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
@@ -62,7 +59,7 @@ public class DatabaseConnection {
         ResultSet results = st.executeQuery();
         while(results.next()){
             ArrayList <String> choices = retrieveChoices(results.getInt("question_id"));
-            Question question = new Question(results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
+            Question question = new Question(results.getInt("question_id"), results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
             quiz.setQuestion(question);
         }
         return quiz;
@@ -97,17 +94,19 @@ public class DatabaseConnection {
         return quizzes;
     }
 
-    public static ArrayList<String> retrieveUserQuiz(String username) throws SQLException {
-        String quizProperties;
-        ArrayList<String> quizzes = new ArrayList<String>();
-        String query = "SELECT quiz_name, genre, ordered, time_created FROM quiz INNER JOIN player ON player.player_id = quiz.player_id WHERE player.username = ? ;";
+    public static ArrayList<Quiz> retrieveUserQuiz(String username) throws SQLException {
+        Quiz quiz;
+        ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+        String query = "SELECT quiz.quiz_id, quiz.quiz_name, quiz.genre, quiz.ordered, quiz.time_created, COUNT(question.quiz_id) as number_of_questions FROM quiz " +
+                        "LEFT JOIN player ON player.player_id = quiz.player_id " +
+                        "LEFT JOIN question ON quiz.quiz_id = question.quiz_id WHERE player.username = ? GROUP BY quiz.quiz_name";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
-        ResultSet names = st.executeQuery();
-        while (names.next()) {//puts each quiz property into one string for view
-            quizProperties = names.getString("quiz_name") + "\t" + names.getString("genre") + "\t" + names.getString("ordered")
-                    + "\t" + names.getString("time_created");
-            quizzes.add(quizProperties);
+        ResultSet results = st.executeQuery();
+        while (results.next()) {//puts each quiz property into one string for view
+            quiz = new Quiz(results.getInt("quiz_Id"), results.getString("quiz_name"), results.getString("genre"),
+                    results.getString("time_created"), username, results.getInt("number_of_questions"));
+            quizzes.add(quiz);
         }
         return quizzes;
     }
@@ -180,10 +179,10 @@ public class DatabaseConnection {
     }
 
     //retrieves creator's Id
-    private static int getPlayerId(String creator) throws SQLException {
+    private static int getPlayerId(String username) throws SQLException {
         String query = "SELECT player_id FROM player WHERE username = ?";
         PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, creator);
+        st.setString(1, username);
         ResultSet names = st.executeQuery();
         return names.getInt("player_id");
     }

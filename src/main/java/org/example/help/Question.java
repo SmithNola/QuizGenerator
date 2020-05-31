@@ -3,12 +3,14 @@ package org.example.help;
 import java.util.ArrayList;
 
 public class Question {
+    private int questionId;
     private String name = "";
     private int answer = 1;
     private ArrayList <String> choices = new ArrayList <String>();
     private int position = 0;
 
-    public Question (String newName, int newAnswer, ArrayList<String> newChoices, int newPosition){
+    public Question (int newQuestionId, String newName, int newAnswer, ArrayList<String> newChoices, int newPosition){
+        this.questionId = newQuestionId;
         this.name = newName;
         this.answer = newAnswer;
         this.choices = newChoices;
@@ -21,6 +23,8 @@ public class Question {
         this.choices = new ArrayList <String>();
         this.position = 0;
     }
+
+    public void setQuestionId(int newQuestionId){this.questionId = newQuestionId;}
 
     public void setName(String newName){
         this.name = newName;
@@ -53,4 +57,6 @@ public class Question {
     public int getPosition(){
         return this.position;
     }
+
+    public String getQuestionId(){return String.valueOf(this.questionId);}
 }

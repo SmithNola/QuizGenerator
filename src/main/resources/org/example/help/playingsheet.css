@@ -1,4 +1,4 @@
-VBox{
-    -fx-background-color: lightblue;
+ScrollPane{
+    -fx-background: lightblue;
     -fx-alignment: center;
 }
