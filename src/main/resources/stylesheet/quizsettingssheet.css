@@ -2,3 +2,6 @@ VBox{
     -fx-background-color: lightblue;
     -fx-alignment: center;
 }
+HBox{
+    -fx-alignment: center;
+}

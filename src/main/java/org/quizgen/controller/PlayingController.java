@@ -28,6 +28,8 @@ public class PlayingController {
     @FXML
     private VBox overall;
 
+    private static int score;
+
     @FXML
     public void initialize(){
         quiz = PlayViewController.getClickedQuiz();
@@ -49,9 +51,12 @@ public class PlayingController {
             @Override
             public void handle(ActionEvent arg0) {
                 try{
-                    int score = calculateScore();
+                    score = calculateScore();
+                    if(!DatabaseConnection.checkIfPlayed(LoginController.getUsername(),quiz.getQuizId())){
+                        DatabaseConnection.saveScore(score, LoginController.getUsername(), quiz.getQuizId());
+                    }
                     App.setRoot("score");
-                }catch(IOException e){
+                }catch(IOException | SQLException e){
                     e.printStackTrace();
                 }
             }
@@ -91,6 +96,9 @@ public class PlayingController {
             }
         }
         return (int) ((correctAnswers / questions.size())*100);
+    }
 
+    public static int getScore(){
+        return score;
     }
 }
