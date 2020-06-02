@@ -12,7 +12,7 @@ import static java.sql.Types.NULL;
 public class DatabaseConnection {
     private static Connection conn;
     private static final String DATABASE_NAME = "QuizGen.db";
-    public static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
+    private static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
 
     public static boolean connect() {
         try {
@@ -32,6 +32,26 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             System.out.println("Couldn't close connection: " + e.getMessage());
         }
+    }
+
+    public static boolean checkIfPlayed(String username, int quizId) throws SQLException{
+        String query = "SELECT * FROM quiz_played WHERE player_id = ? AND quiz_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        int id = getPlayerId(username);
+        st.setInt(1,id);
+        st.setInt(2,quizId);
+        ResultSet results = st.executeQuery();
+        return results.next();
+    }
+
+    public static void saveScore(int score, String username, int quizId) throws SQLException {
+            String query = "INSERT INTO quiz_played (player_id, quiz_id, score) VALUES (?, ?, ?)";
+            PreparedStatement st = conn.prepareStatement(query);
+            int id = getPlayerId(username);
+            st.setInt(1, id);
+            st.setInt(2, quizId);
+            st.setInt(3, score);
+            st.executeUpdate();
     }
 
     //Will check if username already exists in database
