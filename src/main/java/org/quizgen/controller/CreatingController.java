@@ -42,7 +42,14 @@ public class CreatingController {
                 newQuestion();
             }
         } );
-        questionTracker.getChildren().addAll(questionNum,question,addNew);//creates number + question + button
+        Button deleteOld = new Button("-");
+        deleteOld.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent){
+                overall.getChildren().remove(questionWithChoice);
+            }
+        });
+        questionTracker.getChildren().addAll(questionNum,question,addNew,deleteOld);//creates number + question + button
         questionWithChoice.getChildren().addAll(questionTracker);
         overall.getChildren().add(questionWithChoice);
         newChoice(questionWithChoice);
@@ -62,7 +69,14 @@ public class CreatingController {
                 newChoice(questionWithChoice);
             }
         } );
-        choiceTracker.getChildren().addAll(choice,addNew);
+        Button deleteOld = new Button("-");
+        deleteOld.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent){
+                questionWithChoice.getChildren().remove(choiceTracker);
+            }
+        });
+        choiceTracker.getChildren().addAll(choice,addNew,deleteOld);
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
