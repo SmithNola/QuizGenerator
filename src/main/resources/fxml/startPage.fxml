@@ -3,37 +3,28 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRippler?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            prefHeight="400.0" prefWidth="300.0"
-            stylesheets="@../stylesheet/app_theme.css" id="background"
-            fx:controller="org.quizgen.controller.StartPageController"
-            >
+<AnchorPane id="main-menu-background" prefHeight="400.0" prefWidth="300.0" stylesheets="@../stylesheet/app_theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.StartPageController">
    <children>
-      <VBox alignment="CENTER" spacing="20.0"
-            prefHeight="200.0" prefWidth="100.0"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            >
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Quiz Generator" id="title"/>
+            <Label id="title" text="Welcome" />
             <Separator prefWidth="200.0">
                <padding>
-                  <Insets left="40.0" right="40.0"/>
+                  <Insets left="40.0" right="40.0" />
                </padding>
             </Separator>
             <VBox id="img" alignment="CENTER" spacing="20.0" stylesheets="@../stylesheet/blue_matrix_img.css">
                <JFXRippler>
-                  <JFXButton fx:id="loginButton" onAction="#switchToLogin" text="Login" />
+                  <JFXButton onAction="#switchToLoginPage" text="Login" />
                </JFXRippler>
                <JFXRippler>
-                  <JFXButton fx:id="signUpButton" onAction="#switchToSignUp" text="Sign Up" />
+                  <JFXButton onAction="#switchToSignUpPage" text="Sign Up" />
                </JFXRippler>
             </VBox>
             <Separator layoutX="50.0" layoutY="168.0" prefWidth="200.0">
