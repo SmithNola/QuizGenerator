@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,7 +39,7 @@ public class CreateViewController {
             @Override
             public void handle(ActionEvent arg0) {
                 try{
-                    App.setRoot("quizSettings");
+                    SceneLoader.switchScene(Views.QUIZSETTINGS);
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -60,7 +62,7 @@ public class CreateViewController {
                     if(quiz.getQuizId() == quizId){
                         clickedQuiz = quiz;
                         try{
-                            App.setRoot("quizInfo");
+                            SceneLoader.switchScene(Views.QUIZINFO);
                         }catch(IOException e){
                             e.printStackTrace();
                         }

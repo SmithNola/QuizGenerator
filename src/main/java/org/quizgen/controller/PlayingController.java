@@ -12,6 +12,8 @@ import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -50,7 +52,7 @@ public class PlayingController {
             public void handle(ActionEvent arg0) {
                 try{
                     int score = calculateScore();
-                    App.setRoot("score");
+                    SceneLoader.switchScene(Views.SCORE);
                 }catch(IOException e){
                     e.printStackTrace();
                 }
