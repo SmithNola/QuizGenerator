@@ -1,8 +1,8 @@
 package org.quizgen.console;
 
+import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
-import org.quizgen.data.DatabaseConnection;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

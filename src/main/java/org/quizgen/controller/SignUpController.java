@@ -5,6 +5,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -36,8 +38,13 @@ public class SignUpController {
                 errorMessage.setText("Passwords do not match.");
             } else {
                 DatabaseConnection.addUser(username.getText(),password.getText());
-                App.setRoot("homePage");
+                SceneLoader.switchScene(Views.HOME);
             }
         }
+    }
+
+    @FXML
+    private void switchToStartPage() throws IOException {
+        SceneLoader.switchScene(Views.START);
     }
 }

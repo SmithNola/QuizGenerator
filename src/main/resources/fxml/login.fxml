@@ -1,14 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.LoginController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/stylesheet.css">
-    <Text fx:id="title" text = "Login"/>
-    <Label fx:id="usernameText" text = "Username:"/>
-    <TextField fx:id="username" maxWidth="300"/>
-    <Label fx:id="PasswordText" text = "Password"/>
-    <TextField fx:id="password" maxWidth="300"/>
-    <Text fx:id="errorMessage"/>
-    <Button fx:id="homePage" text = "Login" onAction="#switchToHomePage"/>
-</VBox>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefWidth="550.0" prefHeight="400.0"
+            stylesheets="@../stylesheet/app_theme.css" id="background"
+            fx:controller="org.quizgen.controller.LoginController"
+            >
+   <children>
+      <VBox alignment="CENTER" spacing="10.0"
+            prefHeight="200.0" prefWidth="100.0"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+            >
+         <children>
+            <Label text="Login" id="title">
+               <VBox.margin>
+                  <Insets right="235.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </Separator>
+            <AnchorPane>
+               <children>
+                  <VBox alignment="CENTER" spacing="20.0"
+                        id="other-img" stylesheets="@../stylesheet/blue_matrix_img.css"
+                        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                        >
+                     <children>
+                        <JFXTextField fx:id="username"  promptText="Username">
+                           <VBox.margin>
+                              <Insets left="-10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Monospaced Bold" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </JFXTextField>
+                        <JFXPasswordField fx:id="password" promptText="Password">
+                           <VBox.margin>
+                              <Insets left="-10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <font>
+                              <Font name="Monospaced Bold" size="12.0" />
+                           </font>
+                        </JFXPasswordField>
+                     </children>
+                     <padding>
+                        <Insets bottom="25.0" left="20.0" right="20.0" top="25.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" top="10.0" />
+               </VBox.margin>
+            </AnchorPane>
+            <Separator layoutX="110.0" layoutY="102.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" top="10.0" />
+               </VBox.margin>
+            </Separator>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <JFXButton text="Enter" onAction="#switchToHomePage" />
+                  <JFXButton text="Back" onAction="#switchToStartPage" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="200.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

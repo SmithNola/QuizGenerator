@@ -3,8 +3,9 @@ package org.quizgen.controller;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import org.quizgen.App;
-import org.quizgen.controller.PlayViewController;
 import org.quizgen.model.Quiz;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 
@@ -25,11 +26,11 @@ public class QuizInfoController{
 
     @FXML
     private void switchToPlaying() throws IOException {
-        App.setRoot("playing");
+        SceneLoader.switchScene(Views.PLAYING);
     }
 
     @FXML
     private void switchToEditing() throws IOException{
-        App.setRoot("editing");
+        SceneLoader.switchScene(Views.EDITING);
     }
 }

@@ -1,31 +1,23 @@
 package org.quizgen;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 
-public class App extends Application {
+import static org.quizgen.utils.SceneLoader.loadFXML;
+import static org.quizgen.utils.SceneLoader.scene;
 
-    private static Scene scene;
+public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("startPage"), 800, 500);
-        stage.setScene(scene);
-        stage.show();
-    }
+        SceneLoader.stage = stage;
+        SceneLoader.setScene();
 
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/"+ fxml + ".fxml"));
-        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {

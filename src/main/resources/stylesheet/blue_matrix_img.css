@@ -1,0 +1,7 @@
+#other-img{
+    -fx-background-image: url("../img/blue_matrix_numbers.jpg");
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}

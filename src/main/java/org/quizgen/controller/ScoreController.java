@@ -1,13 +1,24 @@
 package org.quizgen.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import org.quizgen.App;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 
 public class ScoreController {
+
+    @FXML
+    private Label score;
+
+    public void initialize(){
+        score.setText(String.valueOf(PlayingController.getScore()) + "%");
+    }
+
     @FXML
     private void switchToPlayView() throws IOException {
-        App.setRoot("playview");
+        SceneLoader.switchScene(Views.PLAYVIEW);
     }
 }

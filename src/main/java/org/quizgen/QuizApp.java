@@ -1,8 +1,8 @@
 package org.quizgen;
 
+import org.quizgen.console.CreateView;
 import org.quizgen.console.PlayView;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.console.CreateView;
 import org.quizgen.model.User;
 
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class QuizApp {
     private static final Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) throws SQLException {
         String choice;
-        boolean start = DatabaseConnection.connect();
+        boolean start = DatabaseConnection.isConnected();
         User currentUser;
         if(start) {
             currentUser = new User(startPage());//Will return the user's username
