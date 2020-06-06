@@ -43,7 +43,7 @@
                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
                         >
                      <children>
-                        <JFXTextField fx:id="username"  promptText="Username">
+                        <JFXTextField fx:id="username"  promptText="Username" onKeyPressed="#handleOnKeyPressed">
                            <VBox.margin>
                               <Insets left="-10.0" />
                            </VBox.margin>
@@ -54,7 +54,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </JFXTextField>
-                        <JFXPasswordField fx:id="password" promptText="Password">
+                        <JFXPasswordField fx:id="password" promptText="Password" onKeyPressed="#handleOnKeyPressed">
                            <VBox.margin>
                               <Insets left="-10.0" />
                            </VBox.margin>
@@ -82,7 +82,7 @@
             </Separator>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <JFXButton text="Enter" onAction="#switchToHomePage" />
+                  <JFXButton text="Enter" onAction="#loginIntoApp" />
                   <JFXButton text="Back" onAction="#switchToStartPage" />
                </children>
                <VBox.margin>
