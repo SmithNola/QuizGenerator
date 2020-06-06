@@ -2,8 +2,11 @@ package org.quizgen.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
@@ -27,18 +30,30 @@ public class LoginController {
     private static String loginName;
 
     @FXML
-    private void switchToHomePage() throws IOException, SQLException {
-        loginName = DatabaseConnection.checkLogin(username.getText(),password.getText());
+    public void initialize(){
         username.setStyle("-fx-text-fill: black");
-        if(loginName == null){
-            //errorMessage.setText("Wrong username/password combination");
-            username.setStyle("-fx-text-fill: red");
-            username.setText("ERROR! Wrong username/password");
+    }
 
-            System.out.println("Wrong username/password combination"); // REPLACE WITH ERROR POPUP
+    @FXML
+    private void loginIntoApp() throws IOException, SQLException {
+        if(isLoginValid()){
+            //errorMessage.setText("Wrong username/password combination"); // DELETE?
+            username.setStyle("-fx-text-fill: red");
+            username.setText("ERROR! Wrong username/password"); // REPLACE WITH ERROR POPUP
         }
         else{
             SceneLoader.switchScene(Views.HOME);
+        }
+    }
+
+    private boolean isLoginValid() throws SQLException {
+        return DatabaseConnection.checkLogin(username.getText(),password.getText()) == null;
+    }
+
+    @FXML
+    private void handleOnKeyPressed(KeyEvent ae) throws IOException, SQLException {
+        if(ae.getCode() == KeyCode.ENTER){
+            loginIntoApp();
         }
     }
 
