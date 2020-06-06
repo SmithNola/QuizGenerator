@@ -24,7 +24,7 @@ public class CreatingController {
     @FXML
     private VBox overall;
     private int count = 1;
-    private ArrayList<VBox> questions = new ArrayList<>();
+    private ArrayList<VBox> vboxQuestions = new ArrayList<>();
 
     public void initialize(){
         quiz=CreateViewController.getClickedQuiz();
@@ -51,13 +51,13 @@ public class CreatingController {
         deleteOld.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent){
-                questions.remove(questionWithChoice);
+                vboxQuestions.remove(questionWithChoice);
                 overall.getChildren().remove(questionWithChoice);
             }
         });
         questionTracker.getChildren().addAll(questionNum,question,addNew,deleteOld);//creates number + question + button
         questionWithChoice.getChildren().addAll(questionTracker);
-        questions.add(questionWithChoice);
+        vboxQuestions.add(questionWithChoice);
         overall.getChildren().add(questionWithChoice);
         newChoice(questionWithChoice,group);
         count++;
@@ -88,22 +88,22 @@ public class CreatingController {
         choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
         questionWithChoice.getChildren().add(choiceTracker);
     }
-
+    //retrieve's user
     private ArrayList<Question> retrieveQuestions(){
         ArrayList<Question> allQuestions = new ArrayList<>();
-        for(int i = 0; i <questions.size(); i++){
+        for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
             Question savedQuestion = new Question();
             ArrayList<String> choices = new ArrayList<>();
-            VBox questionWithChoice = questions.get(i);//gets question with choice
+            VBox questionWithChoice = vboxQuestions.get(i);//gets question with choice
             ObservableList<Node> eachRow = questionWithChoice.getChildren();//saves each HBox
-            for(int j = 0; j<eachRow.size();j++){//will go through each Hbox
-                HBox row = (HBox) eachRow.get(j);//gets first HBox
-                ObservableList<Node> eachElement = row.getChildren();//saves each elements
+            for(int j = 0; j < eachRow.size(); j++){//will go through each Hbox
+                HBox row = (HBox) eachRow.get(j);
+                ObservableList<Node> eachElement = row.getChildren();//saves each element
                 if(j == 0){
-                    TextField question = (TextField) eachElement.get(1);//saves text field
+                    TextField question = (TextField) eachElement.get(1);//question text field
                     savedQuestion.setName(question.getText());
                 }else{
-                    TextField choice = (TextField) eachElement.get(0);//saves text field
+                    TextField choice = (TextField) eachElement.get(0);//choice text field
                     RadioButton answer = (RadioButton) eachElement.get(1);
                     if(answer.isSelected() == true){
                         savedQuestion.setAnswer(j);
@@ -120,7 +120,6 @@ public class CreatingController {
     private void saveQuiz() throws SQLException{
         quiz.setQuestions(retrieveQuestions());
         quiz.setCreator(LoginController.getUsername());
-
         DatabaseConnection.saveQuiz(quiz);
     }
 
