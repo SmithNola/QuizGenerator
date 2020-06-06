@@ -34,18 +34,6 @@ public class CreateViewController {
             HBox quizLayout = new HBox(4);
             overall.getChildren().add(createHbox(quiz, quizLayout));
         }
-        Button createButton = new Button("Create");
-        createButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    SceneLoader.switchScene(Views.QUIZSETTINGS);
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        overall.getChildren().add(createButton);
     }
 
     private static HBox createHbox(Quiz quiz, HBox quizLayout){
@@ -76,5 +64,20 @@ public class CreateViewController {
 
     public static Quiz getClickedQuiz(){
         return clickedQuiz;
+    }
+
+    @FXML
+    private void returnToHome() throws IOException {
+        SceneLoader.switchScene(Views.HOME);
+    }
+
+    @FXML
+    private void returnToStart() throws IOException{
+        SceneLoader.switchScene(Views.START);
+    }
+
+    @FXML
+    private void switchToQuizSettings() throws IOException{
+        SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 }

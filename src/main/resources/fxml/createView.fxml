@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 <VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.CreateViewController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/createviewsheet.css">
     <children>
         <HBox fx:id="quizLayout">
@@ -13,5 +14,14 @@
                 <Label fx:id="date" text="Date Created" />
             </children>
         </HBox>
+        <HBox spacing="10">
+            <children>
+                <Button text="Create" onAction="#switchToQuizSettings"/>
+                <Button text="Home" onAction="#returnToHome"/>
+                <Button text="Sign Out" onAction="#returnToStart"/>
+            </children>
+        </HBox>
     </children>
 </VBox>
+
+
