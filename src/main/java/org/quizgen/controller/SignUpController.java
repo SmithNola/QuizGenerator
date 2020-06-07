@@ -36,6 +36,7 @@ public class SignUpController {
                 errorMessage.setText("Passwords do not match.");
             } else {
                 DatabaseConnection.addUser(username.getText(),password.getText());
+                HomePageController.setUsername(String.valueOf(username));
                 App.setRoot("homePage");
             }
         }

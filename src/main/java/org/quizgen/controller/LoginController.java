@@ -5,7 +5,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -26,12 +25,8 @@ public class LoginController {
             errorMessage.setText("Wrong username/password combination");
         }
         else{
-
+            HomePageController.setUsername(loginName);
             App.setRoot("homePage");
         }
-    }
-
-    public static String getUsername(){
-        return loginName;
     }
 }

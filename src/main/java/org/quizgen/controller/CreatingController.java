@@ -119,7 +119,7 @@ public class CreatingController {
 
     private void saveQuiz() throws SQLException{
         quiz.setQuestions(retrieveQuestions());
-        quiz.setCreator(LoginController.getUsername());
+        quiz.setCreator(HomePageController.getUsername());
         DatabaseConnection.saveQuiz(quiz);
     }
 
