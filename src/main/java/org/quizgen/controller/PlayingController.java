@@ -52,8 +52,8 @@ public class PlayingController {
             public void handle(ActionEvent arg0) {
                 try{
                     score = calculateScore();
-                    if(!DatabaseConnection.checkIfPlayed(LoginController.getUsername(),quiz.getQuizId())){
-                        DatabaseConnection.saveScore(score, LoginController.getUsername(), quiz.getQuizId());
+                    if(!DatabaseConnection.checkIfPlayed(HomePageController.getUsername(),quiz.getQuizId())){
+                        DatabaseConnection.saveScore(score, HomePageController.getUsername(), quiz.getQuizId());
                     }
                     App.setRoot("score");
                 }catch(IOException | SQLException e){

@@ -41,6 +41,7 @@ public class DatabaseConnection {
         st.setInt(1,id);
         st.setInt(2,quizId);
         ResultSet results = st.executeQuery();
+        st.close();
         return results.next();
     }
 
@@ -52,6 +53,7 @@ public class DatabaseConnection {
             st.setInt(2, quizId);
             st.setInt(3, score);
             st.executeUpdate();
+            st.close();
     }
 
     //Will check if username already exists in database
@@ -60,6 +62,7 @@ public class DatabaseConnection {
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
         ResultSet names = st.executeQuery();
+        st.close();
         return names.next();
     }
 
@@ -70,9 +73,11 @@ public class DatabaseConnection {
         st.setString(1, username);
         st.setString(2, password);
         st.executeUpdate();
+        st.close();
     }
 
     public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
+        ArrayList<Question> questions = new ArrayList<>();
         String query = "SELECT question.question_id, question.question_name, question.position, choice.choice_name FROM quiz " +
                 "LEFT JOIN question ON quiz.quiz_id = question.quiz_id " +
                 "LEFT JOIN choice ON question.question_id = choice.question_id " +
@@ -83,8 +88,10 @@ public class DatabaseConnection {
         while(results.next()){
             ArrayList <String> choices = retrieveChoices(results.getInt("question_id"));
             Question question = new Question(results.getInt("question_id"), results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
-            quiz.setQuestion(question);
+            questions.add(question);
         }
+        quiz.setQuestions(questions);
+        st.close();
         return quiz;
     }
 
@@ -98,6 +105,7 @@ public class DatabaseConnection {
         while(results.next()){
             choices.add(results.getString("choice_name"));
         }
+        st.close();
         return choices;
     }
 
@@ -114,6 +122,7 @@ public class DatabaseConnection {
                     results.getString("time_created"), results.getString("username"), results.getInt("number_of_questions"));
             quizzes.add(quiz);
         }
+        st.close();
         return quizzes;
     }
 
@@ -131,6 +140,7 @@ public class DatabaseConnection {
                     results.getString("time_created"), username, results.getInt("number_of_questions"));
             quizzes.add(quiz);
         }
+        st.close();
         return quizzes;
     }
 
@@ -141,6 +151,7 @@ public class DatabaseConnection {
         st.setString(1, username);
         st.setString(2, password);
         ResultSet names = st.executeQuery();
+        //st.close();
         if (names.next()) {
             return names.getString("username");//will save username to userData later
         } else {
@@ -150,16 +161,18 @@ public class DatabaseConnection {
 
     //Saves quiz to the database
     public static void saveQuiz(Quiz quiz) throws SQLException {
+        int id = getPlayerId(quiz.getCreator());
         String query = "INSERT INTO quiz (quiz_name,ordered,genre,time_created,player_id) VALUES (?,?,?,CURRENT_TIMESTAMP,?)";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, quiz.getName());
         st.setInt(2, quiz.getOrdered());
         st.setString(3, quiz.getGenre());
-        st.setInt(4, getPlayerId(quiz.getCreator()));
+        st.setInt(4, id);
         st.executeUpdate();
         ResultSet quizIdResult = st.getGeneratedKeys();
         int quizId = quizIdResult.getInt(1);
         saveQuestions(quiz, quizId);
+        st.close();
     }
 
     public static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
@@ -181,6 +194,7 @@ public class DatabaseConnection {
             int questionId = questionIdResult.getInt(1);
             saveChoices(question, questionId);
         }
+        st.close();
     }
 
     private static void saveChoices(Question question, int questionId) throws SQLException {
@@ -199,14 +213,20 @@ public class DatabaseConnection {
             }
             st.executeUpdate();//save to database
         }
+        st.close();
     }
 
     //retrieves creator's Id
     private static int getPlayerId(String username) throws SQLException {
+        int playerId = 0;
         String query = "SELECT player_id FROM player WHERE username = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
-        ResultSet names = st.executeQuery();
-        return names.getInt("player_id");
+        ResultSet id = st.executeQuery();
+        if(id.next() == true){
+             playerId = id.getInt("player_id");
+        }
+        st.close();
+        return playerId;
     }
 }

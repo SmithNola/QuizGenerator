@@ -34,7 +34,7 @@ public class Creating {
             question.setPosition(position);
             position++;
             askChoices(question);
-            quiz.setQuestion(question);
+            //quiz.setQuestion(question);
             return true;
         }
     }
