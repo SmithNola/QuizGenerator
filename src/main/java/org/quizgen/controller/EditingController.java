@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 
 public class EditingController {
     private int questionNum = 1;
-    private HashMap<String, Integer> chosenAnswers = new HashMap<>();
+    //private HashMap<String, Integer> chosenAnswers = new HashMap<>();
     ArrayList<Question> questions = new ArrayList<>();
     private Quiz quiz;
     @FXML
@@ -36,8 +37,8 @@ public class EditingController {
         }
         questions = quiz.getQuestions();
         for(Question question: questions){
-            VBox questionLayout = new VBox(question.getChoices().size()+1);
-            overall.getChildren().add(createVbox(question, questionLayout));
+            VBox questionWithChoice = new VBox(question.getChoices().size()+1);
+            overall.getChildren().add(createVbox(question, questionWithChoice));//will create the layout for each question and choice
         }
         Button saveButton = new Button();
         saveButton.setText("Done");
@@ -55,30 +56,28 @@ public class EditingController {
         overall.getChildren().add(saveButton);
     }
 
-    private VBox createVbox(Question question, VBox questionLayout){
+    private VBox createVbox(Question question, VBox questionWithChoice){
+        HBox questionLayout = new HBox();
         ArrayList<String> choices = question.getChoices();
-        TextField questionName = new TextField (questionNum + ". " + question.getName());
-        questionLayout.getChildren().add(questionName);
+        Label questionTracker = new Label(questionNum + ". ");
+        TextField questionName = new TextField (question.getName());
+        questionLayout.getChildren().addAll(questionTracker,questionName);
+        questionWithChoice.getChildren().add(questionLayout);
         ToggleGroup group = new ToggleGroup();
         for(int i = 1; i < choices.size() + 1; i++){
-            RadioButton choice = new RadioButton(i + " " + choices.get(i-1));
-            choice.setId(String.valueOf(question.getQuestionId()));
+            HBox choiceLayout = new HBox();
+            Label choiceTracker = new Label(i + ". ");
+            RadioButton choice = new RadioButton(choices.get(i-1));
+            //choice.setId(String.valueOf(question.getQuestionId()));
             choice.setToggleGroup(group);
-            if(i == question.getAnswer()){
+            if(i == question.getAnswer()){//will toggle the answer of the question
                 choice.setSelected(true);
             }
-            choice.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent arg0) {
-                    String[] a = choice.getText().split(" ");
-                    int b = Integer.parseInt(a[0]);
-                    chosenAnswers.put(choice.getId(),b);
-                }
-            } );
-            questionLayout.getChildren().add(choice);
+            choiceLayout.getChildren().addAll(choiceTracker, choice);
+            questionWithChoice.getChildren().add(choiceLayout);
         }
         questionNum++;
 
-        return questionLayout;
+        return questionWithChoice;
     }
 }
