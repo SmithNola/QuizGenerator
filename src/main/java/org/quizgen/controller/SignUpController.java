@@ -23,7 +23,6 @@ public class SignUpController {
     @FXML
     private void switchToHomePage() throws IOException, SQLException {
         boolean taken;
-        taken = DatabaseConnection.checkUsername(username.getText());
         if(username.getText().equals("")||password.getText().equals("")||rePassword.getText().equals("")){
            errorMessage.setText("All fields must be filled out all fields");
         }else {

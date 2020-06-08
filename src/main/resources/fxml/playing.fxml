@@ -5,9 +5,6 @@
 <?import javafx.scene.layout.VBox?>
 <ScrollPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.PlayingController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/playingsheet.css">
     <VBox fx:id="overall">
-    <Label fx:id="quizName"/>
-        <children>
-
-        </children>
+        <Label fx:id="quizName"/>
     </VBox>
 </ScrollPane>

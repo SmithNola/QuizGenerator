@@ -14,7 +14,6 @@ import org.quizgen.model.Quiz;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class EditingController {
     private int questionNum = 1;

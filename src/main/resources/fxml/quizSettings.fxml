@@ -3,21 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.QuizSettingsController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/quizsettingssheet.css">
-    <children>
-        <HBox>
-                <Label text="Quiz Name: "/>
-                <TextField fx:id="quizName"/>
-        </HBox>
-        <HBox>
-            <Label text="Ordered?"/>
-            <RadioButton fx:id="yes" text="Yes" />
-            <RadioButton fx:id="no" text="No"/>
-        </HBox>
-        <HBox>
-            <Label text="Genre: "/>
-            <TextField fx:id="quizGenre"/>
-        </HBox>
-        <Button text="Create" onAction="#switchToCreate"/>
-    </children>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.quizgen.controller.QuizSettingsController" prefHeight="400.0" prefWidth="600.0"
+      stylesheets="@../stylesheet/quizsettingssheet.css">
+    <HBox>
+        <Label text="Quiz Name: "/>
+        <TextField fx:id="quizName"/>
+    </HBox>
+    <HBox>
+        <Label text="Ordered?"/>
+        <RadioButton fx:id="yes" text="Yes"/>
+        <RadioButton fx:id="no" text="No"/>
+    </HBox>
+    <HBox>
+        <Label text="Genre: "/>
+        <TextField fx:id="quizGenre"/>
+    </HBox>
+    <Button text="Create" onAction="#switchToCreate"/>
 </VBox>
