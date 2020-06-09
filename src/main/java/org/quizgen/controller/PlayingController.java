@@ -3,10 +3,7 @@ package org.quizgen.controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
@@ -46,16 +43,23 @@ public class PlayingController {
         }
         Button saveButton = new Button();
         saveButton.setText("Done");
+        Alert alert = new Alert(Alert.AlertType.NONE);
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent arg0) {
                 try{
-                    score = calculateScore();
-                    if(!DatabaseConnection.checkIfPlayed(HomePageController.getUsername(),quiz.getQuizId())){
-                        DatabaseConnection.saveScore(score, HomePageController.getUsername(), quiz.getQuizId());
+                    if(allAnswered() == true){
+                        score = calculateScore();
+                        if(!DatabaseConnection.checkIfPlayed(HomePageController.getUsername(), quiz.getQuizId())){
+                            DatabaseConnection.saveScore(score, HomePageController.getUsername(), quiz.getQuizId());
+                        }
+                        App.setRoot("score");
+                    }else{
+                        alert.setAlertType(Alert.AlertType.WARNING);
+                        alert.setContentText("Answer all questions");
+                        alert.show();
                     }
-                    App.setRoot("score");
                 }catch(IOException | SQLException e){
                     e.printStackTrace();
                 }
@@ -77,7 +81,7 @@ public class PlayingController {
                 @Override
                 public void handle(ActionEvent arg0) {
                     String[] a = choice.getText().split(" ");
-                    int b = Integer.parseInt(a[0]);
+                    int b = Integer.parseInt(a[0]);//retrieves the number from text
                    chosenAnswers.put(choice.getId(),b);
                 }
             } );
@@ -88,10 +92,19 @@ public class PlayingController {
         return questionLayout;
     }
 
+    private boolean allAnswered(){
+        for(Question i : questions){
+            if(!chosenAnswers.containsKey(i.getQuestionId())){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private int calculateScore(){
         double correctAnswers = 0;
         for(int i = 0; i < quiz.getQuestions().size(); i++){
-            if (chosenAnswers.get(questions.get(i).getQuestionId()).equals(questions.get(i).getAnswer())){
+            if(chosenAnswers.get(questions.get(i).getQuestionId()).equals(questions.get(i).getAnswer())){
                 correctAnswers++;
             }
         }

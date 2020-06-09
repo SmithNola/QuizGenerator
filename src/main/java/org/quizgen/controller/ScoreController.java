@@ -12,7 +12,7 @@ public class ScoreController {
     private Label score;
 
     public void initialize(){
-        score.setText(String.valueOf(PlayingController.getScore()) + "%");
+        score.setText(PlayingController.getScore() + "%");
     }
 
     @FXML

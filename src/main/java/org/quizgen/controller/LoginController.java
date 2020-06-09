@@ -16,10 +16,10 @@ public class LoginController {
     private TextField password;
     @FXML
     private Text errorMessage;
-    private static String loginName;
 
     @FXML
     private void switchToHomePage() throws IOException, SQLException {
+        String loginName;
         loginName = DatabaseConnection.checkLogin(username.getText(),password.getText());
         if(loginName == null){
             errorMessage.setText("Wrong username/password combination");
