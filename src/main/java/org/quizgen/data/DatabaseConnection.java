@@ -1,5 +1,6 @@
 package org.quizgen.data;
 
+import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 
@@ -32,6 +33,35 @@ public class DatabaseConnection {
         } catch (SQLException e) {
             System.out.println("Couldn't close connection: " + e.getMessage());
         }
+    }
+
+    public static void updateQuiz(Quiz quiz) throws SQLException{
+        String query = "UPDATE quiz SET quiz_name = ?, genre = ?, ordered = ? WHERE quiz_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, quiz.getName());
+        st.setString(2, quiz.getGenre());
+        st.setInt(3, quiz.getOrdered());
+        st.setInt(4, quiz.getQuizId());
+        st.executeQuery();
+        st.close();
+    }
+
+    public static void updateQuestions(Question question) throws SQLException{
+        String query = "UPDATE question SET question_name = ? WHERE question_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, question.getName());
+        st.setInt(2, Integer.parseInt(question.getQuestionId()));
+        st.executeQuery();
+        st.close();
+    }
+
+    public static void updateChoices(Choice choice) throws SQLException{
+        String query = "Update choice SET choice_name = ? WHERE choice_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, choice.getName());
+        st.setInt(2, choice.getId());
+        st.executeQuery();
+        st.close();
     }
 
     public static boolean checkIfPlayed(String username, int quizId) throws SQLException{
