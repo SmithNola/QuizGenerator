@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 
@@ -27,7 +28,7 @@ public class EditingController {
 
     @FXML
     public void initialize(){
-        quiz = CreateViewController.getClickedQuiz();
+        quiz = QuizSettingsController.getQuiz();
         quizName.setText(quiz.getName());
         try{
             quiz = DatabaseConnection.retrieveQuestions(quiz);
@@ -46,8 +47,9 @@ public class EditingController {
             @Override
             public void handle(ActionEvent arg0) {
                 try{
+                    DatabaseConnection.updateQuiz(quiz);
                     App.setRoot("createView");
-                }catch(IOException e){
+                }catch(IOException | SQLException e){
                     e.printStackTrace();
                 }
             }
@@ -57,7 +59,7 @@ public class EditingController {
 
     private VBox createVbox(Question question, VBox questionWithChoice){
         HBox questionLayout = new HBox();
-        ArrayList<String> choices = question.getChoices();
+        ArrayList<Choice> choices = question.getChoices();
         Label questionTracker = new Label(questionNum + ". ");
         TextField questionName = new TextField (question.getName());
         questionLayout.getChildren().addAll(questionTracker,questionName);
@@ -66,7 +68,7 @@ public class EditingController {
         for(int i = 1; i < choices.size() + 1; i++){
             HBox choiceLayout = new HBox();
             Label choiceTracker = new Label(i + ". ");
-            RadioButton choice = new RadioButton(choices.get(i-1));
+            RadioButton choice = new RadioButton(choices.get(i-1).getName());
             //choice.setId(String.valueOf(question.getQuestionId()));
             choice.setToggleGroup(group);
             if(i == question.getAnswer()){//will toggle the answer of the question
@@ -78,5 +80,9 @@ public class EditingController {
         questionNum++;
 
         return questionWithChoice;
+    }
+
+    private void saveQuiz(){
+
     }
 }

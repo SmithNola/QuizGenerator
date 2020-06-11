@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 
@@ -69,12 +70,12 @@ public class PlayingController {
     }
 
     private VBox createVbox(Question question, VBox questionLayout){
-        ArrayList<String> choices = question.getChoices();
+        ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label (questionNum + ". " + question.getName());
         questionLayout.getChildren().add(questionName);
         ToggleGroup group = new ToggleGroup();
         for(int i = 0; i < choices.size(); i++){
-            RadioButton choice = new RadioButton((i+1) + " " + choices.get(i));
+            RadioButton choice = new RadioButton((i+1) + " " + choices.get(i).getName());
             choice.setId(String.valueOf(question.getQuestionId()));
             choice.setToggleGroup(group);
             choice.setOnAction(new EventHandler<ActionEvent>() {

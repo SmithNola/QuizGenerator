@@ -20,4 +20,5 @@
         <TextField fx:id="quizGenre"/>
     </HBox>
     <Button text="Create" onAction="#switchToCreate"/>
+    <Button text="Edit" onAction="#switchToEdit"/>
 </VBox>

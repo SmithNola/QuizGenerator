@@ -67,7 +67,7 @@ public class Creating {
         choice = keyboard.nextLine();
         answer = Integer.parseInt(choice);
         question.setAnswer(answer);
-        question.setChoices(choices);
+        //question.setChoices(choices);
     }
 
     private static void quizProperties(){

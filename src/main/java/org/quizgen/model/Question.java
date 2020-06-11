@@ -6,10 +6,10 @@ public class Question {
     private int questionId;
     private String name;
     private int answer;
-    private ArrayList <String> choices;
+    private ArrayList <Choice> choices;
     private int position;
 
-    public Question (int newQuestionId, String newName, int newAnswer, ArrayList<String> newChoices, int newPosition){
+    public Question (int newQuestionId, String newName, int newAnswer, ArrayList<Choice> newChoices, int newPosition){
         this.questionId = newQuestionId;
         this.name = newName;
         this.answer = newAnswer;
@@ -21,7 +21,7 @@ public class Question {
         questionId = 0;
         this.name = "";
         this.answer = 1;
-        this.choices = new ArrayList <String>();
+        this.choices = new ArrayList <Choice>();
         this.position = 0;
     }
 
@@ -35,7 +35,7 @@ public class Question {
         this.answer = newAnswer;
     }
 
-    public void setChoices(ArrayList <String> newChoices){
+    public void setChoices(ArrayList <Choice> newChoices){
         choices = newChoices;
     }
 
@@ -51,7 +51,7 @@ public class Question {
         return this.answer;
     }
 
-    public ArrayList <String> getChoices(){
+    public ArrayList <Choice> getChoices(){
         return this.choices;
     }
 
