@@ -29,6 +29,6 @@ public class QuizInfoController{
 
     @FXML
     private void switchToEditing() throws IOException{
-        App.setRoot("editing");
+        App.setRoot("quizSettings");
     }
 }

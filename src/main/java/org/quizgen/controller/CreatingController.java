@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import java.io.IOException;
@@ -93,7 +94,7 @@ public class CreatingController {
         ArrayList<Question> allQuestions = new ArrayList<>();
         for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
             Question savedQuestion = new Question();
-            ArrayList<String> choices = new ArrayList<>();
+            ArrayList<Choice> choices = new ArrayList<>();
             VBox questionWithChoice = vboxQuestions.get(i);//gets question with choice
             ObservableList<Node> eachRow = questionWithChoice.getChildren();//saves each HBox
             for(int j = 0; j < eachRow.size(); j++){//will go through each Hbox
@@ -108,7 +109,9 @@ public class CreatingController {
                     if(answer.isSelected() == true){
                         savedQuestion.setAnswer(j);
                     }
-                    choices.add(choice.getText());
+                    Choice choiceObject = new Choice();
+                    choiceObject.setName(choice.getText());
+                    choices.add(choiceObject);
                 }
             }
             savedQuestion.setChoices(choices);

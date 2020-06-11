@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class QuizSettingsController {
 
-    private Quiz quiz;
+    private static Quiz quiz;
     @FXML
     private TextField quizName;
     @FXML
@@ -25,10 +25,17 @@ public class QuizSettingsController {
         ToggleGroup group = new ToggleGroup();
         yes.setToggleGroup(group);
         no.setToggleGroup(group);
+        quiz = CreateViewController.getClickedQuiz();
+        quizName.setText(quiz.getName());
+        quizGenre.setText(quiz.getGenre());
+        if(quiz.getOrdered() == 0){
+            yes.setSelected(true);
+        }else{
+            no.setSelected(true);
+        }
     }
 
     private void saveProperties(){
-        quiz = CreateViewController.getClickedQuiz();
         quiz.setName(quizName.getText());
         quiz.setGenre(quizGenre.getText());
         if(yes.isSelected() == true){
@@ -39,8 +46,14 @@ public class QuizSettingsController {
         }
     }
 
-    public Quiz getQuiz(){
+    public static Quiz getQuiz(){
         return quiz;
+    }
+
+    @FXML
+    private void switchToEdit() throws IOException{
+        saveProperties();
+        App.setRoot("editing");
     }
 
     @FXML
