@@ -11,35 +11,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="background"
-            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="550.0"
-            stylesheets="@../stylesheet/app_theme.css"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.quizgen.controller.SignUpController"
-            >
+<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" stylesheets="@../stylesheet/app_theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.SignUpController">
    <children>
       <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label id="title" text="Sign Up">
                <VBox.margin>
-                  <Insets right="235.0" />
+                  <Insets right="215.0" />
                </VBox.margin>
             </Label>
             <Separator prefWidth="200.0">
                <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="80.0" right="80.0" />
                </VBox.margin>
             </Separator>
             <VBox id="other-img" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="15.0" stylesheets="@../stylesheet/blue_matrix_img.css">
                <children>
-                  <JFXTextField promptText="Username">
+                  <JFXTextField fx:id="username" promptText="Username">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXPasswordField promptText="Password" />
-                  <JFXPasswordField layoutX="25.0" layoutY="65.0" promptText="Re-enter Password">
+                  <JFXPasswordField fx:id="password" promptText="Password" />
+                  <JFXPasswordField fx:id="rePassword" layoutX="25.0" layoutY="65.0" promptText="Re-enter Password">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -51,33 +45,37 @@
             </VBox>
             <Separator layoutX="110.0" layoutY="155.0" prefWidth="200.0">
                <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="80.0" right="80.0" />
                </VBox.margin>
             </Separator>
-            <HBox alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="350.0" spacing="15.0">
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="350.0" spacing="15.0">
                <children>
+                  <Label fx:id="errorMessage" id="error-message" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Label>
                   <JFXRippler>
                      <children>
-                        <JFXButton text="Sign Up" />
+                        <JFXButton onAction="#switchToHomePage" text="Sign Up" />
                      </children>
                      <HBox.margin>
-                        <Insets bottom="26.0" top="26.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXRippler>
                   <JFXRippler>
                      <children>
-                        <JFXButton text="Back" onAction="#switchToStartPage"/>
+                        <JFXButton onAction="#switchToStartPage" text="Back" />
                      </children>
                      <HBox.margin>
-                        <Insets bottom="26.0" top="26.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXRippler>
                </children>
                <padding>
-                  <Insets right="15.0" />
+                  <Insets right="80.0" />
                </padding>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
          </children>
