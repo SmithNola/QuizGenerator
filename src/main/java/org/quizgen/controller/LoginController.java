@@ -10,7 +10,6 @@ import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
 import org.quizgen.utils.login.AccountValidator;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
 import java.sql.SQLException;
 

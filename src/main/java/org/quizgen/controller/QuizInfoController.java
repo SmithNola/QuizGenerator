@@ -31,6 +31,6 @@ public class QuizInfoController{
 
     @FXML
     private void switchToEditing() throws IOException{
-        SceneLoader.switchScene(Views.EDITING);
+        SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 }

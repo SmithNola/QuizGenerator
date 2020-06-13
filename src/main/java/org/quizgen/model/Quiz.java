@@ -29,6 +29,7 @@ public class Quiz {
     }
 
     public void setName(String newName) {
+
         this.name = newName;
     }
 
@@ -40,17 +41,13 @@ public class Quiz {
         this.creator = newCreator;
     }
 
-    public void setQuestion(Question newQuestions){
-        questions.add(newQuestions);
-    }
+    public void setQuestions(ArrayList<Question> newQuestions){ questions = newQuestions; }
 
     public void setGenre(String newGenre){
         this.genre = newGenre;
     }
 
-    public String getName(){
-        return this.name;
-    }
+    public String getName(){ return this.name; }
 
     public int getOrdered(){
         return this.ordered;
@@ -77,8 +74,4 @@ public class Quiz {
     }
 
     public int getQuizId(){return this.quizId;}
-
-    public String toString(){
-        return "" + this.name + "\t" + this.genre + "\t" + this.creationTime + "\t" + this.creator;
-    }
 }

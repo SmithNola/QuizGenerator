@@ -8,6 +8,7 @@ import org.quizgen.view.Views;
 import java.io.IOException;
 
 public class HomePageController {
+    private static String username;
 
     @FXML
     private void switchToPlay() throws Exception{
@@ -17,5 +18,13 @@ public class HomePageController {
     @FXML
     private void switchToCreate() throws IOException {
         SceneLoader.switchScene(Views.CREATEVIEW);
+    }
+
+    public static void setUsername(String newUsername){
+       username = newUsername;
+    }
+
+    public static String getUsername(){
+        return username;
     }
 }

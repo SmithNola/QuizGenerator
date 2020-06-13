@@ -17,9 +17,6 @@ public class SceneLoader {
     public static Stage stage;
 
     public static void switchScene(Views fxml) throws IOException {
-//        Parent parent = loadFXML(fxml.toString());
-//        Scene nonStaticScene = new Scene(parent);
-//        scene = new Scene(parent, nonStaticScene.getWidth(), nonStaticScene.getHeight());
         System.out.println(fxml.toString());
         scene.setRoot(loadFXML(fxml.toString()));
         loadScene();
@@ -43,10 +40,6 @@ public class SceneLoader {
     }
 
     private static URL fxmlPath(String fxmlFileName){
-//        String prefix = "/fxml/";
-//        String file_ext = ".fxml";
-//        String filePath = prefix + fxmlFileName + file_ext;
-        //return App.class.getResource(filePath);
         return App.class.getResource(fxmlFileName);
     }
 }

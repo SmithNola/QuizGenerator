@@ -24,7 +24,7 @@ public class CreateViewController {
     private VBox overall;
     @FXML
     public void initialize(){
-        String username = LoginController.getUsername();
+        String username = HomePageController.getUsername();
         try{
             quizzes = DatabaseConnection.retrieveUserQuiz(username);
         }catch(SQLException throwables){
