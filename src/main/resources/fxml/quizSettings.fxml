@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.quizgen.controller.QuizSettingsController" prefHeight="400.0" prefWidth="600.0"
       stylesheets="@../stylesheet/quizsettingssheet.css">
     <HBox>
@@ -19,6 +19,4 @@
         <Label text="Genre: "/>
         <TextField fx:id="quizGenre"/>
     </HBox>
-    <Button text="Create" onAction="#switchToCreate"/>
-    <Button text="Edit" onAction="#switchToEdit"/>
 </VBox>

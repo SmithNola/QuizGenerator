@@ -1,5 +1,6 @@
 package org.quizgen.utils.login;
 
+import org.quizgen.controller.HomePageController;
 import org.quizgen.data.DatabaseConnection;
 
 import java.sql.SQLException;
@@ -44,11 +45,12 @@ public class AccountValidator {
     }
 
     private boolean loginDoesNotExist(String username, String password) throws SQLException {
-        return DatabaseConnection.checkLogin(username, password) == null;
+        username = DatabaseConnection.checkLogin(username, password);
+        HomePageController.setUsername(username);
+        return username == null;
     }
 
     private boolean passwordsMatches(String password, String reenterPassword){
         return password.equals(reenterPassword);
     }
-
 }

@@ -14,6 +14,9 @@
                 <Label fx:id="date" text="Date Created" />
             </children>
         </HBox>
+        <VBox fx:id="showQuizzes">
+
+        </VBox>
         <HBox spacing="10">
             <children>
                 <Button text="Create" onAction="#switchToQuizSettings"/>

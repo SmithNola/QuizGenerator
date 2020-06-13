@@ -61,6 +61,7 @@ public class SignUpController {
 
     private void registerUser() throws SQLException {
         DatabaseConnection.addUser(username.getText(),password.getText());
+        HomePageController.setUsername(username.getText());
         displaySignupSuccessText();
     }
 

@@ -6,12 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class CreateViewController {
     private static ArrayList<Quiz> quizzes = new <Quiz>ArrayList();
     private static Quiz clickedQuiz = new Quiz();
     @FXML
-    private VBox overall;
+    private VBox showQuizzes;
     @FXML
     public void initialize(){
         String username = HomePageController.getUsername();
@@ -32,7 +30,7 @@ public class CreateViewController {
         }
         for(Quiz quiz: quizzes){
             HBox quizLayout = new HBox(4);
-            overall.getChildren().add(createHbox(quiz, quizLayout));
+            showQuizzes.getChildren().add(createHbox(quiz, quizLayout));
         }
     }
 
