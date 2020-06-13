@@ -56,14 +56,14 @@
             </Separator>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="350.0" spacing="15.0">
                <children>
-                  <Label fx:id="errorMessage" id="error-message" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
+                  <Label id="error-message" fx:id="errorMessage" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
                      <HBox.margin>
-                        <Insets right="30.0" />
+                        <Insets right="15.0" />
                      </HBox.margin>
                   </Label>
                   <JFXRippler>
                      <children>
-                        <JFXButton onAction="#loginIntoApp" text="Enter" />
+                        <JFXButton onAction="#switchToHomePage" text="Enter" />
                      </children>
                   </JFXRippler>
                   <JFXRippler>

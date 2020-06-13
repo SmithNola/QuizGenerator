@@ -5,20 +5,15 @@ import org.quizgen.data.DatabaseConnection;
 
 import java.sql.SQLException;
 
-public class UsernameValidationFX {
-    private TextField usernameField;
+public class UsernameValidator {
+
     private String username;
 
-    public UsernameValidationFX(TextField usernameField) {
-        this.usernameField = usernameField;
-        this.username = usernameField.getText();
+    public UsernameValidator(String username){
+        this.username = username;
     }
 
-    public boolean usernameRegisterSuccessful(){
-        return !usernameIsTaken();
-    }
-
-    private boolean usernameIsTaken(){
+    public boolean usernameIsTaken(String username){
         boolean usernameTaken = false;
         try{
             usernameTaken = DatabaseConnection.checkUsername(username);
@@ -31,5 +26,4 @@ public class UsernameValidationFX {
     public String usernameIsTakenError(){
         return "Username already taken!";
     }
-
 }

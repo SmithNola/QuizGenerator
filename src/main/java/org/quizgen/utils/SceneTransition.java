@@ -21,13 +21,13 @@ public class SceneTransition {
         this(1.0);
     }
 
-    public void beforeSceneTransitionDelay(Views view){
+    public void startSceneSwitchDelay(Views view){
         this.view = view;
-        delayBeforeSceneLoad.setOnFinished(this::afterSceneTransitionDelay);
+        delayBeforeSceneLoad.setOnFinished(this::sceneTransition);
         delayBeforeSceneLoad.play();
     }
 
-    private void afterSceneTransitionDelay(ActionEvent e){
+    private void sceneTransition(ActionEvent e){
         try{
             SceneLoader.switchScene(view);
         } catch (IOException ioException){

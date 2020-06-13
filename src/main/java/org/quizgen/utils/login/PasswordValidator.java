@@ -1,16 +1,12 @@
 package org.quizgen.utils.login;
 
-import javafx.scene.control.TextField;
-
-public class PasswordValidationFX {
-    private TextField passwordField;
-    private String password;
+public class PasswordValidator {
     private final String[] SPECIAL_CHAR = {"*","&","^", "%"};
+    private final String password;
     private final int MIN_LENGTH_PASSWORD = 8;
 
-    public PasswordValidationFX(TextField passwordField){
-        this.passwordField = passwordField;
-        this.password = passwordField.getText();
+    public PasswordValidator(String password){
+        this.password = password;
     }
 
     public String passwordRegisterError(){
@@ -47,9 +43,6 @@ public class PasswordValidationFX {
             if(Character.isDigit(letter)){
                 isNumerical = true;
             }
-            if(isAlphabet && isNumerical){
-                return true;
-            }
         }
         return isAlphabet && isNumerical;
     }
@@ -72,9 +65,6 @@ public class PasswordValidationFX {
             }
             if(Character.isUpperCase(letter)){
                 upperCase = true;
-            }
-            if(lowerCase && upperCase){
-                return true;
             }
         }
         return lowerCase && upperCase;
