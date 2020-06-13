@@ -27,13 +27,13 @@
             </Separator>
             <VBox id="other-img" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="15.0" stylesheets="@../stylesheet/blue_matrix_img.css">
                <children>
-                  <JFXTextField fx:id="username" promptText="Username">
+                  <JFXTextField fx:id="username" promptText="Username" onKeyPressed="#handleOnKeyPressed">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXPasswordField fx:id="password" promptText="Password" />
-                  <JFXPasswordField fx:id="rePassword" layoutX="25.0" layoutY="65.0" promptText="Re-enter Password">
+                  <JFXPasswordField fx:id="password"  onKeyPressed="#handleOnKeyPressed" promptText="Password" />
+                  <JFXPasswordField fx:id="rePassword" onKeyPressed="#handleOnKeyPressed"  layoutX="25.0" layoutY="65.0" promptText="Re-enter Password">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -50,7 +50,7 @@
             </Separator>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="350.0" spacing="15.0">
                <children>
-                  <Label fx:id="errorMessage" id="error-message" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
+                  <Label id="error-message" fx:id="errorMessage" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Label>
@@ -78,6 +78,11 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            <Label id="error-message" fx:id="longErrorMessage" maxWidth="-Infinity" prefWidth="400.0">
+               <VBox.margin>
+                  <Insets left="40.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
    </children>
