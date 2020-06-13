@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import org.quizgen.App;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 import org.quizgen.model.Quiz;
+
 
 import java.io.IOException;
 
@@ -53,12 +55,12 @@ public class QuizSettingsController {
     @FXML
     private void switchToEdit() throws IOException{
         saveProperties();
-        App.setRoot("editing");
+        SceneLoader.switchScene(Views.EDITING);
     }
 
     @FXML
     private void switchToCreate() throws IOException {
+        SceneLoader.switchScene(Views.CREATING);
         saveProperties();
-        App.setRoot("creating");
     }
 }

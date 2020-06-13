@@ -8,11 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.quizgen.App;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
+import org.quizgen.model.Quiz;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
-import org.quizgen.model.Quiz;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -127,8 +128,8 @@ public class CreatingController {
     }
 
     @FXML
-    private void switchToCreateView() throws IOException, SQLException{
+    private void switchToCreateView() throws IOException, SQLException {
         saveQuiz();
-        App.setRoot("createView");
+        SceneLoader.switchScene(Views.CREATEVIEW);
     }
 }
