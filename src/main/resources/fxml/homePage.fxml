@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.quizgen.controller.HomePageController" prefHeight="400.0" prefWidth="600.0"
-      stylesheets="@../stylesheet/stylesheet.css">
-    <Text fx:id="title" text="Welcome"/>
-    <Button fx:id="Play" text="Play" onAction="#switchToPlay"/>
-    <Button fx:id="Create" text="Create" onAction="#switchToCreate"/>
-</VBox>
+
+<AnchorPane id="main-menu-background" prefHeight="400.0" prefWidth="300.0" stylesheets="@../stylesheet/app_theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.HomePageController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="title" text="Quiz Generator" />
+            <Separator prefWidth="200.0">
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </Separator>
+            <VBox id="img" alignment="CENTER" spacing="20.0" stylesheets="@../stylesheet/blue_matrix_img.css">
+               <children>
+                  <JFXRippler>
+                     <control>
+                        <JFXButton onAction="#switchToPlay" text="Play" />
+                     </control>
+                  </JFXRippler>
+                  <JFXRippler>
+                     <control>
+                        <JFXButton onAction="#switchToCreate" text="Create" />
+                     </control>
+                  </JFXRippler>
+               </children>
+            </VBox>
+            <Separator layoutX="50.0" layoutY="168.0" prefWidth="200.0">
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </Separator>
+            <Text fx:id="errorMessage" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

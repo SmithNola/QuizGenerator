@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.LoginController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/stylesheet.css">
-    <Text fx:id="title" text = "Login"/>
-    <Label fx:id="usernameText" text = "Username:"/>
-    <TextField fx:id="username" maxWidth="300"/>
-    <Label fx:id="PasswordText" text = "Password"/>
-    <TextField fx:id="password" maxWidth="300"/>
-    <Text fx:id="errorMessage"/>
-    <Button fx:id="homePage" text = "Login" onAction="#switchToHomePage"/>
-</VBox>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" stylesheets="@../stylesheet/app_theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.LoginController">
+   <children>
+      <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label id="title" text="Login">
+               <VBox.margin>
+                  <Insets right="250.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Separator>
+            <VBox id="other-img" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="350.0" spacing="15.0" stylesheets="@../stylesheet/blue_matrix_img.css">
+               <children>
+                  <JFXTextField fx:id="username" onKeyPressed="#handleOnKeyPressed" promptText="Username">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Monospaced Bold" size="12.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXPasswordField fx:id="password" onKeyPressed="#handleOnKeyPressed" promptText="Password">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Monospaced Bold" size="12.0" />
+                     </font>
+                  </JFXPasswordField>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
+            <Separator layoutX="110.0" layoutY="102.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </VBox.margin>
+            </Separator>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="350.0" spacing="15.0">
+               <children>
+                  <Label id="error-message" fx:id="errorMessage" alignment="TOP_LEFT" maxWidth="-Infinity" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXRippler>
+                     <children>
+                        <JFXButton onAction="#switchToHomePage" text="Enter" />
+                     </children>
+                  </JFXRippler>
+                  <JFXRippler>
+                     <children>
+                        <JFXButton onAction="#switchToStartPage" text="Back" />
+                     </children>
+                  </JFXRippler>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets right="80.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

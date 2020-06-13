@@ -1,0 +1,71 @@
+.jfx-button {
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: Monospaced;
+    -fx-font-weight: bold;
+    -fx-font-size: 12.0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+.jfx-button:hover{
+    -fx-background-color: #1e88e5;
+}
+
+.jfx-rippler{
+    -jfx-rippler-fill: #212121;
+    -jfx-mask-type: RECT;
+}
+
+#main-menu-background{
+    -fx-background-image: url("../img/blue_matrix_numbers.jpg");
+}
+
+#background{
+    -fx-background-color: #000000;
+}
+
+#title{
+    -fx-text-fill: #FFFFFF;
+    -fx-text-alignment: center;
+    -fx-font-family: Monospaced;
+    -fx-font-weight: bold;
+    -fx-font-size: 24.0;
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+    -fx-padding: 8;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+
+}
+
+.jfx-text-field{
+    -fx-focus-color: #000000;
+    -fx-unfocus-color: #a4a4a4;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5 5 5 5;
+
+    -fx-font-family: Monospaced;
+    -fx-font-size: 12.0;
+    -fx-font-weight: bold;
+}
+
+.jfx-password-field{
+    -fx-focus-color: #000000;
+    -fx-unfocus-color: #a4a4a4;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5 5 5 5;
+
+    -fx-font-family: Monospaced;
+    -fx-font-size: 12.0;
+    -fx-font-weight: bold;
+}
+
+#error-message{
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-background-color: #000000;
+}

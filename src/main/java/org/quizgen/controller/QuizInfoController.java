@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.quizgen.App;
 import org.quizgen.model.Quiz;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 import java.io.IOException;
 
 public class QuizInfoController{
@@ -32,7 +33,7 @@ public class QuizInfoController{
                 @Override
                 public void handle(ActionEvent arg0) {
                     try{
-                        App.setRoot("playing");
+                        SceneLoader.switchScene(Views.PLAYING);
                     }catch(IOException e){
                         e.printStackTrace();
                     }
@@ -49,7 +50,7 @@ public class QuizInfoController{
                 @Override
                 public void handle(ActionEvent arg0) {
                     try{
-                        App.setRoot("quizSettings");
+                        SceneLoader.switchScene(Views.QUIZSETTINGS);
                     }catch(IOException e){
                         e.printStackTrace();
                     }
