@@ -1,5 +1,6 @@
 package org.quizgen.data;
 
+import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 
@@ -34,6 +35,39 @@ public class DatabaseConnection {
         }
     }
 
+    public static void updateQuiz(Quiz quiz) throws SQLException{
+        String query = "UPDATE quiz SET quiz_name = ?, genre = ?, ordered = ? WHERE quiz_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setString(1, quiz.getName());
+        st.setString(2, quiz.getGenre());
+        st.setInt(3, quiz.getOrdered());
+        st.setInt(4, quiz.getQuizId());
+        st.executeUpdate();
+        st.close();
+        updateQuestions(quiz.getQuestions());
+    }
+
+    public static void updateQuestions(ArrayList <Question> questions) throws SQLException{
+        String query = "UPDATE question SET question_name = ? WHERE question_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        for(Question question: questions){
+            st.setString(1, question.getName());
+            st.setInt(2, Integer.parseInt(question.getQuestionId()));
+            st.executeUpdate();
+            updateChoices(question.getChoices());
+        }
+    }
+
+    public static void updateChoices(ArrayList <Choice> choices) throws SQLException{
+        String query = "Update choice SET choice_name = ? WHERE choice_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        for(Choice choice: choices){
+            st.setString(1, choice.getName());
+            st.setInt(2, choice.getId());
+            st.executeUpdate();
+        }
+    }
+
     public static boolean checkIfPlayed(String username, int quizId) throws SQLException{
         String query = "SELECT * FROM quiz_played WHERE player_id = ? AND quiz_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
@@ -41,6 +75,7 @@ public class DatabaseConnection {
         st.setInt(1,id);
         st.setInt(2,quizId);
         ResultSet results = st.executeQuery();
+        System.out.println(quizId);
         return results.next();
     }
 
@@ -52,6 +87,7 @@ public class DatabaseConnection {
             st.setInt(2, quizId);
             st.setInt(3, score);
             st.executeUpdate();
+            st.close();
     }
 
     //Will check if username already exists in database
@@ -70,9 +106,11 @@ public class DatabaseConnection {
         st.setString(1, username);
         st.setString(2, password);
         st.executeUpdate();
+        st.close();
     }
 
     public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
+        ArrayList<Question> questions = new ArrayList<>();
         String query = "SELECT question.question_id, question.question_name, question.position, choice.choice_name FROM quiz " +
                 "LEFT JOIN question ON quiz.quiz_id = question.quiz_id " +
                 "LEFT JOIN choice ON question.question_id = choice.question_id " +
@@ -81,23 +119,39 @@ public class DatabaseConnection {
         st.setInt(1, quiz.getQuizId());
         ResultSet results = st.executeQuery();
         while(results.next()){
-            ArrayList <String> choices = retrieveChoices(results.getInt("question_id"));
-            Question question = new Question(results.getInt("question_id"), results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
-            quiz.setQuestion(question);
+            ArrayList <Choice> choices = retrieveChoices(results.getInt("question_id"));
+            Question question = new Question();
+            question.setQuestionId(results.getInt("question_id"));
+            question.setName(results.getString("question_name"));
+            question.setChoices(choices);
+            for(int i = 0; i < choices.size(); i++){
+                if(choices.get(i).getName() == results.getString("choice_name")){
+                    question.setAnswer(i);
+                }
+            }
+            question.setPosition(results.getInt("position"));
+            //Question question = new Question(results.getInt("question_id"), results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
+            questions.add(question);
         }
+        quiz.setQuestions(questions);
+        st.close();
         return quiz;
     }
 
-    public static ArrayList <String> retrieveChoices(int questionId) throws SQLException {
-        ArrayList <String> choices = new ArrayList<String>();
-        String query = "SELECT choice.choice_name FROM question " +
+    public static ArrayList <Choice> retrieveChoices(int questionId) throws SQLException {
+        ArrayList <Choice> choices = new ArrayList<>();
+        String query = "SELECT choice.choice_name, choice.choice_id FROM question " +
                         "LEFT JOIN choice ON choice.question_id = question.question_id WHERE question.question_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, questionId);
         ResultSet results = st.executeQuery();
         while(results.next()){
-            choices.add(results.getString("choice_name"));
+            Choice choice = new Choice();
+            choice.setId(results.getInt("choice_id"));
+            choice.setName(results.getString("choice_name"));
+            choices.add(choice);
         }
+        st.close();
         return choices;
     }
 
@@ -114,6 +168,7 @@ public class DatabaseConnection {
                     results.getString("time_created"), results.getString("username"), results.getInt("number_of_questions"));
             quizzes.add(quiz);
         }
+        st.close();
         return quizzes;
     }
 
@@ -131,6 +186,7 @@ public class DatabaseConnection {
                     results.getString("time_created"), username, results.getInt("number_of_questions"));
             quizzes.add(quiz);
         }
+        st.close();
         return quizzes;
     }
 
@@ -150,16 +206,18 @@ public class DatabaseConnection {
 
     //Saves quiz to the database
     public static void saveQuiz(Quiz quiz) throws SQLException {
+        int id = getPlayerId(quiz.getCreator());
         String query = "INSERT INTO quiz (quiz_name,ordered,genre,time_created,player_id) VALUES (?,?,?,CURRENT_TIMESTAMP,?)";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, quiz.getName());
         st.setInt(2, quiz.getOrdered());
         st.setString(3, quiz.getGenre());
-        st.setInt(4, getPlayerId(quiz.getCreator()));
+        st.setInt(4, id);
         st.executeUpdate();
         ResultSet quizIdResult = st.getGeneratedKeys();
         int quizId = quizIdResult.getInt(1);
         saveQuestions(quiz, quizId);
+        st.close();
     }
 
     public static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
@@ -181,6 +239,7 @@ public class DatabaseConnection {
             int questionId = questionIdResult.getInt(1);
             saveChoices(question, questionId);
         }
+        st.close();
     }
 
     private static void saveChoices(Question question, int questionId) throws SQLException {
@@ -188,8 +247,8 @@ public class DatabaseConnection {
         PreparedStatement st = conn.prepareStatement(query);
         //saves each individual choice to the database
         for (int i = 0; i < question.getChoices().size(); i++) {
-            String choice = question.getChoices().get(i);
-            st.setString(1, choice);
+            Choice choice = question.getChoices().get(i);
+            st.setString(1, choice.getName());
             st.setInt(2, questionId);
             //if choice is the answer will set as answer other wise leave answer null
             if (question.getAnswer() == i + 1) {//if answer is equal to choice index
@@ -199,14 +258,20 @@ public class DatabaseConnection {
             }
             st.executeUpdate();//save to database
         }
+        st.close();
     }
 
     //retrieves creator's Id
     private static int getPlayerId(String username) throws SQLException {
+        int playerId = 0;
         String query = "SELECT player_id FROM player WHERE username = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setString(1, username);
-        ResultSet names = st.executeQuery();
-        return names.getInt("player_id");
+        ResultSet id = st.executeQuery();
+        if(id.next()){
+             playerId = id.getInt("player_id");
+        }
+        st.close();
+        return playerId;
     }
 }

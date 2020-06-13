@@ -63,3 +63,9 @@
     -fx-font-size: 12.0;
     -fx-font-weight: bold;
 }
+
+#error-message{
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-background-color: #000000;
+}
