@@ -12,7 +12,7 @@ public class QuizApp {
     private static final Scanner keyboard = new Scanner(System.in);
     public static void main(String[] args) throws SQLException {
         String choice;
-        boolean start = DatabaseConnection.connect();
+        boolean start = DatabaseConnection.isConnected();
         User currentUser;
         if(start) {
             currentUser = new User(startPage());//Will return the user's username

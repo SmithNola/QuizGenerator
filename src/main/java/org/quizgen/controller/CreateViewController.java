@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,18 +34,6 @@ public class CreateViewController {
             HBox quizLayout = new HBox(4);
             overall.getChildren().add(createHbox(quiz, quizLayout));
         }
-        Button createButton = new Button("Create");
-        createButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    App.setRoot("quizSettings");
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        overall.getChildren().add(createButton);
     }
 
     private static HBox createHbox(Quiz quiz, HBox quizLayout){
@@ -60,7 +50,7 @@ public class CreateViewController {
                     if(quiz.getQuizId() == quizId){
                         clickedQuiz = quiz;
                         try{
-                            App.setRoot("quizInfo");
+                            SceneLoader.switchScene(Views.QUIZINFO);
                         }catch(IOException e){
                             e.printStackTrace();
                         }
@@ -74,5 +64,20 @@ public class CreateViewController {
 
     public static Quiz getClickedQuiz(){
         return clickedQuiz;
+    }
+
+    @FXML
+    private void returnToHome() throws IOException {
+        SceneLoader.switchScene(Views.HOME);
+    }
+
+    @FXML
+    private void returnToStart() throws IOException{
+        SceneLoader.switchScene(Views.START);
+    }
+
+    @FXML
+    private void switchToQuizSettings() throws IOException{
+        SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 }

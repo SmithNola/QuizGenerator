@@ -15,7 +15,7 @@ public class DatabaseConnection {
     private static final String DATABASE_NAME = "QuizGen.db";
     private static final String CONNECTIONS_STRING = "jdbc:sqlite:" + Paths.get("src/main/db/" + DATABASE_NAME).toAbsolutePath();
 
-    public static boolean connect() {
+    public static boolean isConnected() {
         try {
             conn = DriverManager.getConnection(CONNECTIONS_STRING);
             return true;
