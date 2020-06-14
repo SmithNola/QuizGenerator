@@ -92,9 +92,9 @@ public class DatabaseConnection {
 
     //Will check if username already exists in database
     public static boolean checkUsername(String username) throws SQLException {
-        String query = "SELECT username FROM player WHERE username = ?";
+        String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?);";
         PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, username);
+        st.setString(1, "%" + username + "%");
         ResultSet names = st.executeQuery();
         return names.next();
     }
@@ -125,12 +125,11 @@ public class DatabaseConnection {
             question.setName(results.getString("question_name"));
             question.setChoices(choices);
             for(int i = 0; i < choices.size(); i++){
-                if(choices.get(i).getName() == results.getString("choice_name")){
+                if(choices.get(i).getName().equals(results.getString("choice_name"))){
                     question.setAnswer(i);
                 }
             }
             question.setPosition(results.getInt("position"));
-            //Question question = new Question(results.getInt("question_id"), results.getString("question_name"), choices.indexOf(results.getString("choice_name")) + 1,choices,results.getInt("position") );
             questions.add(question);
         }
         quiz.setQuestions(questions);
@@ -145,7 +144,7 @@ public class DatabaseConnection {
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, questionId);
         ResultSet results = st.executeQuery();
-        while(results.next()){
+        while(results.next()){//will set up create choice object for question
             Choice choice = new Choice();
             choice.setId(results.getInt("choice_id"));
             choice.setName(results.getString("choice_name"));
@@ -192,9 +191,9 @@ public class DatabaseConnection {
 
     //Checks if user enters correct login info
     public static String checkLogin(String username, String password) throws SQLException {
-        String query = "SELECT username FROM player WHERE username = ? AND password = ?";
+        String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?) AND password = ?";
         PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, username);
+        st.setString(1, '%' + username + '%');
         st.setString(2, password);
         ResultSet names = st.executeQuery();
         if (names.next()) {
