@@ -10,6 +10,7 @@ public class AccountValidator {
     private String fieldsBlankError = "All fields must be filled out!";
     private String passwordMatchesError = "Passwords do not match!";
     private String wrongLogin = "Wrong username or password";
+    private String containsWhiteSpaceError = "No whitespace allowed!";
 
     public String getSignUpErrorMessage(String username, String password, String rePassword){
         UsernameValidator usernameValidator = new UsernameValidator(username);
@@ -17,6 +18,9 @@ public class AccountValidator {
 
         if(username.isBlank() || password.isBlank() || rePassword.isBlank()){
             return fieldsBlankError;
+        }
+        else if(containsWhiteSpace(username, password, rePassword)){
+            return containsWhiteSpaceError;
         }
         else if(!passwordsMatches(password, rePassword)){
             return passwordMatchesError;
@@ -52,5 +56,14 @@ public class AccountValidator {
 
     private boolean passwordsMatches(String password, String reenterPassword){
         return password.equals(reenterPassword);
+    }
+
+    private boolean containsWhiteSpace(String ...args){
+        for(String field: args){
+            if(field.contains(" ")){
+                return true;
+            }
+        }
+        return false;
     }
 }
