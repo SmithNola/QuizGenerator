@@ -1,6 +1,5 @@
-package org.quizgen.utils.login;
+package org.quizgen.utils.signup;
 
-import javafx.scene.control.TextField;
 import org.quizgen.data.DatabaseConnection;
 
 import java.sql.SQLException;

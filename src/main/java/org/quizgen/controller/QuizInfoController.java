@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 
 public class QuizInfoController{

@@ -1,13 +1,13 @@
 package org.quizgen.model;
 
 public class User {
-    private String username;
+    private static String username;
 
-    public User(String newUsername){
-        this.username = newUsername;
+    public static String setUsername(String newUsername){
+        return username;
     }
 
-    public String getUsername(){
+    public static  String getUsername(){
         return username;
     }
 }

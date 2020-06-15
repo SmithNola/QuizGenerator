@@ -5,11 +5,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import org.quizgen.App;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
+import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
 
@@ -54,8 +54,8 @@ public class PlayingController {
                 try{
                     if(allAnswered() == true){
                         score = calculateScore();
-                        if(!DatabaseConnection.checkIfPlayed(HomePageController.getUsername(), quiz.getQuizId())){
-                            DatabaseConnection.saveScore(score, HomePageController.getUsername(), quiz.getQuizId());
+                        if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
+                            DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
                         }
                         SceneLoader.switchScene(Views.SCORE);
                     }else{

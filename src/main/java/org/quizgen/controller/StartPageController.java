@@ -2,9 +2,6 @@ package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
-import org.quizgen.App;
-import org.quizgen.data.DatabaseConnection;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
 

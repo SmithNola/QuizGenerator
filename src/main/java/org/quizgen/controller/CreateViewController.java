@@ -8,8 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
+import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class CreateViewController {
     private VBox showQuizzes;
     @FXML
     public void initialize(){
-        String username = HomePageController.getUsername();
+        String username = User.getUsername();
         try{
             quizzes = DatabaseConnection.retrieveUserQuiz(username);
         }catch(SQLException throwables){

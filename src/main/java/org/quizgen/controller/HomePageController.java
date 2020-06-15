@@ -18,12 +18,4 @@ public class HomePageController {
     private void switchToCreate() throws IOException {
         SceneLoader.switchScene(Views.CREATEVIEW);
     }
-
-    public static void setUsername(String newUsername){
-       username = newUsername;
-    }
-
-    public static String getUsername(){
-        return username;
-    }
 }
