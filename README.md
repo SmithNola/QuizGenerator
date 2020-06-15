@@ -17,6 +17,6 @@ A desktop quiz creation application where users can create and play quizzes.
 -JavaFx
 
 ### Contributors
-- [SmithNola] (https://github.com/SmithNola)
-- [risbah] (https://github.com/risbah)
-- [zachsa999] (https://github.com/zachsa999)
+- [SmithNola](https://github.com/SmithNola)
+- [risbah](https://github.com/risbah)
+- [zachsa999](https://github.com/zachsa999)
