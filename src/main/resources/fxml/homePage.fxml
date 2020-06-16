@@ -21,12 +21,12 @@
                <children>
                   <JFXRippler>
                      <control>
-                        <JFXButton onAction="#switchToPlay" text="Play" />
+                        <JFXButton fx:id="PlayViewButton" onAction="#switchToPlay" text="Play" />
                      </control>
                   </JFXRippler>
                   <JFXRippler>
                      <control>
-                        <JFXButton onAction="#switchToCreate" text="Create" />
+                        <JFXButton fx:id="CreateViewButton" onAction="#switchToCreate" text="Create" />
                      </control>
                   </JFXRippler>
                </children>

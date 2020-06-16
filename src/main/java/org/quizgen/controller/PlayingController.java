@@ -32,7 +32,7 @@ public class PlayingController {
 
     @FXML
     public void initialize(){
-        quiz = PlayViewController.getClickedQuiz();
+        quiz = DisplayQuizzesController.getClickedQuiz();
         quizName.setText(quiz.getName());
         try{
             quiz = DatabaseConnection.retrieveQuestions(quiz);

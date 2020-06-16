@@ -24,8 +24,8 @@ public class QuizInfoController{
     @FXML
     public void initialize(){
         //Will check if previous page was PlayView or CreateView
-        if(PlayViewController.getClickedQuiz().getQuizId() != 0){
-            Quiz quiz = PlayViewController.getClickedQuiz();
+        if(HomePageController.getButtonPressed().equals("Play")){
+            Quiz quiz = DisplayQuizzesController.getClickedQuiz();
             nameText.setText(quiz.getName());
             creatorText.setText(quiz.getCreator());
             numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
@@ -42,7 +42,7 @@ public class QuizInfoController{
             } );
             overall.getChildren().add(play);
         }else{
-            Quiz quiz = CreateViewController.getClickedQuiz();
+            Quiz quiz = DisplayQuizzesController.getClickedQuiz();
             nameText.setText(quiz.getName());
             creatorText.setText(quiz.getCreator());
             numText.setText(String.valueOf(quiz.getNumberOfQuestions()));

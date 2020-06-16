@@ -31,7 +31,7 @@ public class CreatingController {
     private ArrayList<VBox> vboxQuestions = new ArrayList<>();
 
     public void initialize(){
-        quiz=CreateViewController.getClickedQuiz();
+        quiz=DisplayQuizzesController.getClickedQuiz();
         quizName.setText(quiz.getName());
         newQuestion();
     }

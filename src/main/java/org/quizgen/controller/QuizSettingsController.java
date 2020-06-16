@@ -32,7 +32,7 @@ public class QuizSettingsController {
         ToggleGroup group = new ToggleGroup();
         yes.setToggleGroup(group);
         no.setToggleGroup(group);
-        quiz = CreateViewController.getClickedQuiz();
+        quiz = DisplayQuizzesController.getClickedQuiz();
         quizName.setText(quiz.getName());
         quizGenre.setText(quiz.getGenre());
         if(quiz.getOrdered() == 0){
@@ -41,7 +41,7 @@ public class QuizSettingsController {
             no.setSelected(true);
         }
         //Will check if a quiz was clicked or create button was clicked
-        if(CreateViewController.getClickedQuiz().getQuizId() != 0){
+        if(DisplayQuizzesController.getClickedQuiz().getQuizId() != 0){
             Button edit = new Button("Edit");
             edit.setOnAction(new EventHandler<ActionEvent>() {
                 @Override

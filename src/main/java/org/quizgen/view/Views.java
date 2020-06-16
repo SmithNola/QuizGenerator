@@ -12,7 +12,8 @@ public enum Views{
     EDITING("editing"),
     PLAYING("playing"),
     QUIZSETTINGS("quizSettings"),
-    SCORE("score");
+    SCORE("score"),
+    DISPLAYQUIZZES("displayQuizzes");
 
     private String fxmlPath;
 

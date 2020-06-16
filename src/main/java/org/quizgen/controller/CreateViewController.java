@@ -62,10 +62,6 @@ public class CreateViewController {
         return quizLayout;
     }
 
-    public static Quiz getClickedQuiz(){
-        return clickedQuiz;
-    }
-
     @FXML
     private void returnToHome() throws IOException {
         SceneLoader.switchScene(Views.HOME);
