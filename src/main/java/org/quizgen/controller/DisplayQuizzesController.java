@@ -21,7 +21,6 @@ public class DisplayQuizzesController{
     private static int quizId;
     private static ArrayList<Quiz> quizzes = new <Quiz>ArrayList();
     private static Quiz clickedQuiz = new Quiz();
-    private static Button createButton = new Button("Create");
     @FXML
     private HBox buttons;
     @FXML
@@ -35,10 +34,10 @@ public class DisplayQuizzesController{
     @FXML
     public void initialize(){
         try{
-            if(HomePageController.getButtonPressed().equals("Play")){
+            if(HomePageController.getButtonPressed().equals("Play")){//for the PlayView
                 quizzes = DatabaseConnection.retrieveAllQuizzes();
                 buttons.getChildren().remove(create);
-            }else{
+            }else{//for the CreateView
                 String username = User.getUsername();
                 quizzes = DatabaseConnection.retrieveUserQuiz(username);
                 overall.getChildren().remove(creator);

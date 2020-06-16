@@ -132,6 +132,6 @@ public class CreatingController {
     @FXML
     private void switchToCreateView() throws IOException, SQLException {
         saveQuiz();
-        SceneLoader.switchScene(Views.CREATEVIEW);
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 }

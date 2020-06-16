@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.quizgen.model.Quiz;
@@ -22,42 +24,32 @@ public class QuizInfoController{
     @FXML
     private VBox overall;
     @FXML
+    private HBox creatorBox;
+    @FXML
+    private HBox buttons;
+    @FXML
+    private Button play;
+    @FXML
+    private Button edit;
+    @FXML
     public void initialize(){
-        //Will check if previous page was PlayView or CreateView
-        if(HomePageController.getButtonPressed().equals("Play")){
-            Quiz quiz = DisplayQuizzesController.getClickedQuiz();
-            nameText.setText(quiz.getName());
+        Quiz quiz = DisplayQuizzesController.getClickedQuiz();
+        nameText.setText(quiz.getName());
+        numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
+        if(HomePageController.getButtonPressed().equals("Play")){//if previous was the PlayView
             creatorText.setText(quiz.getCreator());
-            numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
-            Button play = new Button("Play");
-            play.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent arg0) {
-                    try{
-                        SceneLoader.switchScene(Views.PLAYING);
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            } );
-            overall.getChildren().add(play);
-        }else{
-            Quiz quiz = DisplayQuizzesController.getClickedQuiz();
-            nameText.setText(quiz.getName());
-            creatorText.setText(quiz.getCreator());
-            numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
-            Button edit = new Button("Edit");
-            edit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent arg0) {
-                    try{
-                        SceneLoader.switchScene(Views.QUIZSETTINGS);
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            } );
-            overall.getChildren().add(edit);
+            buttons.getChildren().remove(edit);
+        }else{//if previous was the CreateView
+            overall.getChildren().remove(creatorBox);
+            buttons.getChildren().remove(play);
         }
+    }
+
+    public void switchToPlaying() throws IOException{
+        SceneLoader.switchScene(Views.PLAYING);
+    }
+
+    public void switchToQuizSettings() throws IOException{
+        SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 }

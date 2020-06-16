@@ -48,7 +48,7 @@ public class EditingController {
             public void handle(ActionEvent arg0) {
                 try{
                     DatabaseConnection.updateQuiz(quiz);
-                    SceneLoader.switchScene(Views.CREATEVIEW);
+                    SceneLoader.switchScene(Views.DISPLAYQUIZZES);
                 }catch(IOException | SQLException e){
                     e.printStackTrace();
                 }

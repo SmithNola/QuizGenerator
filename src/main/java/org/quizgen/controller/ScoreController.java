@@ -18,6 +18,6 @@ public class ScoreController {
 
     @FXML
     private void switchToPlayView() throws IOException {
-        SceneLoader.switchScene(Views.PLAYVIEW);
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 }

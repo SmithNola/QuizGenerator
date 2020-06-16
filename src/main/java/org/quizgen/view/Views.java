@@ -5,8 +5,6 @@ public enum Views{
     LOGIN("login"),
     HOME("homePage"),
     SIGNUP("signUp"),
-    PLAYVIEW("playView"),
-    CREATEVIEW("createView"),
     QUIZINFO("quizInfo"),
     CREATING("creating"),
     EDITING("editing"),
