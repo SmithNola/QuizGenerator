@@ -1,29 +1,31 @@
 package org.quizgen.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
 
 public class HomePageController {
-    private static String username;
+    private static String buttonPressed;
+    @FXML
+    private Button PlayViewButton;
+    @FXML
+    private Button CreateViewButton;
 
     @FXML
     private void switchToPlay() throws Exception{
-        SceneLoader.switchScene(Views.PLAYVIEW);
+        buttonPressed = PlayViewButton.getText();
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 
     @FXML
     private void switchToCreate() throws IOException {
-        SceneLoader.switchScene(Views.CREATEVIEW);
+        buttonPressed = CreateViewButton.getText();
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 
-    public static void setUsername(String newUsername){
-       username = newUsername;
-    }
-
-    public static String getUsername(){
-        return username;
+    public static String getButtonPressed(){
+        return buttonPressed;
     }
 }

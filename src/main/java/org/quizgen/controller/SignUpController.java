@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
 import org.quizgen.utils.login.AccountValidator;
@@ -61,7 +62,7 @@ public class SignUpController {
 
     private void registerUser() throws SQLException {
         DatabaseConnection.addUser(username.getText(),password.getText());
-        HomePageController.setUsername(username.getText());
+        User.setUsername(username.getText());
         displaySignupSuccessText();
     }
 

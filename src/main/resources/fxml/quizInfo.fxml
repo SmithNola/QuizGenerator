@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
 <VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.QuizInfoController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/quizinfosheet.css">
     <HBox>
         <Label text="Quiz Name: "/>
         <Text fx:id="nameText"/>
     </HBox>
-    <HBox>
-        <Label text="Creator: "/>
+    <HBox fx:id="creatorBox">
+        <Label fx:id="creatorLabel" text="Creator: "/>
         <Text fx:id="creatorText"/>
     </HBox>
     <HBox>
         <Label text="# of Questions: "/>
         <Text fx:id="numText"/>
+    </HBox>
+    <HBox fx:id="buttons">
+        <Button fx:id="play" text="Play" onAction="#switchToPlaying"/>
+        <Button fx:id="edit" text="Edit" onAction="#switchToQuizSettings"/>
     </HBox>
 </VBox>

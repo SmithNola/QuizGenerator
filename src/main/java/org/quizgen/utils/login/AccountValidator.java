@@ -1,7 +1,8 @@
 package org.quizgen.utils.login;
 
-import org.quizgen.controller.HomePageController;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.model.User;
+import org.quizgen.utils.signup.UsernameValidator;
 
 import java.sql.SQLException;
 
@@ -50,7 +51,7 @@ public class AccountValidator {
 
     private boolean loginDoesNotExist(String username, String password) throws SQLException {
         username = DatabaseConnection.checkLogin(username, password);
-        HomePageController.setUsername(username);
+        User.setUsername(username);
         return username == null;
     }
 

@@ -8,12 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.view.Views;
-import org.quizgen.model.Quiz;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
+import org.quizgen.model.Quiz;
+import org.quizgen.model.User;
+import org.quizgen.utils.SceneLoader;
+import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class CreatingController {
     private ArrayList<VBox> vboxQuestions = new ArrayList<>();
 
     public void initialize(){
-        quiz=CreateViewController.getClickedQuiz();
+        quiz=DisplayQuizzesController.getClickedQuiz();
         quizName.setText(quiz.getName());
         newQuestion();
     }
@@ -123,13 +125,13 @@ public class CreatingController {
 
     private void saveQuiz() throws SQLException{
         quiz.setQuestions(retrieveQuestions());
-        quiz.setCreator(HomePageController.getUsername());
+        quiz.setCreator(User.getUsername());
         DatabaseConnection.saveQuiz(quiz);
     }
 
     @FXML
     private void switchToCreateView() throws IOException, SQLException {
         saveQuiz();
-        SceneLoader.switchScene(Views.CREATEVIEW);
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 }

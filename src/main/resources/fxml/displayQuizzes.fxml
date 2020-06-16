@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.DisplayQuizzesController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/displayquizzesstylesheet.css">
+    <HBox fx:id="quizLayout">
+        <Label fx:id="name" text="Name"/>
+        <Label fx:id="genre" text="Genre"/>
+        <Label fx:id="creator" text="Creator"/>
+        <Label fx:id="date" text="Date Created"/>
+    </HBox>
+    <VBox fx:id="showQuizzes">
+
+    </VBox>
+    <HBox fx:id="buttons" spacing="10">
+        <children>
+            <Button fx:id="create" text="Create" onAction="#switchToQuizSettings"/>
+            <Button text="Home" onAction="#returnToHome"/>
+            <Button text="Sign Out" onAction="#returnToStart"/>
+        </children>
+    </HBox>
+</VBox>

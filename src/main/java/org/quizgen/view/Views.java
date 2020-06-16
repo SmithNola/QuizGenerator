@@ -5,14 +5,13 @@ public enum Views{
     LOGIN("login"),
     HOME("homePage"),
     SIGNUP("signUp"),
-    PLAYVIEW("playView"),
-    CREATEVIEW("createView"),
     QUIZINFO("quizInfo"),
     CREATING("creating"),
     EDITING("editing"),
     PLAYING("playing"),
     QUIZSETTINGS("quizSettings"),
-    SCORE("score");
+    SCORE("score"),
+    DISPLAYQUIZZES("displayQuizzes");
 
     private String fxmlPath;
 

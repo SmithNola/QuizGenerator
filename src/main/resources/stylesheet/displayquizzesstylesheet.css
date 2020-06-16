@@ -1,0 +1,12 @@
+VBox{
+    -fx-background-color: lightblue;
+    -fx-spacing: 20px;
+}
+#top{
+    -fx-alignment: center;
+    -fx-spacing: 100px;
+}
+
+#bottom{
+    -fx-alignment: bottom-center;
+}

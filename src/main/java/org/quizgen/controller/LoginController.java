@@ -10,6 +10,7 @@ import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
 import org.quizgen.utils.login.AccountValidator;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -17,7 +18,6 @@ public class LoginController {
 
     private SceneTransition sceneTransition;
     private final double DELAY_DURATION = 1.5;
-    private static String loginName;
     private AccountValidator loginValidator;
 
 
@@ -40,7 +40,7 @@ public class LoginController {
     }
 
     @FXML
-    private void switchToHomePage() throws IOException, SQLException {
+    private void switchToHomePage() throws SQLException {
         String error = loginValidator.getLoginErrorMessage(username.getText(), password.getText());
         if(error.isBlank()){
             displaySigninSuccessText();
@@ -52,7 +52,7 @@ public class LoginController {
     }
 
     @FXML
-    private void handleOnKeyPressed(KeyEvent ae) throws IOException, SQLException {
+    private void handleOnKeyPressed(KeyEvent ae) throws SQLException {
         if(ae.getCode() == KeyCode.ENTER){
             switchToHomePage();
         }
@@ -61,9 +61,5 @@ public class LoginController {
     private void displaySigninSuccessText(){
         errorMessage.setStyle("-fx-text-fill: green");
         errorMessage.setText("Signin Successful!");
-    }
-
-    public static String getUsername(){
-        return loginName;
     }
 }
