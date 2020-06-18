@@ -2,12 +2,16 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.ScoreController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/scoresheet.css">
-    <Label fx:id="quizName"/>
-    <Label fx:id="score"/>
-    <Label text="Question"/>
-    <Label text="choices"/>
-    <Label text="Answer"/>
-    <Label text="Your Choice"/>
-    <Button text="Done" onAction="#switchToPlayView"/>
+    <VBox>
+        <Label fx:id="quizName"/>
+        <Label fx:id="score"/>
+    </VBox>
+    <VBox fx:id="results">
+
+    </VBox>
+    <HBox>
+        <Button text="Done" onAction="#switchToPlayView"/>
+    </HBox>
 </VBox>
