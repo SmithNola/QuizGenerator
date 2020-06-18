@@ -20,9 +20,9 @@ import java.util.HashMap;
 
 public class PlayingController {
     private int questionNum = 1;
-    private HashMap<String, Integer> chosenAnswers = new HashMap<>();
+    private static HashMap<String, Integer> chosenAnswers = new HashMap<>();
     ArrayList<Question> questions = new ArrayList<>();
-    private Quiz quiz;
+    private static Quiz quiz;
     @FXML
     private Label quizName;
     @FXML
@@ -116,5 +116,13 @@ public class PlayingController {
 
     public static int getScore(){
         return score;
+    }
+
+    public static Quiz getQuiz(){
+        return quiz;
+    }
+
+    public static HashMap getChosenAnswers(){
+        return chosenAnswers;
     }
 }
