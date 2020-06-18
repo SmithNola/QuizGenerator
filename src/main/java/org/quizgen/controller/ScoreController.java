@@ -42,7 +42,7 @@ public class ScoreController {
         Label questionName = new Label(questionNumber + ": " + question.getName());
         String CA = choices.get(chosenAnswer - 1).getName();
         Label userChoice = new Label("You Choice: " + CA);
-        String answer = question.getChoices().get(question.getAnswer()).getName();
+        String answer = question.getChoices().get(question.getAnswer()-1).getName();
         Label correctAnswer = new Label("Correct Answer: " + answer);
         if(CA.equals(answer)){//color to indicate whether right or wrong
             userChoice.setTextFill(Color.GREEN);

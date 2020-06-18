@@ -126,7 +126,7 @@ public class DatabaseConnection {
             question.setChoices(choices);
             for(int i = 0; i < choices.size(); i++){
                 if(choices.get(i).getName().equals(results.getString("choice_name"))){
-                    question.setAnswer(i);
+                    question.setAnswer(i+1);
                 }
             }
             question.setPosition(results.getInt("position"));
