@@ -1,16 +1,14 @@
 package org.quizgen.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class QuizSettingsController {
@@ -25,15 +23,11 @@ public class QuizSettingsController {
     @FXML
     private RadioButton no;
     @FXML
-    private VBox overall;
-    @FXML
     private HBox buttons;
     @FXML
     private Button create;
     @FXML
     private Button edit;
-    @FXML
-    private Button delete;
 
     public void initialize(){
         ToggleGroup group = new ToggleGroup();
@@ -65,12 +59,14 @@ public class QuizSettingsController {
         SceneLoader.switchScene(Views.CREATING);
     }
     @FXML
-    private void deleteQuiz() throws IOException{
+    private void deleteQuiz() throws IOException, SQLException{
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("You are attempted to delete " + quiz.getName() + " quiz. This will be permanent.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            quiz = DatabaseConnection.retrieveQuestions(quiz);
+            DatabaseConnection.deleteEntireQuiz(quiz);
             SceneLoader.switchScene(Views.DISPLAYQUIZZES);
         }
     }
