@@ -35,6 +35,33 @@ public class DatabaseConnection {
         }
     }
 
+    public static void deleteEntireQuiz(Quiz quiz) throws SQLException{
+        String query = "DELETE FROM quiz WHERE quiz_id = ? ";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, quiz.getQuizId());
+        st.executeUpdate();
+        for(Question question: quiz.getQuestions()){
+            deleteQuestion(question);
+        }
+    }
+
+    public static void deleteQuestion(Question question) throws SQLException{
+        String query = "DELETE FROM question WHERE question_id = ?";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, Integer.parseInt(question.getQuestionId()));
+        st.executeUpdate();
+        for(Choice choice:question.getChoices()){
+            deleteChoice(choice);
+        }
+    }
+
+    public static void deleteChoice(Choice choice) throws SQLException{
+        String query = "DELETE FROM choice WHERE choice_id = ?";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, choice.getId());
+        st.executeUpdate();
+    }
+
     public static void updateQuiz(Quiz quiz) throws SQLException{
         String query = "UPDATE quiz SET quiz_name = ?, genre = ?, ordered = ? WHERE quiz_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);

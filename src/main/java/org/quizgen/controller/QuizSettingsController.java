@@ -1,18 +1,15 @@
 package org.quizgen.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class QuizSettingsController {
 
@@ -26,7 +23,11 @@ public class QuizSettingsController {
     @FXML
     private RadioButton no;
     @FXML
-    private VBox overall;
+    private HBox buttons;
+    @FXML
+    private Button create;
+    @FXML
+    private Button edit;
 
     public void initialize(){
         ToggleGroup group = new ToggleGroup();
@@ -42,33 +43,31 @@ public class QuizSettingsController {
         }
         //Will check if a quiz was clicked or create button was clicked
         if(DisplayQuizzesController.getClickedQuiz().getQuizId() != 0){
-            Button edit = new Button("Edit");
-            edit.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent arg0) {
-                    try{
-                        saveProperties();
-                        SceneLoader.switchScene(Views.EDITING);
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            } );
-            overall.getChildren().add(edit);
+            buttons.getChildren().remove(create);
         }else{
-            Button create = new Button("Create");
-            create.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent arg0) {
-                    try{
-                        saveProperties();
-                        SceneLoader.switchScene(Views.CREATING);
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            } );
-            overall.getChildren().add(create);
+            buttons.getChildren().remove(edit);
+        }
+    }
+    @FXML
+    private void switchToEditing() throws IOException{
+        saveProperties();
+        SceneLoader.switchScene(Views.EDITING);
+    }
+    @FXML
+    private void switchToCreating() throws IOException{
+        saveProperties();
+        SceneLoader.switchScene(Views.CREATING);
+    }
+    @FXML
+    private void deleteQuiz() throws IOException, SQLException{
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("You are attempted to delete " + quiz.getName() + " quiz. This will be permanent.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            quiz = DatabaseConnection.retrieveQuestions(quiz);
+            DatabaseConnection.deleteEntireQuiz(quiz);
+            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
         }
     }
 
