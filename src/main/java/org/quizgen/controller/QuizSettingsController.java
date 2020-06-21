@@ -74,7 +74,7 @@ public class QuizSettingsController {
     private void saveProperties(){
         quiz.setName(quizName.getText());
         quiz.setGenre(quizGenre.getText());
-        if(yes.isSelected() == true){
+        if(yes.isSelected()){
             quiz.setOrdered(1);
         }
         else{

@@ -52,7 +52,7 @@ public class PlayingController {
             @Override
             public void handle(ActionEvent arg0) {
                 try{
-                    if(allAnswered() == true){
+                    if(allAnswered()){
                         score = calculateScore();
                         if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                             DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());

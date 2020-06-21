@@ -109,7 +109,7 @@ public class CreatingController {
                 }else{
                     TextField choice = (TextField) eachElement.get(0);//choice text field
                     RadioButton answer = (RadioButton) eachElement.get(1);
-                    if(answer.isSelected() == true){
+                    if(answer.isSelected()){
                         savedQuestion.setAnswer(j);
                     }
                     Choice choiceObject = new Choice();

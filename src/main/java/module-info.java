@@ -3,7 +3,6 @@ module org.quizgen {
     requires javafx.fxml;
     requires java.sql;
     requires com.jfoenix;
-    requires commons.codec;
 
     opens org.quizgen to javafx.fxml;
     opens org.quizgen.controller to javafx.fxml;
