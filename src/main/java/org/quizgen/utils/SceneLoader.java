@@ -11,16 +11,26 @@ import java.io.IOException;
 import java.net.URL;
 
 public class SceneLoader {
-    private SceneLoader(){}
 
     public static Scene scene;
     public static Stage stage;
+    //private static String previousScene;
 
     public static void switchScene(Views fxml) throws IOException {
         System.out.println(fxml.toString());
+        //setPreviousScene(fxml.toString());
         scene.setRoot(loadFXML(fxml.toString()));
         loadScene();
     }
+    //will be used later to tell previous screen
+    /*private static void setPreviousScene(String fxmlString){
+        String [] array = fxmlString.split("/fxml/");
+        previousScene = array[1];
+    }
+
+    public static String getPreviousScene(){
+        return previousScene;
+    }*/
 
     public static void loadScene(){
         stage.setScene(scene);
