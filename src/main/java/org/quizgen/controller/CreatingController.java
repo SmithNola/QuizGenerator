@@ -19,6 +19,7 @@ import org.quizgen.view.Views;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CreatingController {
 
@@ -133,5 +134,16 @@ public class CreatingController {
     private void switchToCreateView() throws IOException, SQLException {
         saveQuiz();
         SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+    }
+
+    @FXML
+    private void cancelCreating() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Your quiz will not be not be saved if you cancel.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        }
     }
 }

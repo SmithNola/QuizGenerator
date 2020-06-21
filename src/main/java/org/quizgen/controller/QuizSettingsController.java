@@ -33,19 +33,19 @@ public class QuizSettingsController {
         ToggleGroup group = new ToggleGroup();
         yes.setToggleGroup(group);
         no.setToggleGroup(group);
-        quiz = DisplayQuizzesController.getClickedQuiz();
-        quizName.setText(quiz.getName());
-        quizGenre.setText(quiz.getGenre());
-        if(quiz.getOrdered() == 0){
-            yes.setSelected(true);
-        }else{
-            no.setSelected(true);
-        }
         //Will check if a quiz was clicked or create button was clicked
-        if(DisplayQuizzesController.getClickedQuiz().getQuizId() != 0){
-            buttons.getChildren().remove(create);
-        }else{
+        if(DisplayQuizzesController.getButtonPressed().equals("Create")){
             buttons.getChildren().remove(edit);
+        }else{
+            buttons.getChildren().remove(create);
+            quiz = DisplayQuizzesController.getClickedQuiz();
+            quizName.setText(quiz.getName());
+            quizGenre.setText(quiz.getGenre());
+            if(quiz.getOrdered() == 0){
+                yes.setSelected(true);
+            }else{
+                no.setSelected(true);
+            }
         }
     }
     @FXML

@@ -45,7 +45,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void deleteQuestion(Question question) throws SQLException{
+    private static void deleteQuestion(Question question) throws SQLException{
         String query = "DELETE FROM question WHERE question_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, Integer.parseInt(question.getQuestionId()));
@@ -55,7 +55,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void deleteChoice(Choice choice) throws SQLException{
+    private static void deleteChoice(Choice choice) throws SQLException{
         String query = "DELETE FROM choice WHERE choice_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, choice.getId());
@@ -74,7 +74,7 @@ public class DatabaseConnection {
         updateQuestions(quiz.getQuestions());
     }
 
-    public static void updateQuestions(ArrayList <Question> questions) throws SQLException{
+    private static void updateQuestions(ArrayList <Question> questions) throws SQLException{
         String query = "UPDATE question SET question_name = ? WHERE question_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
         for(Question question: questions){
@@ -85,7 +85,7 @@ public class DatabaseConnection {
         }
     }
 
-    public static void updateChoices(ArrayList <Choice> choices) throws SQLException{
+    private static void updateChoices(ArrayList <Choice> choices) throws SQLException{
         String query = "Update choice SET choice_name = ? WHERE choice_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
         for(Choice choice: choices){
@@ -164,7 +164,7 @@ public class DatabaseConnection {
         return quiz;
     }
 
-    public static ArrayList <Choice> retrieveChoices(int questionId) throws SQLException {
+    private static ArrayList <Choice> retrieveChoices(int questionId) throws SQLException {
         ArrayList <Choice> choices = new ArrayList<>();
         String query = "SELECT choice.choice_name, choice.choice_id FROM question " +
                         "LEFT JOIN choice ON choice.question_id = question.question_id WHERE question.question_id = ?;";
@@ -246,7 +246,7 @@ public class DatabaseConnection {
         st.close();
     }
 
-    public static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
+    private static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
         String query = "INSERT INTO question (question_name,quiz_id,position) VALUES (?,?,?)";
         PreparedStatement st = conn.prepareStatement(query);
         //saves each individual question to the database

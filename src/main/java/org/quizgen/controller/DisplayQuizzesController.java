@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DisplayQuizzesController{
+    private static String buttonPressed;
     private static int quizId;
     private static ArrayList<Quiz> quizzes = new <Quiz>ArrayList();
     private static Quiz clickedQuiz = new Quiz();
@@ -33,6 +34,7 @@ public class DisplayQuizzesController{
     private Button create;
     @FXML
     public void initialize(){
+        buttonPressed = "";
         try{
             if(HomePageController.getButtonPressed().equals("Play")){//for the PlayView
                 quizzes = DatabaseConnection.retrieveAllQuizzes();
@@ -80,7 +82,8 @@ public class DisplayQuizzesController{
 
     @FXML
     public void switchToQuizSettings()throws IOException {
-            SceneLoader.switchScene(Views.QUIZSETTINGS);
+        buttonPressed = create.getText();
+        SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 
     public static Quiz getClickedQuiz(){
@@ -95,5 +98,8 @@ public class DisplayQuizzesController{
     @FXML
     private void returnToStart() throws IOException{
         SceneLoader.switchScene(Views.START);
+    }
+    public static String getButtonPressed(){
+        return buttonPressed;
     }
 }

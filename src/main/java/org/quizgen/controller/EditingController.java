@@ -16,6 +16,7 @@ import org.quizgen.view.Views;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class EditingController {
     private int questionNum = 1;
@@ -40,6 +41,7 @@ public class EditingController {
             VBox questionWithChoice = new VBox(question.getChoices().size()+1);
             overall.getChildren().add(createVbox(question, questionWithChoice));//will create the layout for each question and choice
         }
+        HBox buttons = new HBox();
         Button saveButton = new Button();
         saveButton.setText("Done");
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -54,7 +56,21 @@ public class EditingController {
                 }
             }
         } );
-        overall.getChildren().add(saveButton);
+        Button cancelButton = new Button();
+        cancelButton.setText("Cancel");
+        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent arg0) {
+                try{
+                    cancelEditing();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        } );
+        buttons.getChildren().addAll(saveButton,cancelButton);
+        overall.getChildren().add(buttons);
     }
 
     private VBox createVbox(Question question, VBox questionWithChoice){
@@ -80,5 +96,15 @@ public class EditingController {
         questionNum++;
 
         return questionWithChoice;
+    }
+
+    private void cancelEditing() throws IOException{
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Your quiz will not be not be saved if you cancel.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        }
     }
 }
