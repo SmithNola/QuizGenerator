@@ -1,7 +1,9 @@
 package org.quizgen.utils.login;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PasswordValidator {
-    private final String[] SPECIAL_CHAR = {"*","&","^", "%"};
     private final String password;
     private final int MIN_LENGTH_PASSWORD = 8;
 
@@ -14,7 +16,7 @@ public class PasswordValidator {
             return "Password must contain at least 1 letter or number";
         }
         else if(!isContainsSpecialCharacter()){
-            return "Password must contain a special character: *, &, ^, or %";
+            return "Password must contain a special character";
         }
         else if(!isUpperAndLowerCase()){
             return "Password must contain upper and lowercase letters";
@@ -48,10 +50,10 @@ public class PasswordValidator {
     }
 
     private boolean isContainsSpecialCharacter(){
-        for(String specialCharacter: SPECIAL_CHAR){
-            if(password.contains(specialCharacter)){
-                return true;
-            }
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
+        Matcher matcher = pattern.matcher(password);
+        if(!matcher.matches()){
+            return true;
         }
         return false;
     }
