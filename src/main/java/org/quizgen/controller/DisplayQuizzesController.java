@@ -32,6 +32,7 @@ public class DisplayQuizzesController{
     private Label creator;
     @FXML
     private Button create;
+
     @FXML
     public void initialize(){
         buttonPressed = "";
@@ -54,9 +55,9 @@ public class DisplayQuizzesController{
         }
     }
 
-    private static HBox createHbox(Quiz quiz, HBox quizLayout){
+    private HBox createHbox(Quiz quiz, HBox quizLayout){
         Button quizButton = new Button();
-        String quizProperties = quiz.getName() + "\t" + quiz.getGenre() + "\t" + quiz.getCreator() + "\t" + quiz.getCreationTime();
+        String quizProperties = quiz.getName() + "\t" + quiz.getGenre() + "\t" + quiz.getCreator() + "\t" + formatDate(quiz.getCreationTime());
         quizButton.setText(quizProperties);
         quizButton.setId(String.valueOf(quiz.getQuizId()));
         quizButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -80,8 +81,15 @@ public class DisplayQuizzesController{
         return quizLayout;
     }
 
+    //will get rid of time part of creationTime
+    private String formatDate(String date){
+        String [] dateSplit= date.split(" ");
+        date = dateSplit[0];
+        return date;
+    }
+
     @FXML
-    public void switchToQuizSettings()throws IOException {
+    private void switchToQuizSettings()throws IOException {
         buttonPressed = create.getText();
         SceneLoader.switchScene(Views.QUIZSETTINGS);
     }

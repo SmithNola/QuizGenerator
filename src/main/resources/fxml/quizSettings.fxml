@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.quizgen.controller.QuizSettingsController" prefHeight="400.0" prefWidth="600.0"
       stylesheets="@../stylesheet/quizsettingssheet.css">
@@ -22,7 +21,7 @@
     <HBox fx:id="buttons">
         <Button fx:id="create" text="Create" onAction="#switchToCreating"/>
         <Button fx:id="edit" text="Edit" onAction="#switchToEditing"/>
-        <Button fx:id="delete" text="Delete" onAction="#deleteQuiz"/>
+        <Button text="Delete" onAction="#deleteQuiz"/>
     </HBox>
     <Label fx:id="errorMessage"/>
 </VBox>

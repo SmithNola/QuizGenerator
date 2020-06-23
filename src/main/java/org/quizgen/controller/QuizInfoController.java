@@ -1,10 +1,7 @@
 package org.quizgen.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,6 +19,8 @@ public class QuizInfoController{
     @FXML
     private Text numText = new Text();
     @FXML
+    private Text creationDateText = new Text();
+    @FXML
     private VBox overall;
     @FXML
     private HBox creatorBox;
@@ -36,6 +35,7 @@ public class QuizInfoController{
         Quiz quiz = DisplayQuizzesController.getClickedQuiz();
         nameText.setText(quiz.getName());
         numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
+        creationDateText.setText(formatDate(quiz.getCreationTime()));
         if(HomePageController.getButtonPressed().equals("Play")){//if previous was the PlayView
             creatorText.setText(quiz.getCreator());
             buttons.getChildren().remove(edit);
@@ -44,12 +44,18 @@ public class QuizInfoController{
             buttons.getChildren().remove(play);
         }
     }
-
-    public void switchToPlaying() throws IOException{
+    //will get rid of time part of creationTime
+    private String formatDate(String date){
+        String [] dateSplit= date.split(" ");
+        date = dateSplit[0];
+        return date;
+    }
+    @FXML
+    private void switchToPlaying() throws IOException{
         SceneLoader.switchScene(Views.PLAYING);
     }
-
-    public void switchToQuizSettings() throws IOException{
+    @FXML
+    private void switchToQuizSettings() throws IOException{
         SceneLoader.switchScene(Views.QUIZSETTINGS);
     }
 }
