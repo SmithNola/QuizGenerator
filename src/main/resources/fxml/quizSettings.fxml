@@ -24,4 +24,5 @@
         <Button fx:id="edit" text="Edit" onAction="#switchToEditing"/>
         <Button fx:id="delete" text="Delete" onAction="#deleteQuiz"/>
     </HBox>
+    <Label fx:id="errorMessage"/>
 </VBox>
