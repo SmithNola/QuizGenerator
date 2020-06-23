@@ -7,6 +7,7 @@ import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class QuizSettingsController {
     }
     //will make sure all fields are filled out
     public boolean nonEmptyFields(){
-        if(quizName.getText().equals("") || quizGenre.getText().equals("") || (!yes.isSelected() && !no.isSelected())){
+        if(quizName.getText().isBlank() || quizGenre.getText().isBlank() || (!yes.isSelected() && !no.isSelected())){
             errorMessage.setText("All Fields must be filled out");
             return false;
         }else{
