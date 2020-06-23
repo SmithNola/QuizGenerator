@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class QuizSettingsController {
 
-    private static Quiz quiz;
+    private static Quiz quiz = new Quiz();
     @FXML
     private TextField quizName;
     @FXML
@@ -28,9 +28,11 @@ public class QuizSettingsController {
     private Button create;
     @FXML
     private Button edit;
+    @FXML
+    private Label errorMessage;
+    private ToggleGroup group = new ToggleGroup();
 
     public void initialize(){
-        ToggleGroup group = new ToggleGroup();
         yes.setToggleGroup(group);
         no.setToggleGroup(group);
         //Will check if a quiz was clicked or create button was clicked
@@ -48,15 +50,29 @@ public class QuizSettingsController {
             }
         }
     }
+    //will make sure all fields are filled out
+    public boolean nonEmptyFields(){
+        if(quizName.getText().equals("") || quizGenre.getText().equals("") || (!yes.isSelected() && !no.isSelected())){
+            errorMessage.setText("All Fields must be filled out");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     @FXML
     private void switchToEditing() throws IOException{
-        saveProperties();
-        SceneLoader.switchScene(Views.EDITING);
+        if(nonEmptyFields()){
+            saveProperties();
+            SceneLoader.switchScene(Views.EDITING);
+        }
     }
     @FXML
     private void switchToCreating() throws IOException{
-        saveProperties();
-        SceneLoader.switchScene(Views.CREATING);
+        if(nonEmptyFields()){
+            saveProperties();
+            SceneLoader.switchScene(Views.CREATING);
+        }
     }
     @FXML
     private void deleteQuiz() throws IOException, SQLException{
