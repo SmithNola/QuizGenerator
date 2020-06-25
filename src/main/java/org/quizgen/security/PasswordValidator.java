@@ -1,4 +1,4 @@
-package org.quizgen.utils.login;
+package org.quizgen.security;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

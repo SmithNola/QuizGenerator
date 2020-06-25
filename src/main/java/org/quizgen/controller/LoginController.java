@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.login.AccountValidator;
+import org.quizgen.security.AccountValidator;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
