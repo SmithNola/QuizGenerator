@@ -35,6 +35,7 @@ public class CreatingController {
         quiz = QuizSettingsController.getQuiz();
         quizName.setText(quiz.getName());
         newQuestion();
+        newQuestion();
     }
 
     private void newQuestion(){
@@ -56,7 +57,7 @@ public class CreatingController {
         deleteOld.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent){
-                if(questionsBox.getChildren().size() != 1){//will prevent user from deleting the question if it is the only one
+                if(questionsBox.getChildren().size() != 2){//will prevent user from deleting the question if it is the only one
                     vboxQuestions.remove(questionWithChoice);
                     questionsBox.getChildren().remove(questionWithChoice);
                 }
@@ -66,6 +67,7 @@ public class CreatingController {
         questionWithChoice.getChildren().addAll(questionTracker);
         vboxQuestions.add(questionWithChoice);
         questionsBox.getChildren().add(questionWithChoice);
+        newChoice(questionWithChoice,group);
         newChoice(questionWithChoice,group);
         count++;
     }
@@ -89,7 +91,7 @@ public class CreatingController {
         deleteOld.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent){
-                if(questionWithChoice.getChildren().size() != 2){//will prevent user from deleting the choice if it is the only one
+                if(questionWithChoice.getChildren().size() != 3){//will prevent user from deleting the choice if it is the only one
                     questionWithChoice.getChildren().remove(choiceTracker);
                 }
             }
