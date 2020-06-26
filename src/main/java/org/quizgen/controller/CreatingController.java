@@ -27,12 +27,12 @@ public class CreatingController {
     @FXML
     private Label quizName;
     @FXML
-    private VBox overall;
+    private VBox questionsBox;
     private int count = 1;
     private ArrayList<VBox> vboxQuestions = new ArrayList<>();
 
     public void initialize(){
-        quiz=DisplayQuizzesController.getClickedQuiz();
+        quiz = QuizSettingsController.getQuiz();
         quizName.setText(quiz.getName());
         newQuestion();
     }
@@ -56,14 +56,16 @@ public class CreatingController {
         deleteOld.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent){
-                vboxQuestions.remove(questionWithChoice);
-                overall.getChildren().remove(questionWithChoice);
+                if(questionsBox.getChildren().size() != 1){//will prevent user from deleting the question if it is the only one
+                    vboxQuestions.remove(questionWithChoice);
+                    questionsBox.getChildren().remove(questionWithChoice);
+                }
             }
         });
         questionTracker.getChildren().addAll(questionNum,question,addNew,deleteOld);//creates number + question + button
         questionWithChoice.getChildren().addAll(questionTracker);
         vboxQuestions.add(questionWithChoice);
-        overall.getChildren().add(questionWithChoice);
+        questionsBox.getChildren().add(questionWithChoice);
         newChoice(questionWithChoice,group);
         count++;
     }
@@ -87,7 +89,9 @@ public class CreatingController {
         deleteOld.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent actionEvent){
-                questionWithChoice.getChildren().remove(choiceTracker);
+                if(questionWithChoice.getChildren().size() != 2){//will prevent user from deleting the choice if it is the only one
+                    questionWithChoice.getChildren().remove(choiceTracker);
+                }
             }
         });
         choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
