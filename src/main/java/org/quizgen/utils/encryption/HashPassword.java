@@ -16,6 +16,7 @@ public class HashPassword{
     private static final int KEY_LENGTH = 512;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA512";
     private static final SecureRandom RAND = new SecureRandom();
+
     public HashPassword() {
         try {
             tester();
@@ -23,24 +24,27 @@ public class HashPassword{
             e.printStackTrace();
         }
     }
+
     public static void main(String[] args) {
         HashPassword hashPassword = new HashPassword();
         System.out.println(hashPassword);
     }
+
     private static void tester() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String salt = HashPassword.generateSalt(512).get();
         String password = getPassword();
         String key = HashPassword.hashPassword(password, salt).get();
-        System.out.println(HashPassword.verifyPassword(password, key, salt));//check does the password , key, and salt match
-        System.out.println(HashPassword.verifyPassword("By-Tor! And the Snow Dog!", key, salt)); // this is false
+        System.out.println(HashPassword.verifyPassword(password, key, salt));
     }
+
     private static String getPassword() throws InstantiationException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Constructor<HashPassword> constructor = HashPassword.class.getDeclaredConstructor();
         constructor.setAccessible(true);
         HashPassword hashPassword = constructor.newInstance();
         return hashPassword.toString();
-        /* }catch (Exception e){e.printStackTrace();}*/
+
     }
+
     /* generates a salt of custom length*/
     private static Optional<String> generateSalt (final int length) {
 
