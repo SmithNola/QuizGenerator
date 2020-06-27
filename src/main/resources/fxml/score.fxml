@@ -14,5 +14,6 @@
     </VBox>
     <HBox>
         <Button text="Done" onAction="#switchToPlayView"/>
+        <Button text="Sign Out" onAction="#returnToStart"/>
     </HBox>
 </VBox>

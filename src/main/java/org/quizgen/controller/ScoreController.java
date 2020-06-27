@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
@@ -56,5 +57,10 @@ public class ScoreController {
     @FXML
     private void switchToPlayView() throws IOException {
         SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+    }
+    @FXML
+    private void returnToStart() throws IOException{
+        DatabaseConnection.disconnect();
+        SceneLoader.switchScene(Views.START);
     }
 }
