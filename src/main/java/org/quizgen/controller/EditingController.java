@@ -25,7 +25,9 @@ public class EditingController {
     @FXML
     private Label quizName;
     @FXML
-    private VBox overall;
+    private VBox questionsBox;
+    private ArrayList<VBox> vboxQuestions = new ArrayList<>();
+    private int count = 1;
 
     @FXML
     public void initialize(){
@@ -39,38 +41,8 @@ public class EditingController {
         questions = quiz.getQuestions();
         for(Question question: questions){
             VBox questionWithChoice = new VBox(question.getChoices().size()+1);
-            overall.getChildren().add(createVbox(question, questionWithChoice));//will create the layout for each question and choice
+            questionsBox.getChildren().add(createVbox(question, questionWithChoice));//will create the layout for each question and choice
         }
-        HBox buttons = new HBox();
-        Button saveButton = new Button();
-        saveButton.setText("Done");
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    DatabaseConnection.updateQuiz(quiz);
-                    SceneLoader.switchScene(Views.DISPLAYQUIZZES);
-                }catch(IOException | SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        Button cancelButton = new Button();
-        cancelButton.setText("Cancel");
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    cancelEditing();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        buttons.getChildren().addAll(saveButton,cancelButton);
-        overall.getChildren().add(buttons);
     }
 
     private VBox createVbox(Question question, VBox questionWithChoice){
@@ -78,7 +50,26 @@ public class EditingController {
         ArrayList<Choice> choices = question.getChoices();
         Label questionTracker = new Label(questionNum + ". ");
         TextField questionName = new TextField (question.getName());
-        questionLayout.getChildren().addAll(questionTracker,questionName);
+        Button addNewQuestion = new Button("+");
+        addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
+
+            @Override
+            public void handle(ActionEvent arg0){
+                addNewQuestion.setVisible(false);
+                newQuestion();
+            }
+        } );
+        Button deleteOldQuestion = new Button("-");
+        deleteOldQuestion.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent){
+                if(questionsBox.getChildren().size() != 2){//will prevent user from deleting the question if it is the only one
+                    vboxQuestions.remove(questionWithChoice);
+                    questionsBox.getChildren().remove(questionWithChoice);
+                }
+            }
+        });
+        questionLayout.getChildren().addAll(questionTracker,questionName,addNewQuestion,deleteOldQuestion);
         questionWithChoice.getChildren().add(questionLayout);
         ToggleGroup group = new ToggleGroup();
         for(int i = 1; i < choices.size() + 1; i++){
@@ -90,7 +81,25 @@ public class EditingController {
             if(i == question.getAnswer()){//will toggle the answer of the question
                 choice.setSelected(true);
             }
-            choiceLayout.getChildren().addAll(choiceTracker, choice);
+            Button addNewChoice = new Button("+");
+            addNewChoice.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
+
+                @Override
+                public void handle(ActionEvent arg0){
+                    addNewChoice.setVisible(false);
+                    newChoice(questionWithChoice,group);
+                }
+            } );
+            Button deleteOldChoice = new Button("-");
+            deleteOldChoice.setOnAction(new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent actionEvent){
+                    if(questionWithChoice.getChildren().size() != 3){//will prevent user from deleting the choice if it is the only one
+                        questionWithChoice.getChildren().remove(choiceLayout);
+                    }
+                }
+            });
+            choiceLayout.getChildren().addAll(choiceTracker, choice,addNewChoice,deleteOldChoice);
             questionWithChoice.getChildren().add(choiceLayout);
         }
         questionNum++;
@@ -98,6 +107,75 @@ public class EditingController {
         return questionWithChoice;
     }
 
+    private void newQuestion(){
+        HBox questionTracker = new HBox();
+        VBox questionWithChoice = new VBox();
+        Label questionNum = new Label(count + ": ");
+        TextField question = new TextField();
+        Button addNew = new Button("+");
+        ToggleGroup group = new ToggleGroup();
+        addNew.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
+
+            @Override
+            public void handle(ActionEvent arg0){
+                addNew.setVisible(false);
+                newQuestion();
+            }
+        } );
+        Button deleteOld = new Button("-");
+        deleteOld.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent){
+                if(questionsBox.getChildren().size() != 2){//will prevent user from deleting the question if it is the only one
+                    vboxQuestions.remove(questionWithChoice);
+                    questionsBox.getChildren().remove(questionWithChoice);
+                }
+            }
+        });
+        questionTracker.getChildren().addAll(questionNum,question,addNew,deleteOld);//creates number + question + button
+        questionWithChoice.getChildren().addAll(questionTracker);
+        vboxQuestions.add(questionWithChoice);
+        questionsBox.getChildren().add(questionWithChoice);
+        newChoice(questionWithChoice,group);
+        newChoice(questionWithChoice,group);
+        count++;
+    }
+
+    private void newChoice(VBox questionWithChoice,ToggleGroup group){
+        HBox choiceTracker = new HBox();
+        TextField choice = new TextField();
+        choice.setMaxWidth(80);
+        Button addNew = new Button("+");
+        RadioButton answer = new RadioButton();
+        answer.setToggleGroup(group);
+        addNew.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent arg0){
+                addNew.setVisible(false);
+                newChoice(questionWithChoice,group);
+            }
+        } );
+        Button deleteOld = new Button("-");
+        deleteOld.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent actionEvent){
+                if(questionWithChoice.getChildren().size() != 3){//will prevent user from deleting the choice if it is the only one
+                    questionWithChoice.getChildren().remove(choiceTracker);
+                }
+            }
+        });
+        choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
+        questionWithChoice.getChildren().add(choiceTracker);
+    }
+
+    @FXML
+    private void switchToCreateView() throws SQLException, IOException{
+        DatabaseConnection.updateQuiz(quiz);
+        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+    }
+
+    @FXML
     private void cancelEditing() throws IOException{
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
