@@ -105,6 +105,7 @@ public class DisplayQuizzesController{
 
     @FXML
     private void returnToStart() throws IOException{
+        DatabaseConnection.disconnect();
         SceneLoader.switchScene(Views.START);
     }
     public static String getButtonPressed(){

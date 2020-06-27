@@ -22,6 +22,7 @@
         <Button fx:id="create" text="Create" onAction="#switchToCreating"/>
         <Button fx:id="edit" text="Edit" onAction="#switchToEditing"/>
         <Button text="Delete" onAction="#deleteQuiz"/>
+        <Button text="Cancel" onAction="#cancelCreating"/>
     </HBox>
     <Label fx:id="errorMessage"/>
 </VBox>

@@ -12,6 +12,7 @@ import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.playing.AnswerChecker;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class PlayingController {
             public void handle(ActionEvent arg0) {
                 try{
                     if(allAnswered() == true){
-                        score = calculateScore();
+                        score = AnswerChecker.calculateScore(questions, chosenAnswers);
                         if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                             DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
                         }
@@ -119,20 +120,6 @@ public class PlayingController {
             }
         }
         return true;
-    }
-
-    private int calculateScore(){
-        double correctAnswers = 0;
-        for(int i = 0; i < quiz.getQuestions().size(); i++){
-            if(chosenAnswers.get(questions.get(i).getQuestionId()).equals(questions.get(i).getAnswer())){
-                correctAnswers++;
-            }
-        }
-        return (int) ((correctAnswers / questions.size())*100);
-    }
-
-    public static int getScore(){
-        return score;
     }
 
     public static Quiz getQuiz(){
