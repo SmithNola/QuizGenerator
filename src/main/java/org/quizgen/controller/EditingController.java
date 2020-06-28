@@ -1,8 +1,10 @@
 package org.quizgen.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -41,7 +43,9 @@ public class EditingController {
         questions = quiz.getQuestions();
         for(Question question: questions){
             VBox questionWithChoice = new VBox(question.getChoices().size()+1);
-            questionsBox.getChildren().add(createVbox(question, questionWithChoice));//will create the layout for each question and choice
+            VBox createdVbox = createVbox(question, questionWithChoice);
+            vboxQuestions.add(createdVbox);
+            questionsBox.getChildren().add(createdVbox);//will create the layout for each question and choice
         }
     }
 
@@ -50,6 +54,7 @@ public class EditingController {
         ArrayList<Choice> choices = question.getChoices();
         Label questionTracker = new Label(questionNum + ". ");
         TextField questionName = new TextField (question.getName());
+        questionName.setId(question.getQuestionId());
         Button addNewQuestion = new Button("+");
         addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
 
@@ -74,12 +79,16 @@ public class EditingController {
         ToggleGroup group = new ToggleGroup();
         for(int i = 1; i < choices.size() + 1; i++){
             HBox choiceLayout = new HBox();
+            TextField choice = new TextField();
+            choice.setMaxWidth(80);
+            choice.setText(choices.get(i-1).getName());
+            choice.setId(String.valueOf(choices.get(i-1).getId()));
             Label choiceTracker = new Label(i + ". ");
-            RadioButton choice = new RadioButton(choices.get(i-1).getName());
+            RadioButton choiceOption = new RadioButton();
             //choice.setId(String.valueOf(question.getQuestionId()));
-            choice.setToggleGroup(group);
+            choiceOption.setToggleGroup(group);
             if(i == question.getAnswer()){//will toggle the answer of the question
-                choice.setSelected(true);
+                choiceOption.setSelected(true);
             }
             Button addNewChoice = new Button("+");
             addNewChoice.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
@@ -99,7 +108,7 @@ public class EditingController {
                     }
                 }
             });
-            choiceLayout.getChildren().addAll(choiceTracker, choice,addNewChoice,deleteOldChoice);
+            choiceLayout.getChildren().addAll(choiceTracker,choiceOption, choice,addNewChoice,deleteOldChoice);
             questionWithChoice.getChildren().add(choiceLayout);
         }
         questionNum++;
@@ -169,9 +178,47 @@ public class EditingController {
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
+    //retrieve's user
+    private ArrayList<Question> retrieveQuestions(){
+        ArrayList<Question> allQuestions = new ArrayList<>();
+        for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
+            Question savedQuestion = new Question();
+            ArrayList<Choice> choices = new ArrayList<>();
+            VBox questionWithChoice = vboxQuestions.get(i);//gets question with choice
+            ObservableList<Node> eachRow = questionWithChoice.getChildren();//saves each HBox
+            for(int j = 0; j < eachRow.size(); j++){//will go through each Hbox
+                HBox row = (HBox) eachRow.get(j);
+                ObservableList<Node> eachElement = row.getChildren();//saves each element
+                if(j == 0){
+                    TextField question = (TextField) eachElement.get(1);//question text field
+                    savedQuestion.setQuestionId(Integer.parseInt(question.getId()));
+                    savedQuestion.setName(question.getText());
+                }else{
+                    TextField choice = (TextField) eachElement.get(2);//choice text field
+                    RadioButton answer = (RadioButton) eachElement.get(1);
+                    if(answer.isSelected() == true){
+                        savedQuestion.setAnswer(j);
+                    }
+                    Choice choiceObject = new Choice();
+                    choiceObject.setId(Integer.parseInt(choice.getId()));
+                    choiceObject.setName(choice.getText());
+                    choices.add(choiceObject);
+                }
+            }
+            savedQuestion.setChoices(choices);
+            allQuestions.add(savedQuestion);
+        }
+        return allQuestions;
+    }
+
+    private void  updateQuiz() throws SQLException{
+        quiz.setQuestions(retrieveQuestions());
+        DatabaseConnection.updateQuiz(quiz);
+    }
+
     @FXML
     private void switchToCreateView() throws SQLException, IOException{
-        DatabaseConnection.updateQuiz(quiz);
+        updateQuiz();
         SceneLoader.switchScene(Views.DISPLAYQUIZZES);
     }
 
