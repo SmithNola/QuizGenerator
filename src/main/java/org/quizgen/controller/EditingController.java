@@ -22,7 +22,7 @@ import java.util.Optional;
 
 public class EditingController {
     private int questionNum = 1;
-    ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Question> questions = new ArrayList<>();
     private Quiz quiz;
     @FXML
     private Label quizName;
@@ -30,6 +30,9 @@ public class EditingController {
     private VBox questionsBox;
     private ArrayList<VBox> vboxQuestions = new ArrayList<>();
     private int count = 1;
+    private ArrayList <Question> deletedQuestions = new ArrayList<>();
+    private ArrayList <Choice> deletedChoices = new ArrayList<>();
+    //private ArrayList <Question> addedQuestions = new ArrayList<>();
 
     @FXML
     public void initialize(){
@@ -71,6 +74,7 @@ public class EditingController {
                 if(questionsBox.getChildren().size() != 2){//will prevent user from deleting the question if it is the only one
                     vboxQuestions.remove(questionWithChoice);
                     questionsBox.getChildren().remove(questionWithChoice);
+                    deletedQuestions.add(question);
                 }
             }
         });
@@ -78,11 +82,12 @@ public class EditingController {
         questionWithChoice.getChildren().add(questionLayout);
         ToggleGroup group = new ToggleGroup();
         for(int i = 1; i < choices.size() + 1; i++){
+            Choice choiceObject = choices.get(i-1);
             HBox choiceLayout = new HBox();
             TextField choice = new TextField();
             choice.setMaxWidth(80);
-            choice.setText(choices.get(i-1).getName());
-            choice.setId(String.valueOf(choices.get(i-1).getId()));
+            choice.setText(choiceObject.getName());
+            choice.setId(String.valueOf(choiceObject.getId()));
             Label choiceTracker = new Label(i + ". ");
             RadioButton choiceOption = new RadioButton();
             //choice.setId(String.valueOf(question.getQuestionId()));
@@ -105,6 +110,7 @@ public class EditingController {
                 public void handle(ActionEvent actionEvent){
                     if(questionWithChoice.getChildren().size() != 3){//will prevent user from deleting the choice if it is the only one
                         questionWithChoice.getChildren().remove(choiceLayout);
+                        deletedChoices.add(choiceObject);
                     }
                 }
             });
@@ -213,6 +219,12 @@ public class EditingController {
 
     private void  updateQuiz() throws SQLException{
         quiz.setQuestions(retrieveQuestions());
+        if(deletedQuestions.size() != 0){
+            DatabaseConnection.deleteQuestions(deletedQuestions);
+        }
+        if(deletedChoices.size() != 0){
+            DatabaseConnection.deleteChoices(deletedChoices);
+        }
         DatabaseConnection.updateQuiz(quiz);
     }
 
