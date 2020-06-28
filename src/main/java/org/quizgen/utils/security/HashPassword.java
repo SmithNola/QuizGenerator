@@ -1,4 +1,4 @@
-package org.quizgen.security;
+package org.quizgen.utils.security;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -17,21 +17,26 @@ import java.util.Optional;
 
 public class HashPassword {
 
-    private static final String secretKeyAlgo = "PBKDF2WithHmacSHA1";
-    public static String salt;
+    private static final String SECRETKEY_ALGO = "PBKDF2WithHmacSHA1";
+    private static final int SALT_LENGTH = 16;
+    private static final int KEY_LENGTH = 128;
+    private static final int ITERATIONS = 10_000;
 
-    static{
-        int saltLength = 16;
-        byte[] saltAsBytes = new byte[saltLength];
-        new SecureRandom().nextBytes(saltAsBytes); // fills saltAsBytes array with random byte values
-        salt = Base64.getEncoder().encodeToString(saltAsBytes); //encodes saltAsByte array into a String value
+    public static String getSalt(){
+        byte[] saltAsBytes = new byte[SALT_LENGTH];
+
+        // fills saltAsBytes array with random byte values
+        new SecureRandom().nextBytes(saltAsBytes);
+
+        //encodes saltAsByte array into a String value
+        return Base64.getEncoder().encodeToString(saltAsBytes);
     }
 
     // Creates hashed password
     public static Optional<String> getHashedPassword(String userPassword, String salt){
         PBEKeySpec passwordKeySpec = getPasswordKeySpec(userPassword, salt);
         try{
-            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(secretKeyAlgo);
+            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(SECRETKEY_ALGO);
             byte[] hashedPassword = secretKeyFactory.generateSecret(passwordKeySpec).getEncoded();
             return Optional.of(Base64.getEncoder().encodeToString(hashedPassword));
         }
@@ -47,9 +52,7 @@ public class HashPassword {
     private static PBEKeySpec getPasswordKeySpec(String userPassword, String salt){
         char[] passwordCharArray = userPassword.toCharArray();
         byte[] saltByteArray = salt.getBytes();
-        int iterations = 65536;
-        int keyLength = 128;
-        return new PBEKeySpec(passwordCharArray, saltByteArray, iterations, keyLength);
+        return new PBEKeySpec(passwordCharArray, saltByteArray, ITERATIONS, KEY_LENGTH);
     }
 
     public static boolean verifyPassword(String userPassword, String key, String salt){

@@ -1,4 +1,4 @@
-package org.quizgen.security;
+package org.quizgen.utils.security;
 
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;

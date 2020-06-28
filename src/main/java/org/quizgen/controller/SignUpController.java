@@ -10,7 +10,7 @@ import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
-import org.quizgen.security.AccountValidator;
+import org.quizgen.utils.security.AccountValidator;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
