@@ -1,4 +1,4 @@
-package org.quizgen.utils.security;
+package org.quizgen.utils.authentication;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -10,8 +10,7 @@ import java.util.Optional;
 
 
 /*
-    TO-DO
-        -  Needs to be tested!
+    Code adapted from: https://dev.to/awwsmm/how-to-encrypt-a-password-in-java-42dh
  */
 
 

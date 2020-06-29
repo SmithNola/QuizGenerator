@@ -8,22 +8,22 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.security.AccountValidator;
+import org.quizgen.utils.authentication.LoginValidation;
+import org.quizgen.utils.authentication.SignupAuth;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginController {
 
     private SceneTransition sceneTransition;
     private final double DELAY_DURATION = 1.5;
-    private AccountValidator loginValidator;
+    private SignupAuth loginValidator;
 
 
     public LoginController(){
         this.sceneTransition = new SceneTransition(DELAY_DURATION);
-        this.loginValidator = new AccountValidator();
+        this.loginValidator = new SignupAuth();
     }
 
     @FXML
@@ -40,8 +40,8 @@ public class LoginController {
     }
 
     @FXML
-    private void switchToHomePage() throws SQLException {
-        String error = loginValidator.getLoginErrorMessage(username.getText(), password.getText());
+    private void switchToHomePage() {
+        String error = LoginValidation.getLoginErrorMessage(username.getText(), password.getText());
         if(error.isBlank()){
             displaySigninSuccessText();
             sceneTransition.startSceneSwitchDelay(Views.HOME);
@@ -52,8 +52,8 @@ public class LoginController {
     }
 
     @FXML
-    private void handleOnKeyPressed(KeyEvent ae) throws SQLException {
-        if(ae.getCode() == KeyCode.ENTER){
+    private void handleOnKeyPressed(KeyEvent e){
+        if(e.getCode() == KeyCode.ENTER){
             switchToHomePage();
         }
     }

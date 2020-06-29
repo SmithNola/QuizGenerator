@@ -10,22 +10,21 @@ import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.security.AccountValidator;
+import org.quizgen.utils.authentication.AccountError;
+import org.quizgen.utils.authentication.HashPassword;
+import org.quizgen.utils.authentication.SignupAuth;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
 public class SignUpController {
 
     private SceneTransition sceneTransition;
-    private final double DELAY_DURATION = 1.5;
-    private AccountValidator signUp;
+    private final double DELAY_DURATION = 1;
     private final int ERRORMESSAGE_LENGTH_LIMIT = 30;
 
     public SignUpController(){
         this.sceneTransition = new SceneTransition(DELAY_DURATION);
-        this.signUp = new AccountValidator();
     }
 
     @FXML
@@ -39,6 +38,11 @@ public class SignUpController {
     @FXML
     private Label longErrorMessage;
 
+    @FXML
+    public void intiatilize(){
+        errorMessage.setText("");
+        longErrorMessage.setText("");
+    }
 
     @FXML
     private void switchToStartPage() throws IOException {
@@ -46,22 +50,25 @@ public class SignUpController {
     }
 
     @FXML
-    private void switchToHomePage() throws IOException, SQLException {
-        errorMessage.setText("");
-        longErrorMessage.setText("");
-        String signUpError = signUp.getSignUpErrorMessage(username.getText(), password.getText(), rePassword.getText());
+    private void switchToHomePage(){
+        String errorMessage = SignupAuth.signupValidity(username.getText(), password.getText(), rePassword.getText());
+        boolean signUpInfoIsValid = errorMessage.equals(AccountError.NO_ERROR.toString());
 
-        if(signUpError.equals("")){
-            registerUser();
+        if(signUpInfoIsValid){
+            String user = username.getText();
+            String salt = HashPassword.getSalt();
+            String key = HashPassword.getHashedPassword(password.getText(), salt).get();
+            registerUser(user, salt, key);
             sceneTransition.startSceneSwitchDelay(Views.HOME);
         }
         else {
-            displayErrorMessage(signUpError);
+            displayErrorMessage(errorMessage);
         }
     }
 
-    private void registerUser() throws SQLException {
-        DatabaseConnection.addUser(username.getText(),password.getText());
+    private void registerUser(String user, String key, String salt){
+        DatabaseConnection.addUser(user, key, salt);
+        // Save username to static field to use throughout the application
         User.setUsername(username.getText());
         displaySignupSuccessText();
     }
