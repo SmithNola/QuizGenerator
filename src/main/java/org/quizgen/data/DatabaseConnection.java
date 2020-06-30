@@ -40,26 +40,26 @@ public class DatabaseConnection {
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, quiz.getQuizId());
         st.executeUpdate();
-        for(Question question: quiz.getQuestions()){
-            deleteQuestion(question);
-        }
+        deleteQuestions(quiz.getQuestions());
     }
 
-    private static void deleteQuestion(Question question) throws SQLException{
+    public static void deleteQuestions(ArrayList<Question> questions) throws SQLException{
         String query = "DELETE FROM question WHERE question_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
-        st.setInt(1, Integer.parseInt(question.getQuestionId()));
-        st.executeUpdate();
-        for(Choice choice:question.getChoices()){
-            deleteChoice(choice);
+        for(Question question : questions){
+            st.setInt(1, Integer.parseInt(question.getQuestionId()));
+            st.executeUpdate();
+            deleteChoices(question.getChoices());
         }
     }
 
-    private static void deleteChoice(Choice choice) throws SQLException{
+    public static void deleteChoices(ArrayList<Choice> choices) throws SQLException{
         String query = "DELETE FROM choice WHERE choice_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
-        st.setInt(1, choice.getId());
-        st.executeUpdate();
+        for(Choice choice: choices){
+            st.setInt(1, choice.getId());
+            st.executeUpdate();
+        }
     }
 
     public static void updateQuiz(Quiz quiz) throws SQLException{
