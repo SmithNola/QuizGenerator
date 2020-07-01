@@ -118,22 +118,33 @@ public class DatabaseConnection {
     }
 
     //Will check if username already exists in database
-    public static boolean checkUsername(String username) throws SQLException {
+    public static boolean checkUsername(String username){
         String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?);";
-        PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, "%" + username + "%");
-        ResultSet names = st.executeQuery();
-        return names.next();
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, "%" + username + "%");
+            ResultSet names = st.executeQuery();
+            return names.next();
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     //add user to database
-    public static void addUser(String username, String password) throws SQLException {
-        String query = "INSERT INTO player (username,password) VALUES (?,?)";
-        PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, username);
-        st.setString(2, password);
-        st.executeUpdate();
-        st.close();
+    public static void addUser(String username, String key, String salt){
+        String query = "INSERT INTO player (username, key, salt) VALUES (?,?,?)";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, username);
+            st.setString(2, key);
+            st.setString(3, salt);
+            st.executeUpdate();
+            st.close();
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
@@ -217,17 +228,23 @@ public class DatabaseConnection {
     }
 
     //Checks if user enters correct login info
-    public static String checkLogin(String username, String password) throws SQLException {
+    public static String checkLogin(String username, String password){
         String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?) AND password = ?";
-        PreparedStatement st = conn.prepareStatement(query);
-        st.setString(1, '%' + username + '%');
-        st.setString(2, password);
-        ResultSet names = st.executeQuery();
-        if (names.next()) {
-            return names.getString("username");//will save username to userData later
-        } else {
-            return null;
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, '%' + username + '%');
+            st.setString(2, password);
+            ResultSet names = st.executeQuery();
+            if (names.next()) {
+                return names.getString("username");//will save username to userData later
+            } else {
+                return null;
+            }
         }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+
     }
 
     //Saves quiz to the database
