@@ -20,7 +20,7 @@ public class LoginValidation {
         }
     }
 
-    private static boolean loginDoesNotExist(String username, String password){
+    public static boolean loginDoesNotExist(String username, String password){
         username = DatabaseConnection.checkLogin(username, password);
         User.setUsername(username);
         return username == null;
