@@ -13,6 +13,7 @@ import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.playing.AnswerChecker;
+import org.quizgen.utils.viewQuizzes.DisplayQuiz;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class PlayingController {
 
     @FXML
     public void initialize(){
-        quiz = DisplayQuizzesController.getClickedQuiz();
+        quiz = DisplayQuiz.getClickedQuiz();
         quizName.setText(quiz.getName());
         try{
             quiz = DatabaseConnection.retrieveQuestions(quiz);

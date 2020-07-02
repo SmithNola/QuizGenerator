@@ -9,6 +9,7 @@ import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.playing.AnswerChecker;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.viewQuizzes.DisplayQuiz;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class QuizSettingsController {
             buttons.getChildren().remove(edit);
         }else{
             buttons.getChildren().remove(create);
-            quiz = DisplayQuizzesController.getClickedQuiz();
+            quiz = DisplayQuiz.getClickedQuiz();
             quizName.setText(quiz.getName());
             quizGenre.setText(quiz.getGenre());
             if(quiz.getOrdered() == 0){
