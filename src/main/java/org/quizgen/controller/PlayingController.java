@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
@@ -15,7 +14,6 @@ import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.playing.AnswerChecker;
 import org.quizgen.utils.viewQuizzes.DisplayQuiz;
 import org.quizgen.view.Views;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,14 +23,12 @@ import java.util.Optional;
 public class PlayingController {
     private int questionNum = 1;
     private static HashMap<String, Integer> chosenAnswers = new HashMap<>();
-    ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Question> questions = new ArrayList<>();
     private static Quiz quiz;
     @FXML
     private Label quizName;
     @FXML
-    private VBox overall;
-
-    private static int score;
+    private VBox displayQuiz;
 
     @FXML
     public void initialize(){
@@ -44,53 +40,13 @@ public class PlayingController {
             throwables.printStackTrace();
         }
         questions = quiz.getQuestions();
-        for(Question question: questions){
+        for(Question question: questions){//displays each question
             VBox questionLayout = new VBox(question.getChoices().size()+1);
-            overall.getChildren().add(createVbox(question, questionLayout));
+            displayQuiz.getChildren().add(createQuestionVbox(question, questionLayout));
         }
-        HBox buttons = new HBox();
-        Button saveButton = new Button();
-        saveButton.setText("Done");
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    if(allAnswered()){
-                        score = AnswerChecker.calculateScore(questions, chosenAnswers);
-                        if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
-                            DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
-                        }
-                        SceneLoader.switchScene(Views.SCORE);
-                    }else{
-                        alert.setAlertType(Alert.AlertType.WARNING);
-                        alert.setContentText("Answer all questions");
-                        alert.show();
-                    }
-                }catch(IOException | SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        Button cancelButton = new Button();
-        cancelButton.setText("Cancel");
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent arg0) {
-                try{
-                    cancelPlaying();
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        } );
-        buttons.getChildren().addAll(saveButton, cancelButton);
-        overall.getChildren().add(buttons);
     }
-
-    private VBox createVbox(Question question, VBox questionLayout){
+    //Will create the Vbox contains questions and choices
+    private VBox createQuestionVbox(Question question, VBox questionLayout){
         ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label (questionNum + ". " + question.getName());
         questionLayout.getChildren().add(questionName);
@@ -114,23 +70,32 @@ public class PlayingController {
         return questionLayout;
     }
 
-    private boolean allAnswered(){
-        for(Question question : questions){
-            if(!chosenAnswers.containsKey(question.getQuestionId())){
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static Quiz getQuiz(){
         return quiz;
     }
 
-    public static HashMap getChosenAnswers(){
+    public static HashMap<String,Integer> getChosenAnswers(){
         return chosenAnswers;
     }
 
+    @FXML
+    private void finishPlaying() throws IOException, SQLException{
+        int score;
+        if(AnswerChecker.allAnswered(questions, chosenAnswers)){
+            score = AnswerChecker.calculateScore(questions, chosenAnswers);
+            if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
+                DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
+            }
+            SceneLoader.switchScene(Views.SCORE);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Answer all questions");
+            alert.show();
+        }
+    }
+
+    @FXML
     private void cancelPlaying() throws IOException{
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
