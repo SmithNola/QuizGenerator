@@ -9,7 +9,7 @@ public class Quiz {
     private String creationTime;
     private String creator;
     private String genre;
-    private ArrayList<Question> questions = new <Question> ArrayList();
+    private ArrayList<Question> questions = new ArrayList <Question>();
     private int numberOfQuestions;
 
     public Quiz (int newQuizId, String newName, String newGenre, String newCreationTime, String newCreator, int newNumberOfQuestions){

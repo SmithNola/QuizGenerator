@@ -40,12 +40,6 @@ public class SignUpController {
     private Label longErrorMessage;
 
     @FXML
-    public void intiatilize(){
-        errorMessage.setText("");
-        longErrorMessage.setText("");
-    }
-
-    @FXML
     private void switchToStartPage() throws IOException {
         SceneLoader.switchScene(Views.START);
     }
@@ -89,7 +83,7 @@ public class SignUpController {
     }
 
     @FXML
-    private void handleOnKeyPressed(KeyEvent ae) throws IOException, SQLException {
+    private void handleOnKeyPressed(KeyEvent ae){
         if(ae.getCode() == KeyCode.ENTER){
             switchToHomePage();
         }

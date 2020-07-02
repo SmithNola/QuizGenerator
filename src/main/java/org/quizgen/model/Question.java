@@ -9,14 +9,6 @@ public class Question {
     private ArrayList <Choice> choices;
     private int position;
 
-    public Question (int newQuestionId, String newName, int newAnswer, ArrayList<Choice> newChoices, int newPosition){
-        this.questionId = newQuestionId;
-        this.name = newName;
-        this.answer = newAnswer;
-        this.choices = newChoices;
-        this.position = newPosition;
-    }
-
     public Question(){
         questionId = 0;
         this.name = "";
@@ -59,5 +51,7 @@ public class Question {
         return this.position;
     }
 
-    public String getQuestionId(){return String.valueOf(this.questionId);}
+    public int getQuestionId(){
+        return this.questionId;
+    }
 }

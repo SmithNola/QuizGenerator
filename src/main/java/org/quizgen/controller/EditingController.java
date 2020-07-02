@@ -57,7 +57,7 @@ public class EditingController {
         ArrayList<Choice> choices = question.getChoices();
         Label questionTracker = new Label(questionNum + ". ");
         TextField questionName = new TextField (question.getName());
-        questionName.setId(question.getQuestionId());
+        questionName.setId(String.valueOf(question.getQuestionId()));
         Button addNewQuestion = new Button("+");
         addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
 

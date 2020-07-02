@@ -57,7 +57,7 @@ public class PlayingController {
             @Override
             public void handle(ActionEvent arg0) {
                 try{
-                    if(allAnswered() == true){
+                    if(allAnswered()){
                         score = AnswerChecker.calculateScore(questions, chosenAnswers);
                         if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                             DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
@@ -115,8 +115,8 @@ public class PlayingController {
     }
 
     private boolean allAnswered(){
-        for(Question i : questions){
-            if(!chosenAnswers.containsKey(i.getQuestionId())){
+        for(Question question : questions){
+            if(!chosenAnswers.containsKey(question.getQuestionId())){
                 return false;
             }
         }
