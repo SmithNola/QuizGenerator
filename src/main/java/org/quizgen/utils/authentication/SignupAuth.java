@@ -27,7 +27,7 @@ public class SignupAuth {
         }
     }
 
-    private static boolean usernameAlreadyExists(String username){
+    public static boolean usernameAlreadyExists(String username){
         return DatabaseConnection.checkUsername(username);
     }
 
