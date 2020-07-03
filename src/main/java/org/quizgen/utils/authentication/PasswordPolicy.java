@@ -9,7 +9,7 @@ public class PasswordPolicy {
     static final int MIN_LENGTH_PASSWORD = 8;
 
     // CHECK IF PASSWORD MEETS PASSWORD POLICY
-    static boolean passwordIsValid(String password){
+    public static boolean passwordIsValid(String password){
         return  isAlphaNumeric(password) &&
                 isContainsSpecialCharacter(password) &&
                 isUpperAndLowerCase(password) &&
