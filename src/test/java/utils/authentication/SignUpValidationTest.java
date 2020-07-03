@@ -3,9 +3,10 @@ package utils.authentication;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.quizgen.data.DatabaseConnection;
 import org.quizgen.utils.authentication.SignupAuth;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
     TO-DO:
@@ -44,5 +45,29 @@ public class SignUpValidationTest {
         String expected = "Passwords do not match!";
         String actual = SignupAuth.signupValidity(username, password, rePassword);
         assertEquals(expected, actual);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Batman", "bAtMan"})
+    @DisplayName("Check if usernameAlreadyExists finds username")
+    void checkUserameAlreadyExists(String username){
+        if(DatabaseConnection.isConnected()){
+            boolean actual = SignupAuth.usernameAlreadyExists(username);
+            assertTrue(actual);
+        }else{
+            System.out.println("Not connected to database");
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({"Barbie", "Catman"})
+    @DisplayName("Check if usernameAlreadyExists does not find username")
+    void checkUserameAlreadyDoesNotExist(String username){
+        if(DatabaseConnection.isConnected()){
+            boolean actual = SignupAuth.usernameAlreadyExists(username);
+            assertFalse(actual);
+        }else{
+            System.out.println("Not connected to database");
+        }
     }
 }
