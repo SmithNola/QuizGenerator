@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.viewQuizzes.DisplayQuiz;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class QuizInfoController{
     private Button edit;
     @FXML
     public void initialize(){
-        Quiz quiz = DisplayQuizzesController.getClickedQuiz();
+        Quiz quiz = DisplayQuiz.getClickedQuiz();
         nameText.setText(quiz.getName());
         numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
         creationDateText.setText(formatDate(quiz.getCreationTime()));

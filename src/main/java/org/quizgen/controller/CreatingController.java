@@ -1,19 +1,16 @@
 package org.quizgen.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.model.Choice;
-import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.quizCreation.SaveQuiz;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -99,39 +96,9 @@ public class CreatingController {
         choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
         questionWithChoice.getChildren().add(choiceTracker);
     }
-    //retrieve's user
-    private ArrayList<Question> retrieveQuestions(){
-        ArrayList<Question> allQuestions = new ArrayList<>();
-        for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
-            Question savedQuestion = new Question();
-            ArrayList<Choice> choices = new ArrayList<>();
-            VBox questionWithChoice = vboxQuestions.get(i);//gets question with choice
-            ObservableList<Node> eachRow = questionWithChoice.getChildren();//saves each HBox
-            for(int j = 0; j < eachRow.size(); j++){//will go through each Hbox
-                HBox row = (HBox) eachRow.get(j);
-                ObservableList<Node> eachElement = row.getChildren();//saves each element
-                if(j == 0){
-                    TextField question = (TextField) eachElement.get(1);//question text field
-                    savedQuestion.setName(question.getText());
-                }else{
-                    TextField choice = (TextField) eachElement.get(0);//choice text field
-                    RadioButton answer = (RadioButton) eachElement.get(1);
-                    if(answer.isSelected() == true){
-                        savedQuestion.setAnswer(j);
-                    }
-                    Choice choiceObject = new Choice();
-                    choiceObject.setName(choice.getText());
-                    choices.add(choiceObject);
-                }
-            }
-            savedQuestion.setChoices(choices);
-            allQuestions.add(savedQuestion);
-        }
-        return allQuestions;
-    }
 
     private void saveQuiz() throws SQLException{
-        quiz.setQuestions(retrieveQuestions());
+        quiz.setQuestions(SaveQuiz.retrieveNewQuestions(vboxQuestions));
         quiz.setCreator(User.getUsername());
         DatabaseConnection.saveQuiz(quiz);
     }

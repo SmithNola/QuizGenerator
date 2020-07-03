@@ -3,8 +3,6 @@ package org.quizgen.utils.authentication;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
 
-import java.sql.SQLException;
-
 public class LoginValidation {
 
     public static String getLoginErrorMessage(String username, String password){

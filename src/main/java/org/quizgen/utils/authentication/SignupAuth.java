@@ -1,7 +1,6 @@
 package org.quizgen.utils.authentication;
 
 import org.quizgen.data.DatabaseConnection;
-import java.sql.SQLException;
 
 public class SignupAuth {
     

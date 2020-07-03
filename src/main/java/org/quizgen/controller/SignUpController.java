@@ -14,8 +14,8 @@ import org.quizgen.utils.authentication.AccountError;
 import org.quizgen.utils.authentication.HashPassword;
 import org.quizgen.utils.authentication.SignupAuth;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class SignUpController {
 
@@ -37,12 +37,6 @@ public class SignUpController {
     private Label errorMessage;
     @FXML
     private Label longErrorMessage;
-
-    @FXML
-    public void intiatilize(){
-        errorMessage.setText("");
-        longErrorMessage.setText("");
-    }
 
     @FXML
     private void switchToStartPage() throws IOException {
@@ -88,7 +82,7 @@ public class SignUpController {
     }
 
     @FXML
-    private void handleOnKeyPressed(KeyEvent ae) throws IOException, SQLException {
+    private void handleOnKeyPressed(KeyEvent ae){
         if(ae.getCode() == KeyCode.ENTER){
             switchToHomePage();
         }

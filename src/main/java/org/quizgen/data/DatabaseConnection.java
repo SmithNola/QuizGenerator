@@ -47,7 +47,7 @@ public class DatabaseConnection {
         String query = "DELETE FROM question WHERE question_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
         for(Question question : questions){
-            st.setInt(1, Integer.parseInt(question.getQuestionId()));
+            st.setInt(1, question.getQuestionId());
             st.executeUpdate();
             deleteChoices(question.getChoices());
         }
@@ -79,7 +79,7 @@ public class DatabaseConnection {
         PreparedStatement st = conn.prepareStatement(query);
         for(Question question: questions){
             st.setString(1, question.getName());
-            st.setInt(2, Integer.parseInt(question.getQuestionId()));
+            st.setInt(2, question.getQuestionId());
             st.executeUpdate();
             updateChoices(question.getChoices());
         }
@@ -133,7 +133,7 @@ public class DatabaseConnection {
 
     //add user to database
     public static void addUser(String username, String key, String salt){
-        String query = "INSERT INTO player (username, key, salt) VALUES (?,?,?)";
+        String query = "INSERT INTO player (username, password, salt) VALUES (?,?,?)";
         try{
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);

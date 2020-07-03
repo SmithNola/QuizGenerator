@@ -5,6 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,14 +16,14 @@ public class AnswerChecker{
     public static int calculateScore(ArrayList<Question> questions, HashMap<String, Integer> chosenAnswers){
         double correctAnswers = 0;
         for(int i = 0; i < questions.size(); i++){
-            if(chosenAnswers.get(questions.get(i).getQuestionId()).equals(questions.get(i).getAnswer())){
+            if(chosenAnswers.get(String.valueOf(questions.get(i).getQuestionId())).equals(questions.get(i).getAnswer())){
                 correctAnswers++;
             }
         }
         score = (int) ((correctAnswers / questions.size())*100);
         return score;
     }
-
+    //Will display which answers are wrong and right
     public static VBox showRightWrong(Question question, int chosenAnswer, int questionNumber){
         VBox questionWithAnswers = new VBox();
         ArrayList<Choice> choices = question.getChoices();
@@ -38,6 +39,15 @@ public class AnswerChecker{
         }
         questionWithAnswers.getChildren().addAll(questionName,userChoice,correctAnswer);
         return questionWithAnswers;
+    }
+    //checks if user has chosen an answer for each question
+    public static boolean allAnswered(ArrayList<Question> questions, HashMap<String, Integer> chosenAnswers){
+        for(Question question : questions){
+            if(!chosenAnswers.containsKey(String.valueOf(question.getQuestionId()))){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static int getScore(){

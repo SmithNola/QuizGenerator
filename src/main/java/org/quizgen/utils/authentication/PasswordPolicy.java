@@ -51,10 +51,7 @@ public class PasswordPolicy {
     private static boolean isContainsSpecialCharacter(String password){
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
         Matcher matcher = pattern.matcher(password);
-        if(!matcher.matches()){
-            return true;
-        }
-        return false;
+        return !matcher.matches();
     }
 
     private static boolean isUpperAndLowerCase(String password){
