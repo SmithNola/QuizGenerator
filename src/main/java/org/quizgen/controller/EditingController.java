@@ -1,10 +1,8 @@
 package org.quizgen.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -13,6 +11,7 @@ import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.quizCreation.SaveQuiz;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
@@ -32,7 +31,6 @@ public class EditingController {
     private int count = 1;
     private ArrayList <Question> deletedQuestions = new ArrayList<>();
     private ArrayList <Choice> deletedChoices = new ArrayList<>();
-    //private ArrayList <Question> addedQuestions = new ArrayList<>();
 
     @FXML
     public void initialize(){
@@ -46,13 +44,13 @@ public class EditingController {
         questions = quiz.getQuestions();
         for(Question question: questions){
             VBox questionWithChoice = new VBox(question.getChoices().size()+1);
-            VBox createdVbox = createVbox(question, questionWithChoice);
+            VBox createdVbox = createQuestionVbox(question, questionWithChoice);
             vboxQuestions.add(createdVbox);
             questionsBox.getChildren().add(createdVbox);//will create the layout for each question and choice
         }
     }
 
-    private VBox createVbox(Question question, VBox questionWithChoice){
+    private VBox createQuestionVbox(Question question, VBox questionWithChoice){
         HBox questionLayout = new HBox();
         ArrayList<Choice> choices = question.getChoices();
         Label questionTracker = new Label(questionNum + ". ");
@@ -184,41 +182,8 @@ public class EditingController {
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
-    //retrieve's user
-    private ArrayList<Question> retrieveQuestions(){
-        ArrayList<Question> allQuestions = new ArrayList<>();
-        for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
-            Question savedQuestion = new Question();
-            ArrayList<Choice> choices = new ArrayList<>();
-            VBox questionWithChoice = vboxQuestions.get(i);//gets question with choice
-            ObservableList<Node> eachRow = questionWithChoice.getChildren();//saves each HBox
-            for(int j = 0; j < eachRow.size(); j++){//will go through each Hbox
-                HBox row = (HBox) eachRow.get(j);
-                ObservableList<Node> eachElement = row.getChildren();//saves each element
-                if(j == 0){
-                    TextField question = (TextField) eachElement.get(1);//question text field
-                    savedQuestion.setQuestionId(Integer.parseInt(question.getId()));
-                    savedQuestion.setName(question.getText());
-                }else{
-                    TextField choice = (TextField) eachElement.get(2);//choice text field
-                    RadioButton answer = (RadioButton) eachElement.get(1);
-                    if(answer.isSelected() == true){
-                        savedQuestion.setAnswer(j);
-                    }
-                    Choice choiceObject = new Choice();
-                    choiceObject.setId(Integer.parseInt(choice.getId()));
-                    choiceObject.setName(choice.getText());
-                    choices.add(choiceObject);
-                }
-            }
-            savedQuestion.setChoices(choices);
-            allQuestions.add(savedQuestion);
-        }
-        return allQuestions;
-    }
-
     private void  updateQuiz() throws SQLException{
-        quiz.setQuestions(retrieveQuestions());
+        quiz.setQuestions(SaveQuiz.retrieveEditedQuestions(vboxQuestions));
         if(deletedQuestions.size() != 0){
             DatabaseConnection.deleteQuestions(deletedQuestions);
         }

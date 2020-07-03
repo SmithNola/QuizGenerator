@@ -14,6 +14,7 @@ import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.playing.AnswerChecker;
 import org.quizgen.utils.viewQuizzes.DisplayQuiz;
 import org.quizgen.view.Views;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;

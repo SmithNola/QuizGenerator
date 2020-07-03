@@ -16,7 +16,6 @@ import org.quizgen.utils.authentication.SignupAuth;
 import org.quizgen.view.Views;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class SignUpController {
 
