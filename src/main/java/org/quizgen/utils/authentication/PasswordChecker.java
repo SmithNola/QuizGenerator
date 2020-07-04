@@ -4,11 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class PasswordPolicy {
+public class PasswordChecker {
 
     static final int MIN_LENGTH_PASSWORD = 8;
 
-    // CHECK IF PASSWORD MEETS PASSWORD POLICY
+    // CHECK IF PASSWORD MEETS PASSWORD POLICY REQUIREMENTS
     public static boolean passwordIsValid(String password){
         return  isAlphaNumeric(password) &&
                 isContainsSpecialCharacter(password) &&
@@ -16,20 +16,21 @@ public class PasswordPolicy {
                 isAtleastMinLength(password);
     }
 
+    // default/ package-private since its only used with SignupAuth class
     static String passwordErrorMessage(String password){
         if(!isAlphaNumeric(password)){
-            return AccountError.PW_MUST_BE_ALPHANUMERIC.toString();
+            return AuthError.PW_MUST_BE_ALPHANUMERIC.toString();
         }
         else if(!isContainsSpecialCharacter(password)){
-            return AccountError.PW_MUST_HAVE_SPECIAL_CHARACTER.toString();
+            return AuthError.PW_MUST_HAVE_SPECIAL_CHARACTER.toString();
         }
         else if(!isUpperAndLowerCase(password)){
-            return AccountError.PW_MUST_BE_UPPERLOWER_CASED.toString();
+            return AuthError.PW_MUST_BE_UPPERLOWER_CASED.toString();
         }
         else if(!isAtleastMinLength(password)){
-            return AccountError.PW_MUST_BE_MIN_LENGTH.toString();
+            return AuthError.PW_MUST_BE_MIN_LENGTH.toString();
         } else {
-            return AccountError.NO_ERROR.toString();
+            return AuthError.NO_ERROR.toString();
         }
     }
 

@@ -1,30 +1,27 @@
 package utils.authentication;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.quizgen.data.DatabaseConnection;
-import org.quizgen.utils.authentication.LoginValidation;
-import org.quizgen.utils.authentication.PasswordPolicy;
+import org.quizgen.utils.authentication.PasswordChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PasswordPolicyTest{
+class PasswordCheckerTest {
 
     @ParameterizedTest
     @CsvSource({"Abc123!e", "Coolkid123@"})
-    @DisplayName("Check if method correctly checks if password is valid")
+    @DisplayName("Tests `PasswordPolicy.passwordIsValid()` is true when pw meets password requirements")
     void checkPasswordIsValid(String password){
-            boolean actual = PasswordPolicy.passwordIsValid(password);
+            boolean actual = PasswordChecker.passwordIsValid(password);
             assertTrue(actual);
     }
 
     @ParameterizedTest
     @CsvSource({"a", "supernatural", "abcdef12!", "12345678", "!!!!!!!!!!"})
-    @DisplayName("Check if method correctly checks if password is valid")
+    @DisplayName("Tests `PasswordPolicy.passwordIsValid()` is false when pw meets password requirements")
     void checkPasswordIsNotValid(String password){
-        boolean actual = PasswordPolicy.passwordIsValid(password);
+        boolean actual = PasswordChecker.passwordIsValid(password);
         assertFalse(actual);
     }
 }

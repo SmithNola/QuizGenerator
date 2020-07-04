@@ -6,25 +6,32 @@ public class SignupAuth {
     
     public static String signupValidity(String username, String password, String rePassword){
         
-        // if any conditions are met, then create error message; else return NO_ERROR
+        // if any error conditions are met, then create error message; else return NO_ERROR
         if(username.isBlank() || password.isBlank() || rePassword.isBlank()){
-            return AccountError.FIELD_IS_BLANK.toString();
+            return AuthError.FIELD_IS_BLANK.toString();
         }
         else if(containsWhiteSpace(username, password, rePassword)){
-            return AccountError.WHITESPACE_NOT_ALLOWED.toString();
+            return AuthError.WHITESPACE_NOT_ALLOWED.toString();
         }
         else if(!passwordsMatches(password, rePassword)){
-            return AccountError.PASSWORD_NOT_MATCH.toString();
+            return AuthError.PASSWORD_NOT_MATCH.toString();
         }
         else if(usernameAlreadyExists(username)){
-            return AccountError.USERNAME_EXISTS.toString();
+            return AuthError.USERNAME_EXISTS.toString();
         }
-        else if(!PasswordPolicy.passwordIsValid(password)){
-            return PasswordPolicy.passwordErrorMessage(password);
+        else if(!PasswordChecker.passwordIsValid(password)){
+            return PasswordChecker.passwordErrorMessage(password);
         }
         else{
-            return AccountError.NO_ERROR.toString();
+            return AuthError.NO_ERROR.toString();
         }
+    }
+
+    public static String signupValidity(String[] args){
+        String username = args[0];
+        String password = args[1];
+        String repassword = args[2];
+        return signupValidity(username, password, repassword);
     }
 
     public static boolean usernameAlreadyExists(String username){
