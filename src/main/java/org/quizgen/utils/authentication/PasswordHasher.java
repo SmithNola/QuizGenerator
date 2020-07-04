@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 
-public class HashPassword {
+public class PasswordHasher {
 
     private static final String SECRETKEY_ALGO = "PBKDF2WithHmacSHA1";
     private static final int SALT_LENGTH = 16;
@@ -54,7 +54,7 @@ public class HashPassword {
         return new PBEKeySpec(passwordCharArray, saltByteArray, ITERATIONS, KEY_LENGTH);
     }
 
-    public static boolean verifyPassword(String userPassword, String key, String salt){
+    public static boolean passwordIsAuthentic(String userPassword, String key, String salt){
         Optional<String> hashedPassword = getHashedPassword(userPassword, salt);
         return hashedPassword.isPresent() && hashedPassword.get().equals(key);
     }

@@ -10,8 +10,8 @@ import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
 import org.quizgen.utils.SceneLoader;
 import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.authentication.AccountError;
-import org.quizgen.utils.authentication.HashPassword;
+import org.quizgen.utils.authentication.AuthError;
+import org.quizgen.utils.authentication.PasswordHasher;
 import org.quizgen.utils.authentication.SignupAuth;
 import org.quizgen.view.Views;
 
@@ -22,6 +22,9 @@ public class SignUpController {
     private SceneTransition sceneTransition;
     private final double DELAY_DURATION = 1;
     private final int ERRORMESSAGE_LENGTH_LIMIT = 30;
+    private final int USERNAME = 0;
+    private final int PASSWORD = 1;
+    private final int REPASSWORD = 2;
 
     public SignUpController(){
         this.sceneTransition = new SceneTransition(DELAY_DURATION);
@@ -45,14 +48,12 @@ public class SignUpController {
 
     @FXML
     private void switchToHomePage(){
-        String errorMessage = SignupAuth.signupValidity(username.getText(), password.getText(), rePassword.getText());
-        boolean signUpInfoIsValid = errorMessage.equals(AccountError.NO_ERROR.toString());
+        String[] signupInfo = signupFields();
+        String errorMessage = SignupAuth.signupValidity(signupInfo);
+        boolean signUpInfoIsValid = errorMessage.equals(AuthError.NO_ERROR.toString());
 
         if(signUpInfoIsValid){
-            String user = username.getText();
-            String salt = HashPassword.getSalt();
-            String key = HashPassword.getHashedPassword(password.getText(), salt).get();
-            registerUser(user, salt, key);
+            registerUser(signupInfo);
             sceneTransition.startSceneSwitchDelay(Views.HOME);
         }
         else {
@@ -60,7 +61,14 @@ public class SignUpController {
         }
     }
 
-    private void registerUser(String user, String key, String salt){
+    private String[] signupFields(){
+        return new String[]{username.getText(), password.getText(), rePassword.getText()};
+    }
+
+    private void registerUser(String[] args){
+        String user = args[USERNAME];
+        String salt = PasswordHasher.getSalt();
+        String key =  PasswordHasher.getHashedPassword(args[PASSWORD], salt).get();
         DatabaseConnection.addUser(user, key, salt);
         // Save username to static field to use throughout the application
         User.setUsername(username.getText());

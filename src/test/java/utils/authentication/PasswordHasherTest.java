@@ -5,13 +5,13 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.quizgen.utils.authentication.HashPassword;
+import org.quizgen.utils.authentication.PasswordHasher;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.quizgen.utils.authentication.HashPassword.*;
+import static org.quizgen.utils.authentication.PasswordHasher.*;
 
 
-public class HashPasswordTest {
+public class PasswordHasherTest {
 
     @Test
     @DisplayName("Test `getHashedPassword()` hashes user-entered password")
@@ -32,7 +32,7 @@ public class HashPasswordTest {
         String salt = getSalt();
         String key = getHashedPassword(password, salt).get();
 
-        assertTrue(verifyPassword(password, key, salt));
+        assertTrue(passwordIsAuthentic(password, key, salt));
     }
 
     @Test
@@ -41,14 +41,14 @@ public class HashPasswordTest {
         String salt = getSalt();
         String unhashedPassword = "";
         String key = getHashedPassword("123", salt).get();
-        assertFalse(verifyPassword(unhashedPassword, key, salt));
+        assertFalse(passwordIsAuthentic(unhashedPassword, key, salt));
     }
 
     @RepeatedTest(3)
     @DisplayName("Test `getSalt() produces random Salt value")
     void testGetSalt(){
-        String salt1 = HashPassword.getSalt();
-        String salt2 = HashPassword.getSalt();
+        String salt1 = PasswordHasher.getSalt();
+        String salt2 = PasswordHasher.getSalt();
         System.out.println(String.format("Salt 1 = %s \nSalt 2 = %s", salt1, salt2));
         assertNotEquals(salt1, salt2);
     }

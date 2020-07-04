@@ -228,15 +228,14 @@ public class DatabaseConnection {
     }
 
     //Checks if user enters correct login info
-    public static String checkLogin(String username, String password){
-        String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?) AND password = ?";
+    public static String getUsername(String username){
+        String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?)";
         try{
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, '%' + username + '%');
-            st.setString(2, password);
             ResultSet names = st.executeQuery();
             if (names.next()) {
-                return names.getString("username");//will save username to userData later
+                return names.getString("username");
             } else {
                 return null;
             }
@@ -244,7 +243,26 @@ public class DatabaseConnection {
         catch(SQLException e){
             throw new RuntimeException(e);
         }
+    }
 
+    public static String[] getKeySalt(String username){
+        String query = "SELECT password, salt FROM player WHERE LOWER(username) LIKE LOWER(?)";
+        String[] queryResult = new String[2];
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, '%' + username + '%');
+            ResultSet names = st.executeQuery();
+            if (names.next()) {
+                queryResult[0] = names.getString("password");
+                queryResult[1] = names.getString("salt");
+                return queryResult;
+            } else {
+                return null;
+            }
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     //Saves quiz to the database
