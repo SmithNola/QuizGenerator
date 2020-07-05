@@ -106,7 +106,7 @@ public class CreatingController {
     @FXML
     private void switchToCreateView() throws IOException, SQLException {
         saveQuiz();
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
 
     @FXML
@@ -116,7 +116,7 @@ public class CreatingController {
         alert.setContentText("Your quiz will not be not be saved if you cancel.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+            SceneLoader.setRoot(Views.DISPLAYQUIZZES);
         }
     }
 }

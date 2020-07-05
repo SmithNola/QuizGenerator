@@ -6,12 +6,11 @@ import org.quizgen.utils.SceneLoader;
 
 import java.io.IOException;
 
-public class Boot extends Application {
+public class QuizGenApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         SceneLoader.stage = stage;
-        SceneLoader.setScene();
-
+        SceneLoader.initScene();
     }
 
     public static void main(String[] args) {

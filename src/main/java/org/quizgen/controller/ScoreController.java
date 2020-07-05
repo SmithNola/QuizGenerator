@@ -37,11 +37,11 @@ public class ScoreController {
 
     @FXML
     private void switchToPlayView() throws IOException {
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
     @FXML
     private void returnToStart() throws IOException{
         DatabaseConnection.disconnect();
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
 }

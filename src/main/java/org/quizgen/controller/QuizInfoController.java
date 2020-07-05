@@ -53,10 +53,10 @@ public class QuizInfoController{
     }
     @FXML
     private void switchToPlaying() throws IOException{
-        SceneLoader.switchScene(Views.PLAYING);
+        SceneLoader.setRoot(Views.PLAYING);
     }
     @FXML
     private void switchToQuizSettings() throws IOException{
-        SceneLoader.switchScene(Views.QUIZSETTINGS);
+        SceneLoader.setRoot(Views.QUIZSETTINGS);
     }
 }

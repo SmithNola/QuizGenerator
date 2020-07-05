@@ -29,7 +29,7 @@ public class SceneTransition {
 
     private void sceneTransition(ActionEvent e){
         try{
-            SceneLoader.switchScene(view);
+            SceneLoader.setRoot(view);
         } catch (IOException ioException){
             ioException.printStackTrace();
         }

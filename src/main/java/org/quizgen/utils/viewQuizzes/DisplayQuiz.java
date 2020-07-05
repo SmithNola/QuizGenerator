@@ -30,7 +30,7 @@ public class DisplayQuiz{
                     if(quiz.getQuizId() == quizId){
                         DisplayQuiz.setClickedQuiz(quiz);
                         try{
-                            SceneLoader.switchScene(Views.QUIZINFO);
+                            SceneLoader.setRoot(Views.QUIZINFO);
                         }catch(IOException e){
                             e.printStackTrace();
                         }

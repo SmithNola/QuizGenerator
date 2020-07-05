@@ -87,7 +87,7 @@ public class PlayingController {
             if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                 DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
             }
-            SceneLoader.switchScene(Views.SCORE);
+            SceneLoader.setRoot(Views.SCORE);
         }else{
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setAlertType(Alert.AlertType.WARNING);
@@ -103,7 +103,7 @@ public class PlayingController {
         alert.setContentText("Your answers will not be not be saved if you cancel.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+            SceneLoader.setRoot(Views.DISPLAYQUIZZES);
         }
     }
 }

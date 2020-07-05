@@ -17,13 +17,13 @@ public class HomePageController {
     @FXML
     private void switchToPlay() throws Exception{
         buttonPressed = PlayViewButton.getText();
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
 
     @FXML
     private void switchToCreate() throws IOException {
         buttonPressed = CreateViewButton.getText();
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
 
     public static String getButtonPressed(){

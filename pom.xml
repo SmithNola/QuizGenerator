@@ -70,7 +70,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>org.quizgen.App</mainClass>
+                    <mainClass>org.quizgen.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>

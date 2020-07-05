@@ -35,7 +35,7 @@ public class LoginController {
 
     @FXML
     private void switchToStartPage() throws IOException{
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
 
     @FXML

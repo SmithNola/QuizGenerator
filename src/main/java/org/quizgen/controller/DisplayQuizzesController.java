@@ -55,18 +55,18 @@ public class DisplayQuizzesController{
     @FXML
     private void switchToQuizSettings()throws IOException {
         buttonPressed = create.getText();
-        SceneLoader.switchScene(Views.QUIZSETTINGS);
+        SceneLoader.setRoot(Views.QUIZSETTINGS);
     }
 
     @FXML
     private void returnToHome() throws IOException {
-        SceneLoader.switchScene(Views.HOME);
+        SceneLoader.setRoot(Views.HOME);
     }
 
     @FXML
     private void returnToStart() throws IOException{
         DatabaseConnection.disconnect();
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
     public static String getButtonPressed(){
         return buttonPressed;
