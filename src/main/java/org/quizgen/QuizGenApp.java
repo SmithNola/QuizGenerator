@@ -2,7 +2,7 @@ package org.quizgen;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.scene.SceneLoader;
 
 import java.io.IOException;
 

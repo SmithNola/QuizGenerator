@@ -1,11 +1,10 @@
-package org.quizgen.utils;
+package org.quizgen.utils.scene;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.quizgen.Main;
-import org.quizgen.view.Views;
 
 import java.io.IOException;
 import java.net.URL;

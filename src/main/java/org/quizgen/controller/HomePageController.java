@@ -2,8 +2,8 @@ package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.view.Views;
+import org.quizgen.utils.scene.SceneLoader;
+import org.quizgen.utils.scene.Views;
 
 import java.io.IOException;
 

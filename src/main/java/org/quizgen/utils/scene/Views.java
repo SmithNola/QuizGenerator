@@ -1,4 +1,4 @@
-package org.quizgen.view;
+package org.quizgen.utils.scene;
 
 public enum Views{
     START("startPage"),

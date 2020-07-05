@@ -6,9 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.quizgen.model.Quiz;
-import org.quizgen.utils.SceneLoader;
+import org.quizgen.utils.scene.SceneLoader;
 import org.quizgen.utils.viewQuizzes.DisplayQuiz;
-import org.quizgen.view.Views;
+import org.quizgen.utils.scene.Views;
 
 import java.io.IOException;
 

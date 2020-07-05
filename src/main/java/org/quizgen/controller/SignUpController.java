@@ -8,12 +8,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.SceneTransition;
+import org.quizgen.utils.scene.SceneLoader;
+import org.quizgen.utils.scene.SceneTransition;
 import org.quizgen.utils.authentication.AuthError;
 import org.quizgen.utils.authentication.PasswordHasher;
 import org.quizgen.utils.authentication.SignupAuth;
-import org.quizgen.view.Views;
+import org.quizgen.utils.scene.Views;
 
 import java.io.IOException;
 
