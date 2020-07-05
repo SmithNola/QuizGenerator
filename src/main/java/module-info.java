@@ -7,6 +7,8 @@ module org.quizgen {
 
     opens org.quizgen to javafx.fxml;
     opens org.quizgen.controller to javafx.fxml;
+    opens org.quizgen.controller.authentication to javafx.fxml;
     exports org.quizgen;
     exports org.quizgen.controller;
+    exports org.quizgen.controller.authentication;
 }

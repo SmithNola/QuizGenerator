@@ -1,10 +1,9 @@
-package org.quizgen.controller;
+package org.quizgen.controller.authentication;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import org.quizgen.utils.scene.SceneLoader;
-import org.quizgen.utils.scene.Views;
-
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.Views;
 import java.io.IOException;
 
 import static org.quizgen.data.DatabaseConnection.isConnected;

@@ -1,4 +1,4 @@
-package org.quizgen.utils.quizCreation;
+package org.quizgen.domain.quizCreation;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;

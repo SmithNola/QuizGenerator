@@ -1,4 +1,4 @@
-package org.quizgen.utils.authentication;
+package org.quizgen.domain.authentication;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 
 
-public class PasswordHasher {
+public class PasswordHash {
 
     private static final String SECRETKEY_ALGO = "PBKDF2WithHmacSHA1";
     private static final int SALT_LENGTH = 16;
@@ -54,7 +54,7 @@ public class PasswordHasher {
         return new PBEKeySpec(passwordCharArray, saltByteArray, ITERATIONS, KEY_LENGTH);
     }
 
-    public static boolean passwordIsAuthentic(String userPassword, String key, String salt){
+    public static boolean passwordMatchesHash(String userPassword, String key, String salt){
         Optional<String> hashedPassword = getHashedPassword(userPassword, salt);
         return hashedPassword.isPresent() && hashedPassword.get().equals(key);
     }

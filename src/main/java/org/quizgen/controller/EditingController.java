@@ -10,9 +10,9 @@ import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
-import org.quizgen.utils.scene.SceneLoader;
-import org.quizgen.utils.quizCreation.SaveQuiz;
-import org.quizgen.utils.scene.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.quizCreation.SaveQuiz;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;

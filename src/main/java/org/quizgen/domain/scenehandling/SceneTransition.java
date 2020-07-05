@@ -1,4 +1,4 @@
-package org.quizgen.utils.scene;
+package org.quizgen.domain.scenehandling;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;

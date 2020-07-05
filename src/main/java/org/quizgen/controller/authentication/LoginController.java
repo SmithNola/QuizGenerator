@@ -1,4 +1,4 @@
-package org.quizgen.controller;
+package org.quizgen.controller.authentication;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -8,10 +8,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
-import org.quizgen.utils.scene.SceneLoader;
-import org.quizgen.utils.scene.SceneTransition;
-import org.quizgen.utils.authentication.LoginAuth;
-import org.quizgen.utils.scene.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneTransition;
+import org.quizgen.domain.authentication.LoginAuth;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 
