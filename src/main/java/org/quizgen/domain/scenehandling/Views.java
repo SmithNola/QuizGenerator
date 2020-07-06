@@ -11,7 +11,8 @@ public enum Views{
     PLAYING("playing"),
     QUIZSETTINGS("quizSettings"),
     SCORE("score"),
-    DISPLAYQUIZZES("displayQuizzes");
+    DISPLAYQUIZZES("displayQuizzes"),
+    RESET("resetPassword");
 
     private final String fxmlPath;
 

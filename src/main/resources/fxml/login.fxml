@@ -57,7 +57,7 @@
             </Separator>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="350.0" spacing="15.0">
                <children>
-                  <Hyperlink text="Reset Password">
+                  <Hyperlink text="Reset Password" onAction="#switchToResetPage">
                      <HBox.margin>
                         <Insets right="123.0" />
                      </HBox.margin>
