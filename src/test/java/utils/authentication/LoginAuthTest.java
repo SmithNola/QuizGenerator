@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.utils.authentication.LoginAuth;
+import org.quizgen.domain.authentication.LoginAuth;
 
 import static org.junit.jupiter.api.Assertions.*;
 

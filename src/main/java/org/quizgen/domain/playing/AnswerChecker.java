@@ -1,4 +1,4 @@
-package org.quizgen.utils.playing;
+package org.quizgen.domain.playing;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

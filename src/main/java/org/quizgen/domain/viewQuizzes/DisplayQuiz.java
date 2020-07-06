@@ -1,12 +1,12 @@
-package org.quizgen.utils.viewQuizzes;
+package org.quizgen.domain.viewQuizzes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import org.quizgen.model.Quiz;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class DisplayQuiz{
                     if(quiz.getQuizId() == quizId){
                         DisplayQuiz.setClickedQuiz(quiz);
                         try{
-                            SceneLoader.switchScene(Views.QUIZINFO);
+                            SceneLoader.setRoot(Views.QUIZINFO);
                         }catch(IOException e){
                             e.printStackTrace();
                         }

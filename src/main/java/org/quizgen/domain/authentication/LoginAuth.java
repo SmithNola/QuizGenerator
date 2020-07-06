@@ -1,4 +1,4 @@
-package org.quizgen.utils.authentication;
+package org.quizgen.domain.authentication;
 
 import org.quizgen.data.DatabaseConnection;
 
@@ -42,6 +42,6 @@ public class LoginAuth {
         if(key==null || salt == null){
             return true;
         }
-        return !PasswordHasher.passwordIsAuthentic(password, key, salt);
+        return !PasswordHash.passwordMatchesHash(password, key, salt);
     }
 }

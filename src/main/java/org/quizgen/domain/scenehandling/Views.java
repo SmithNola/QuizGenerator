@@ -1,4 +1,4 @@
-package org.quizgen.view;
+package org.quizgen.domain.scenehandling;
 
 public enum Views{
     START("startPage"),
@@ -13,7 +13,7 @@ public enum Views{
     SCORE("score"),
     DISPLAYQUIZZES("displayQuizzes");
 
-    private String fxmlPath;
+    private final String fxmlPath;
 
     Views(String fxml){
         String PREFIX = "/fxml/";

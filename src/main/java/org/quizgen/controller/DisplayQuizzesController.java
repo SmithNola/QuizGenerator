@@ -8,9 +8,9 @@ import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.viewQuizzes.DisplayQuiz;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -55,18 +55,18 @@ public class DisplayQuizzesController{
     @FXML
     private void switchToQuizSettings()throws IOException {
         buttonPressed = create.getText();
-        SceneLoader.switchScene(Views.QUIZSETTINGS);
+        SceneLoader.setRoot(Views.QUIZSETTINGS);
     }
 
     @FXML
     private void returnToHome() throws IOException {
-        SceneLoader.switchScene(Views.HOME);
+        SceneLoader.setRoot(Views.HOME);
     }
 
     @FXML
     private void returnToStart() throws IOException{
         DatabaseConnection.disconnect();
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
     public static String getButtonPressed(){
         return buttonPressed;

@@ -1,7 +1,7 @@
 package org.quizgen;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
-        Boot.main(args);
+        QuizGenApp.main(args);
     }
 }

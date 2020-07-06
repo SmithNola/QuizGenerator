@@ -1,4 +1,4 @@
-package org.quizgen.utils.authentication;
+package org.quizgen.domain.authentication;
 
 public enum AuthError {
     FIELD_IS_BLANK("All fields must be filled out!"),
@@ -10,7 +10,7 @@ public enum AuthError {
     PW_MUST_BE_ALPHANUMERIC("Password must contain at least 1 letter or number"),
     PW_MUST_HAVE_SPECIAL_CHARACTER("Password must contain a special character"),
     PW_MUST_BE_UPPERLOWER_CASED("Password must contain upper and lowercase letters"),
-    PW_MUST_BE_MIN_LENGTH("Password must be at least " + PasswordChecker.MIN_LENGTH_PASSWORD + " characters"),
+    PW_MUST_BE_MIN_LENGTH("Password must be at least " + PasswordAuth.MIN_LENGTH_PASSWORD + " characters"),
 
     INVALID_CREDENTIALS("Wrong username or password");
 

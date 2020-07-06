@@ -1,4 +1,4 @@
-package org.quizgen.utils.authentication;
+package org.quizgen.domain.authentication;
 
 import org.quizgen.data.DatabaseConnection;
 
@@ -19,8 +19,8 @@ public class SignupAuth {
         else if(usernameAlreadyExists(username)){
             return AuthError.USERNAME_EXISTS.toString();
         }
-        else if(!PasswordChecker.passwordIsValid(password)){
-            return PasswordChecker.passwordErrorMessage(password);
+        else if(!PasswordAuth.passwordIsValid(password)){
+            return PasswordAuth.passwordErrorMessage(password);
         }
         else{
             return AuthError.NO_ERROR.toString();

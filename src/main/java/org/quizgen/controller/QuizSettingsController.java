@@ -5,9 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Quiz;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.viewQuizzes.DisplayQuiz;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -66,14 +66,14 @@ public class QuizSettingsController {
     private void switchToEditing() throws IOException{
         if(nonEmptyFields()){
             saveProperties();
-            SceneLoader.switchScene(Views.EDITING);
+            SceneLoader.setRoot(Views.EDITING);
         }
     }
     @FXML
     private void switchToCreating() throws IOException{
         if(nonEmptyFields()){
             saveProperties();
-            SceneLoader.switchScene(Views.CREATING);
+            SceneLoader.setRoot(Views.CREATING);
         }
     }
     @FXML
@@ -85,7 +85,7 @@ public class QuizSettingsController {
         if (result.get() == ButtonType.OK){
             quiz = DatabaseConnection.retrieveQuestions(quiz);
             DatabaseConnection.deleteEntireQuiz(quiz);
-            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+            SceneLoader.setRoot(Views.DISPLAYQUIZZES);
         }
     }
 
@@ -111,7 +111,7 @@ public class QuizSettingsController {
         alert.setContentText("Your quiz will not be not be saved if you cancel.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+            SceneLoader.setRoot(Views.DISPLAYQUIZZES);
         }
     }
 }

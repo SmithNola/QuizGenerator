@@ -2,8 +2,8 @@ package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 
@@ -17,13 +17,13 @@ public class HomePageController {
     @FXML
     private void switchToPlay() throws Exception{
         buttonPressed = PlayViewButton.getText();
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
 
     @FXML
     private void switchToCreate() throws IOException {
         buttonPressed = CreateViewButton.getText();
-        SceneLoader.switchScene(Views.DISPLAYQUIZZES);
+        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
     }
 
     public static String getButtonPressed(){

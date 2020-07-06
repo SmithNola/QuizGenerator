@@ -1,10 +1,10 @@
-package org.quizgen.utils.authentication;
+package org.quizgen.domain.authentication;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class PasswordChecker {
+public class PasswordAuth {
 
     static final int MIN_LENGTH_PASSWORD = 8;
 
@@ -16,7 +16,7 @@ public class PasswordChecker {
                 isAtleastMinLength(password);
     }
 
-    // default/ package-private since its only used with SignupAuth class
+    // NOTE: default modifier to prevent access from outside package
     static String passwordErrorMessage(String password){
         if(!isAlphaNumeric(password)){
             return AuthError.PW_MUST_BE_ALPHANUMERIC.toString();

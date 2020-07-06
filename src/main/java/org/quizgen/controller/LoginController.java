@@ -8,10 +8,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.authentication.LoginAuth;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneTransition;
+import org.quizgen.domain.authentication.LoginAuth;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 
@@ -35,7 +35,7 @@ public class LoginController {
 
     @FXML
     private void switchToStartPage() throws IOException{
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
 
     @FXML

@@ -6,9 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.quizgen.model.Quiz;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.viewQuizzes.DisplayQuiz;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 
@@ -53,10 +53,10 @@ public class QuizInfoController{
     }
     @FXML
     private void switchToPlaying() throws IOException{
-        SceneLoader.switchScene(Views.PLAYING);
+        SceneLoader.setRoot(Views.PLAYING);
     }
     @FXML
     private void switchToQuizSettings() throws IOException{
-        SceneLoader.switchScene(Views.QUIZSETTINGS);
+        SceneLoader.setRoot(Views.QUIZSETTINGS);
     }
 }

@@ -1,12 +1,15 @@
-package org.quizgen.utils;
+package org.quizgen.domain.scenehandling;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
-import org.quizgen.view.Views;
 
 import java.io.IOException;
 
+/*
+    TO-DO:
+        - add animations for scene transitions
+ */
 
 public class SceneTransition {
     private PauseTransition delayBeforeSceneLoad;
@@ -17,10 +20,6 @@ public class SceneTransition {
         this.view = null;
     }
 
-    public SceneTransition(){
-        this(1.0);
-    }
-
     public void startSceneSwitchDelay(Views view){
         this.view = view;
         delayBeforeSceneLoad.setOnFinished(this::sceneTransition);
@@ -29,7 +28,7 @@ public class SceneTransition {
 
     private void sceneTransition(ActionEvent e){
         try{
-            SceneLoader.switchScene(view);
+            SceneLoader.setRoot(view);
         } catch (IOException ioException){
             ioException.printStackTrace();
         }

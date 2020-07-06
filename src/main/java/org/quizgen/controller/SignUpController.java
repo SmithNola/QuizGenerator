@@ -8,12 +8,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
-import org.quizgen.utils.SceneLoader;
-import org.quizgen.utils.SceneTransition;
-import org.quizgen.utils.authentication.AuthError;
-import org.quizgen.utils.authentication.PasswordHasher;
-import org.quizgen.utils.authentication.SignupAuth;
-import org.quizgen.view.Views;
+import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneTransition;
+import org.quizgen.domain.authentication.AuthError;
+import org.quizgen.domain.authentication.PasswordHash;
+import org.quizgen.domain.authentication.SignupAuth;
+import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 
@@ -43,7 +43,7 @@ public class SignUpController {
 
     @FXML
     private void switchToStartPage() throws IOException {
-        SceneLoader.switchScene(Views.START);
+        SceneLoader.setRoot(Views.START);
     }
 
     @FXML
@@ -67,8 +67,8 @@ public class SignUpController {
 
     private void registerUser(String[] args){
         String user = args[USERNAME];
-        String salt = PasswordHasher.getSalt();
-        String key =  PasswordHasher.getHashedPassword(args[PASSWORD], salt).get();
+        String salt = PasswordHash.getSalt();
+        String key =  PasswordHash.getHashedPassword(args[PASSWORD], salt).get();
         DatabaseConnection.addUser(user, key, salt);
         // Save username to static field to use throughout the application
         User.setUsername(username.getText());
