@@ -1,4 +1,4 @@
-package org.quizgen.controller.authentication;
+package org.quizgen.controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;

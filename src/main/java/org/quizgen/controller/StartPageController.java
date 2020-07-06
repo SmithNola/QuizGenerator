@@ -1,4 +1,4 @@
-package org.quizgen.controller.authentication;
+package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
