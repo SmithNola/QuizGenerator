@@ -1,54 +1,65 @@
 package org.quizgen.controller.authentication;
 
+import com.jfoenix.animation.alert.JFXAlertAnimation;
+import com.jfoenix.controls.JFXAlert;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneLoader;
-import org.quizgen.domain.scenehandling.SceneTransition;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.authentication.LoginAuth;
 import org.quizgen.domain.scenehandling.Views;
 
-import java.io.IOException;
 
 public class LoginController {
-
-    private SceneTransition sceneTransition;
-    private final double DELAY_DURATION = 1;
-
-
-    public LoginController(){
-        this.sceneTransition = new SceneTransition(DELAY_DURATION);
-    }
 
     @FXML
     private JFXTextField username;
     @FXML
     private JFXPasswordField password;
     @FXML
-    private Label errorMessage;
-
+    private Hyperlink resetPassword;
 
     @FXML
-    private void switchToStartPage() throws IOException{
-        SceneLoader.setRoot(Views.START);
+    private void switchToStartPage(){
+        SceneHandler.setRoot(Views.START);
     }
 
     @FXML
     private void switchToHomePage() {
         boolean loginIsValid = LoginAuth.checkLoginIsValid(username.getText(), password.getText());
         if(loginIsValid){
-            User.setUsername(DatabaseConnection.getUsername(username.getText())); // Set the current user of this app
-            displaySigninSuccessText();
-            sceneTransition.startSceneSwitchDelay(Views.HOME);
+            User.setUsername(DatabaseConnection.getUsername(username.getText())); // Sets the current user of this app
+            SceneHandler.setRoot(Views.HOME);
         }
         else{
-            errorMessage.setText(LoginAuth.getLoginError());
+            createLoginAlert();
         }
+    }
+
+    public void createLoginAlert(){
+        Label label = new Label();
+        label.setFont(new Font("Monospaced Bold", 16));
+        label.setBackground(new Background(new BackgroundFill(Color.DARKRED, null, null)));
+        label.setTextFill(Color.WHITE);
+        label.setText(LoginAuth.getLoginError());
+        JFXAlert<Void> loginErrorAlert = new JFXAlert<>(SceneHandler.getStage());
+        loginErrorAlert.setOverlayClose(true);
+        loginErrorAlert.setAnimation(JFXAlertAnimation.CENTER_ANIMATION);
+        loginErrorAlert.setContent(label);
+        loginErrorAlert.initModality(Modality.NONE);
+        loginErrorAlert.show();
     }
 
     @FXML
@@ -56,10 +67,5 @@ public class LoginController {
         if(e.getCode() == KeyCode.ENTER){
             switchToHomePage();
         }
-    }
-
-    private void displaySigninSuccessText(){
-        errorMessage.setStyle("-fx-text-fill: green");
-        errorMessage.setText("Signin Successful!");
     }
 }

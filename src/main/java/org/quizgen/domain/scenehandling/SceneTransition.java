@@ -20,17 +20,13 @@ public class SceneTransition {
         this.view = null;
     }
 
-    public void startSceneSwitchDelay(Views view){
+    public void delaySwitchTo(Views view){
         this.view = view;
         delayBeforeSceneLoad.setOnFinished(this::sceneTransition);
         delayBeforeSceneLoad.play();
     }
 
     private void sceneTransition(ActionEvent e){
-        try{
-            SceneLoader.setRoot(view);
-        } catch (IOException ioException){
-            ioException.printStackTrace();
-        }
+        SceneHandler.setRoot(view);
     }
 }

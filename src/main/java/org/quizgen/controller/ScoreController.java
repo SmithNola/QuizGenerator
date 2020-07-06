@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
-import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.playing.AnswerChecker;
 import org.quizgen.domain.scenehandling.Views;
 
@@ -37,11 +37,11 @@ public class ScoreController {
 
     @FXML
     private void switchToPlayView() throws IOException {
-        SceneLoader.setRoot(Views.DISPLAYQUIZZES);
+        SceneHandler.setRoot(Views.DISPLAYQUIZZES);
     }
     @FXML
     private void returnToStart() throws IOException{
         DatabaseConnection.disconnect();
-        SceneLoader.setRoot(Views.START);
+        SceneHandler.setRoot(Views.START);
     }
 }

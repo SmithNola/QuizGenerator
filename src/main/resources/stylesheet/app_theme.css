@@ -66,6 +66,7 @@
 
 #error-message{
     -fx-text-fill: red;
+    -fx-font-family: Monospaced;
     -fx-font-weight: bold;
     -fx-background-color: #000000;
 }
