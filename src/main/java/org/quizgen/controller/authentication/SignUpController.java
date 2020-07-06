@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.CustomGUI;
 import org.quizgen.domain.authentication.LoginAuth;
 import org.quizgen.model.User;
 import org.quizgen.domain.scenehandling.SceneHandler;
@@ -51,22 +52,8 @@ public class SignUpController {
             SceneHandler.setRoot(Views.HOME);
         }
         else {
-            createLoginAlert(errorMessage);
+            CustomGUI.createAlert(errorMessage, SceneHandler.getStage());
         }
-    }
-
-    public void createLoginAlert(String errorMessage){
-        Label label = new Label();
-        label.setFont(new Font("Monospaced Bold", 16));
-        label.setBackground(new Background(new BackgroundFill(Color.DARKRED, null, null)));
-        label.setTextFill(Color.WHITE);
-        label.setText(errorMessage);
-        JFXAlert<Void> loginErrorAlert = new JFXAlert<>(SceneHandler.getStage());
-        loginErrorAlert.setOverlayClose(true);
-        loginErrorAlert.setAnimation(JFXAlertAnimation.CENTER_ANIMATION);
-        loginErrorAlert.setContent(label);
-        loginErrorAlert.initModality(Modality.NONE);
-        loginErrorAlert.show();
     }
 
     private String[] signupFields(){
