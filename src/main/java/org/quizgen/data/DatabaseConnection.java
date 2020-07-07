@@ -7,6 +7,7 @@ import org.quizgen.model.Quiz;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.sql.Types.NULL;
 
@@ -146,6 +147,42 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
+
+    // Update existing user's password
+    public static void updateUserPassword(String username, String key, String salt){
+        String query = "UPDATE player SET password = ?, salt = ? WHERE username = ?";
+        try{
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, key);
+            st.setString(2, salt);
+            st.setString(3, username);
+            st.executeUpdate();
+            st.close();
+        }
+        catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    // temporary solution to update all previous logins with salt = null
+    // delete when not-needed anymore
+    public static HashMap<String, String> getOldLogins(){
+        HashMap<String, String> oldLogins = new HashMap<>();
+        String query = "SELECT * FROM player WHERE salt IS NULL";
+        try{
+            Statement st = conn.createStatement();
+            ResultSet results = st.executeQuery(query);
+            while(results.next()){
+                oldLogins.put(results.getString("username"), results.getString("password"));
+            }
+            st.close();
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());;
+        }
+        return oldLogins;
+    }
+
 
     public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
         ArrayList<Question> questions = new ArrayList<>();

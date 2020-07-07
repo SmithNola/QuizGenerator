@@ -1,21 +1,12 @@
 package org.quizgen.controller.authentication;
 
-import com.jfoenix.animation.alert.JFXAlertAnimation;
-import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.domain.CustomGUI;
-import org.quizgen.domain.authentication.LoginAuth;
 import org.quizgen.model.User;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.authentication.AuthError;
@@ -44,7 +35,7 @@ public class SignUpController {
     @FXML
     private void switchToHomePage(){
         String[] signupInfo = signupFields();
-        String errorMessage = SignupAuth.signupValidity(signupInfo);
+        String errorMessage = SignupAuth.signupError(signupInfo);
         boolean signUpInfoIsValid = errorMessage.equals(AuthError.NO_ERROR.toString());
 
         if(signUpInfoIsValid){
