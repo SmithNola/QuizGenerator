@@ -12,7 +12,9 @@ public enum AuthError {
     PW_MUST_BE_UPPERLOWER_CASED("Password must contain upper and lowercase letters"),
     PW_MUST_BE_MIN_LENGTH("Password must be at least " + PasswordAuth.MIN_LENGTH_PASSWORD + " characters"),
 
-    INVALID_CREDENTIALS("Wrong username or password");
+    INVALID_CREDENTIALS("Wrong username or password"),
+    RESET_PW_ERROR("Username and password not found!"),
+    PASSWORD_SHOULD_NOT_MATCH("New password should not match old password!");
 
 
     private final String errorMessage;

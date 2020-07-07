@@ -5,7 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import org.quizgen.model.Quiz;
-import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
@@ -29,11 +29,7 @@ public class DisplayQuiz{
                 for(Quiz quiz:quizzes){
                     if(quiz.getQuizId() == quizId){
                         DisplayQuiz.setClickedQuiz(quiz);
-                        try{
-                            SceneLoader.setRoot(Views.QUIZINFO);
-                        }catch(IOException e){
-                            e.printStackTrace();
-                        }
+                        SceneHandler.setRoot(Views.QUIZINFO);
                     }
                 }
             }
