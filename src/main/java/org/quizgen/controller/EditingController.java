@@ -31,6 +31,7 @@ public class EditingController {
     private int count = 1;
     private ArrayList <Question> deletedQuestions = new ArrayList<>();
     private ArrayList <Choice> deletedChoices = new ArrayList<>();
+    private Quiz holderQuiz = new Quiz();
 
     @FXML
     public void initialize(){
@@ -48,6 +49,7 @@ public class EditingController {
             vboxQuestions.add(createdVbox);
             questionsBox.getChildren().add(createdVbox);//will create the layout for each question and choice
         }
+        holderQuiz.setQuizId(quiz.getQuizId());
     }
 
     private VBox createQuestionVbox(Question question, VBox questionWithChoice){
@@ -158,6 +160,7 @@ public class EditingController {
         HBox choiceTracker = new HBox();
         TextField choice = new TextField();
         choice.setMaxWidth(80);
+        Label choiceNum = new Label(count + ". ");
         Button addNew = new Button("+");
         RadioButton answer = new RadioButton();
         answer.setToggleGroup(group);
@@ -178,7 +181,7 @@ public class EditingController {
                 }
             }
         });
-        choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
+        choiceTracker.getChildren().addAll(choiceNum, answer, choice,addNew,deleteOld);
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
@@ -189,6 +192,15 @@ public class EditingController {
         }
         if(deletedChoices.size() != 0){
             DatabaseConnection.deleteChoices(deletedChoices);
+        }
+        if(SaveQuiz.getAddedQuestions().size() != 0){
+            holderQuiz.setQuestions(SaveQuiz.getAddedQuestions());
+            DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
+        }
+        if(SaveQuiz.getAddedChoices().size() != 0){
+            for(Question question: SaveQuiz.getAddedChoices()){
+                DatabaseConnection.saveChoices(question, question.getQuestionId());
+            }
         }
         DatabaseConnection.updateQuiz(quiz);
     }

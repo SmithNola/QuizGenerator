@@ -281,7 +281,7 @@ public class DatabaseConnection {
         st.close();
     }
 
-    private static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
+    public static void saveQuestions(Quiz quiz, int quizId) throws SQLException {
         String query = "INSERT INTO question (question_name,quiz_id,position) VALUES (?,?,?)";
         PreparedStatement st = conn.prepareStatement(query);
         //saves each individual question to the database
@@ -303,7 +303,7 @@ public class DatabaseConnection {
         st.close();
     }
 
-    private static void saveChoices(Question question, int questionId) throws SQLException {
+    public static void saveChoices(Question question, int questionId) throws SQLException {
         String query = "INSERT INTO choice (choice_name,question_id,answer) VALUES (?,?,?)";
         PreparedStatement st = conn.prepareStatement(query);
         //saves each individual choice to the database
