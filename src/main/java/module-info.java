@@ -9,5 +9,4 @@ module org.quizgen {
     opens org.quizgen.controller to javafx.fxml;
     exports org.quizgen;
     exports org.quizgen.controller;
-
 }
