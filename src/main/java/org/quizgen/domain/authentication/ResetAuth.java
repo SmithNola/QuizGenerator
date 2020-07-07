@@ -21,14 +21,17 @@ public class ResetAuth {
     }
 
     public String resetError(String username, String oldPassword, String newPassword){
-        if(username.isBlank() || oldPassword.isBlank() || newPassword.isBlank()){
+        if(oldLogin.containsKey(username) && !oldLogin.get(username).equals(oldPassword)){
+            return AuthError.RESET_PW_ERROR.toString();
+        }
+        else if(username.isBlank() || oldPassword.isBlank() || newPassword.isBlank()){
             return AuthError.FIELD_IS_BLANK.toString();
         }
         else if(containsWhiteSpace(username, oldPassword, newPassword)){
             return AuthError.WHITESPACE_NOT_ALLOWED.toString();
         }
-        else if(!matchesSavedLogin(username, oldPassword)){
-            return AuthError.RESET_PW_ERROR.toString();
+        else if(LoginAuth.checkLoginIsValid(username, oldPassword)){
+            return LoginAuth.getLoginError();
         }
         else if(oldPasswordMatchesNewPassword(oldPassword, newPassword)){
             return AuthError.PASSWORD_SHOULD_NOT_MATCH.toString();
@@ -41,8 +44,12 @@ public class ResetAuth {
         }
     }
 
-    private boolean matchesSavedLogin(String username, String password){
-        return oldLogin.containsKey(username) && oldLogin.get(username).equals(password);
+    private boolean matchesOldLogin(String username, String password){
+        if(oldLogin.containsKey(username)){
+            return oldLogin.get(username).equals(password);
+        } else {
+            return false;
+        }
     }
 
     private boolean oldPasswordMatchesNewPassword(String password, String reenterPassword){

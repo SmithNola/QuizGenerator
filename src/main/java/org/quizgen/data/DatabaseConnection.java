@@ -121,8 +121,7 @@ public class DatabaseConnection {
     //Will check if username already exists in database
     public static boolean checkUsername(String username){
         String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?);";
-        try{
-            PreparedStatement st = conn.prepareStatement(query);
+        try(PreparedStatement st = conn.prepareStatement(query)){
             st.setString(1, "%" + username + "%");
             ResultSet names = st.executeQuery();
             return names.next();
@@ -267,8 +266,7 @@ public class DatabaseConnection {
     //Checks if user enters correct login info
     public static String getUsername(String username){
         String query = "SELECT username FROM player WHERE LOWER(username) LIKE LOWER(?)";
-        try{
-            PreparedStatement st = conn.prepareStatement(query);
+        try(PreparedStatement st = conn.prepareStatement(query)){
             st.setString(1, '%' + username + '%');
             ResultSet names = st.executeQuery();
             if (names.next()) {
@@ -285,8 +283,7 @@ public class DatabaseConnection {
     public static String[] getKeySalt(String username){
         String query = "SELECT password, salt FROM player WHERE LOWER(username) LIKE LOWER(?)";
         String[] queryResult = new String[2];
-        try{
-            PreparedStatement st = conn.prepareStatement(query);
+        try(PreparedStatement st = conn.prepareStatement(query);){
             st.setString(1, '%' + username + '%');
             ResultSet names = st.executeQuery();
             if (names.next()) {
