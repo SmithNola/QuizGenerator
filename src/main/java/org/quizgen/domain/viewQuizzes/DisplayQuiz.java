@@ -20,12 +20,12 @@ public class DisplayQuiz{
         String quizProperties = quiz.getName() + "\t" + quiz.getGenre() + "\t" + quiz.getCreator() + "\t" + formatDate(quiz.getCreationTime());
         quizButton.setText(quizProperties);
         quizButton.setId(String.valueOf(quiz.getQuizId()));
-        quizButton.setOnAction(new EventHandler<ActionEvent>() {
+        quizButton.setOnAction(new EventHandler<>(){
 
             @Override
-            public void handle(ActionEvent arg0) {
+            public void handle(ActionEvent arg0){
                 quizId = Integer.parseInt(quizButton.getId());
-                for(Quiz quiz:quizzes){
+                for(Quiz quiz : quizzes){
                     if(quiz.getQuizId() == quizId){
                         DisplayQuiz.setClickedQuiz(quiz);
                         SceneHandler.setRoot(Views.QUIZINFO);

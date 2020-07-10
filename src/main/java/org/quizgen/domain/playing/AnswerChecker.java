@@ -19,7 +19,7 @@ public class AnswerChecker{
 
         for(Question question: questions){
             for(Choice choice: question.getChoices()){
-                if(choice.getAnswer() == true){
+                if(choice.getAnswer()){
                     answer = choice.getName();
                 }
             }
@@ -35,26 +35,20 @@ public class AnswerChecker{
         VBox questionWithAnswers = new VBox();
         ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label(questionNumber + ": " + question.getName());
-        String CA = "";
+        Label userChoice = new Label("You Choice: " + chosenAnswer);
+        String correctAnswer = "";
         for(Choice choice:choices){
-            if(choice.getAnswer() == true){
-                CA = choice.getName();
+            if(choice.getAnswer()){
+                correctAnswer = choice.getName();
             }
         }
-        Label userChoice = new Label("You Choice: " + CA);
-        String answer = "";
-        for(Choice choice: choices){
-            if(choice.getAnswer() == true){
-                answer = choice.getName();
-            }
-        }
-        Label correctAnswer = new Label("Correct Answer: " + answer);
-        if(CA.equals(answer)){//color to indicate whether right or wrong
+        Label correctAnswerLabel = new Label("Correct Answer: " + correctAnswer);
+        if(chosenAnswer.equals(correctAnswer)){//color to indicate whether right or wrong
             userChoice.setTextFill(Color.GREEN);
         }else{
             userChoice.setTextFill(Color.DARKRED);
         }
-        questionWithAnswers.getChildren().addAll(questionName,userChoice,correctAnswer);
+        questionWithAnswers.getChildren().addAll(questionName,userChoice,correctAnswerLabel);
         return questionWithAnswers;
     }
     //checks if user has chosen an answer for each question

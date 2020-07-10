@@ -13,7 +13,6 @@ import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class CreatingController {
     @FXML
     private VBox questionsBox;
     private int count = 1;
-    private ArrayList<VBox> vboxQuestions = new ArrayList<>();
+    private final ArrayList<VBox> vboxQuestions = new ArrayList<>();
 
     public void initialize(){
         quiz = QuizSettingsController.getQuiz();
@@ -105,13 +104,13 @@ public class CreatingController {
     }
 
     @FXML
-    private void switchToCreateView() throws IOException, SQLException {
+    private void switchToCreateView() throws SQLException {
         saveQuiz();
         SceneHandler.setRoot(Views.DISPLAYQUIZZES);
     }
 
     @FXML
-    private void cancelCreating() throws IOException{
+    private void cancelCreating(){
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Your quiz will not be not be saved if you cancel.");

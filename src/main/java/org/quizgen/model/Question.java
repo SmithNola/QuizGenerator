@@ -11,7 +11,7 @@ public class Question {
     public Question(){
         questionId = 0;
         this.name = "";
-        this.choices = new ArrayList <Choice>();
+        this.choices = new ArrayList<>();
         this.position = 0;
     }
 

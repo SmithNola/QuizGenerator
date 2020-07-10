@@ -55,12 +55,20 @@ public class PlayingController {
             RadioButton choice = new RadioButton((i+1) + " " + choices.get(i).getName());
             choice.setId(String.valueOf(question.getQuestionId()));
             choice.setToggleGroup(group);
-            choice.setOnAction(new EventHandler<ActionEvent>() {
+            choice.setOnAction(new EventHandler<>(){
                 @Override
-                public void handle(ActionEvent arg0) {
+                public void handle(ActionEvent arg0){
                     String[] a = choice.getText().split(" ");
-                    int b = Integer.parseInt(a[0]);//retrieves the number from text
-                   chosenAnswers.put(Integer.parseInt(choice.getId()),choice.getText());
+                    StringBuilder answer = new StringBuilder();
+                    if(a.length > 2){
+                        for(int i = 1; i < a.length; i++){
+                            answer.append(a[i]).append(" ");
+                        }
+                    }else{
+                        answer.append(a[1]);
+                    }
+                    //int b = Integer.parseInt(a[0]);//retrieves the number from text
+                    chosenAnswers.put(Integer.parseInt(choice.getId()), answer.toString().strip());
                 }
             } );
             questionLayout.getChildren().add(choice);

@@ -181,7 +181,7 @@ public class DatabaseConnection {
             st.close();
         }
         catch(SQLException e){
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
         return oldLogins;
     }
@@ -231,7 +231,7 @@ public class DatabaseConnection {
 
     public static ArrayList<Quiz> retrieveAllQuizzes() throws SQLException{
         Quiz quiz;
-        ArrayList <Quiz> quizzes = new ArrayList<Quiz>();
+        ArrayList <Quiz> quizzes = new ArrayList<>();
         String query = "SELECT quiz.quiz_Id, quiz.quiz_name, quiz.genre, quiz.time_created, player.username,COUNT(question.quiz_id) as number_of_questions FROM quiz " +
                         "INNER JOIN player ON  player.player_id = quiz.player_id " +
                         "LEFT JOIN question ON quiz.quiz_id = question.quiz_id GROUP BY quiz.quiz_name;";
@@ -248,7 +248,7 @@ public class DatabaseConnection {
 
     public static ArrayList<Quiz> retrieveUserQuiz(String username) throws SQLException {
         Quiz quiz;
-        ArrayList<Quiz> quizzes = new ArrayList<Quiz>();
+        ArrayList<Quiz> quizzes = new ArrayList<>();
         String query = "SELECT quiz.quiz_id, quiz.quiz_name, quiz.genre, quiz.ordered, quiz.time_created, COUNT(question.quiz_id) as number_of_questions FROM quiz " +
                         "LEFT JOIN player ON player.player_id = quiz.player_id " +
                         "LEFT JOIN question ON quiz.quiz_id = question.quiz_id WHERE player.username = ? GROUP BY quiz.quiz_name";
@@ -284,7 +284,7 @@ public class DatabaseConnection {
     public static String[] getKeySalt(String username){
         String query = "SELECT password, salt FROM player WHERE LOWER(username) LIKE LOWER(?)";
         String[] queryResult = new String[2];
-        try(PreparedStatement st = conn.prepareStatement(query);){
+        try(PreparedStatement st = conn.prepareStatement(query)){
             st.setString(1, '%' + username + '%');
             ResultSet names = st.executeQuery();
             if (names.next()) {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SaveQuiz{
     private ArrayList <Question> addedQuestions = new ArrayList<>();
     private ArrayList <Question> addedChoices = new ArrayList<>();
-    private ArrayList <VBox> vboxQuestions = new ArrayList<VBox>();
+    private ArrayList <VBox> vboxQuestions = new ArrayList<>();
 
     public SaveQuiz(ArrayList<VBox> newVboxQuestions){
         this.vboxQuestions = newVboxQuestions;
