@@ -10,7 +10,7 @@ import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.playing.AnswerChecker;
 import org.quizgen.domain.viewQuizzes.DisplayQuiz;
 import org.quizgen.domain.scenehandling.Views;
@@ -87,7 +87,7 @@ public class PlayingController {
             if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                 DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
             }
-            SceneLoader.setRoot(Views.SCORE);
+            SceneHandler.setRoot(Views.SCORE);
         }else{
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.setAlertType(Alert.AlertType.WARNING);
@@ -103,7 +103,7 @@ public class PlayingController {
         alert.setContentText("Your answers will not be not be saved if you cancel.");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            SceneLoader.setRoot(Views.DISPLAYQUIZZES);
+            SceneHandler.setRoot(Views.DISPLAYQUIZZES);
         }
     }
 }

@@ -21,7 +21,7 @@ public class SignUpAuthValidationTest {
     @DisplayName("Test`SignUpAuth.signupValidity()` validates for blank fields")
     void testSignupValidityMethodForBlankFields(String username, String password, String rePassword){
         String expected = "All fields must be filled out!";
-        String actual = SignupAuth.signupValidity(username, password, rePassword);
+        String actual = SignupAuth.signupError(username, password, rePassword);
         assertEquals(expected, actual);
     }
 
@@ -32,7 +32,7 @@ public class SignUpAuthValidationTest {
     @DisplayName("Test `SignUpAuth.signupValidity()` validates for whitespace in fields")
     void testSignupValidityMethodForWhiteSpaceInFields(String username, String password, String rePassword){
         String expected = "No whitespace allowed!";
-        String actual = SignupAuth.signupValidity(username, password, rePassword);
+        String actual = SignupAuth.signupError(username, password, rePassword);
         assertEquals(expected, actual);
     }
 
@@ -42,7 +42,7 @@ public class SignUpAuthValidationTest {
     @DisplayName("Test `SignUpAuth.signupValidity()` validates for non-matching passwords")
     void testSignupValidityMEthodForNonMatchingPasswords(String username, String password, String rePassword){
         String expected = "Passwords do not match!";
-        String actual = SignupAuth.signupValidity(username, password, rePassword);
+        String actual = SignupAuth.signupError(username, password, rePassword);
         assertEquals(expected, actual);
     }
 

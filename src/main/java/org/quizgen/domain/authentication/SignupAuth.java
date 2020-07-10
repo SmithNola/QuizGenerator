@@ -4,7 +4,7 @@ import org.quizgen.data.DatabaseConnection;
 
 public class SignupAuth {
     
-    public static String signupValidity(String username, String password, String rePassword){
+    public static String signupError(String username, String password, String rePassword){
         
         // if any error conditions are met, then create error message; else return NO_ERROR
         if(username.isBlank() || password.isBlank() || rePassword.isBlank()){
@@ -27,11 +27,11 @@ public class SignupAuth {
         }
     }
 
-    public static String signupValidity(String[] args){
+    public static String signupError(String[] args){
         String username = args[0];
         String password = args[1];
         String repassword = args[2];
-        return signupValidity(username, password, repassword);
+        return signupError(username, password, repassword);
     }
 
     public static boolean usernameAlreadyExists(String username){

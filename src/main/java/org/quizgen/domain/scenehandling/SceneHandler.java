@@ -9,19 +9,27 @@ import org.quizgen.Main;
 import java.io.IOException;
 import java.net.URL;
 
-public class SceneLoader {
+public class SceneHandler {
 
-    public static Scene scene;
-    public static Stage stage;
+    private static Scene scene;
+    private static Stage stage;
+
+    public static Stage getStage(){
+        return stage;
+    }
+
+    public static void setStage(Stage appStage){
+        stage = appStage;
+    }
 
     // Initializes Scene; called when app starts
-    public static void initScene() throws IOException {
+    public static void initScene(){
         scene = new Scene(loadFXML(Views.START.toString()));
         setAndShowStage();
     }
 
     // Used for switching fxml views
-    public static void setRoot(Views fxml) throws IOException {
+    public static void setRoot(Views fxml){
         System.out.println(fxml.toString());
         scene.setRoot(loadFXML(fxml.toString()));
         setAndShowStage();
@@ -38,9 +46,14 @@ public class SceneLoader {
         stage.show();
     }
 
-    private static Parent loadFXML(String fxmlFileName) throws IOException {
+    private static Parent loadFXML(String fxmlFileName){
         URL pathToFXML = fxmlPath(fxmlFileName);
-        return new FXMLLoader(pathToFXML).load();
+        try{
+            return new FXMLLoader(pathToFXML).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
     }
 
     private static URL fxmlPath(String fxmlFileName){

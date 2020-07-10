@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run_App" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.quizgen.Main" />
+    <module name="QuizGenerator" />
+    <option name="VM_PARAMETERS" value="--add-exports javafx.base/com.sun.javafx.event=com.jfoenix" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.quizgen.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

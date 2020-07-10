@@ -2,7 +2,7 @@ package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import org.quizgen.domain.scenehandling.SceneLoader;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ public class StartPageController {
     @FXML
     public void switchToLoginPage() throws IOException {
         if(isConnected()) {
-            SceneLoader.setRoot(Views.LOGIN);
+            SceneHandler.setRoot(Views.LOGIN);
         } else {
             errorMessage.setText("Error! could not connect to database"); //replace with error pop-up window
         }
@@ -26,7 +26,7 @@ public class StartPageController {
     @FXML
     public void switchToSignUpPage() throws IOException {
         if (isConnected()) {
-            SceneLoader.setRoot(Views.SIGNUP);
+            SceneHandler.setRoot(Views.SIGNUP);
         } else {
             System.out.println("Error! could not connect to database"); //replace with error pop-up window
             errorMessage.setText("Error! could not connect to database");
