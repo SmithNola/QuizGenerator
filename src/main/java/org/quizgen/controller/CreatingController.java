@@ -98,7 +98,8 @@ public class CreatingController {
     }
 
     private void saveQuiz() throws SQLException{
-        quiz.setQuestions(SaveQuiz.retrieveNewQuestions(vboxQuestions));
+        SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
+        quiz.setQuestions(savedQuiz.retrieveNewQuestions());
         quiz.setCreator(User.getUsername());
         DatabaseConnection.saveQuiz(quiz);
     }

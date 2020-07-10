@@ -27,10 +27,10 @@ public class ScoreController {
         score.setText(AnswerChecker.getScore() + "%");
         Quiz quiz = PlayingController.getQuiz();
         quizName.setText(quiz.getName());
-        HashMap<String,Integer> chosenAnswers = PlayingController.getChosenAnswers();
+        HashMap<Integer,String> chosenAnswers = PlayingController.getChosenAnswers();
         ArrayList<Question> questions = quiz.getQuestions();
         for(int i = 0; i < questions.size(); i++){
-            int CA = chosenAnswers.get(questions.get(i).getQuestionId() + "");
+            String CA = chosenAnswers.get(questions.get(i).getQuestionId());
             results.getChildren().add(AnswerChecker.showRightWrong(questions.get(i),CA,i+1));
         }
     }

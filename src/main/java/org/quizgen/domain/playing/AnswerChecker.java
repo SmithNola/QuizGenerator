@@ -13,10 +13,17 @@ public class AnswerChecker{
 
     private static int score;
 
-    public static int calculateScore(ArrayList<Question> questions, HashMap<String, Integer> chosenAnswers){
+    public static int calculateScore(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         double correctAnswers = 0;
-        for(int i = 0; i < questions.size(); i++){
-            if(chosenAnswers.get(String.valueOf(questions.get(i).getQuestionId())).equals(questions.get(i).getAnswer())){
+        String answer = "";
+
+        for(Question question: questions){
+            for(Choice choice: question.getChoices()){
+                if(choice.getAnswer() == true){
+                    answer = choice.getName();
+                }
+            }
+            if(chosenAnswers.get(question.getQuestionId()).equals(answer)){
                 correctAnswers++;
             }
         }
@@ -24,13 +31,23 @@ public class AnswerChecker{
         return score;
     }
     //Will display which answers are wrong and right
-    public static VBox showRightWrong(Question question, int chosenAnswer, int questionNumber){
+    public static VBox showRightWrong(Question question, String chosenAnswer, int questionNumber){
         VBox questionWithAnswers = new VBox();
         ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label(questionNumber + ": " + question.getName());
-        String CA = choices.get(chosenAnswer - 1).getName();
+        String CA = "";
+        for(Choice choice:choices){
+            if(choice.getAnswer() == true){
+                CA = choice.getName();
+            }
+        }
         Label userChoice = new Label("You Choice: " + CA);
-        String answer = question.getChoices().get(question.getAnswer()-1).getName();
+        String answer = "";
+        for(Choice choice: choices){
+            if(choice.getAnswer() == true){
+                answer = choice.getName();
+            }
+        }
         Label correctAnswer = new Label("Correct Answer: " + answer);
         if(CA.equals(answer)){//color to indicate whether right or wrong
             userChoice.setTextFill(Color.GREEN);
@@ -41,9 +58,9 @@ public class AnswerChecker{
         return questionWithAnswers;
     }
     //checks if user has chosen an answer for each question
-    public static boolean allAnswered(ArrayList<Question> questions, HashMap<String, Integer> chosenAnswers){
+    public static boolean allAnswered(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         for(Question question : questions){
-            if(!chosenAnswers.containsKey(String.valueOf(question.getQuestionId()))){
+            if(!chosenAnswers.containsKey(question.getQuestionId())){
                 return false;
             }
         }

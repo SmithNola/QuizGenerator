@@ -13,10 +13,15 @@ import org.quizgen.model.Question;
 import java.util.ArrayList;
 
 public class SaveQuiz{
-    private static ArrayList <Question> addedQuestions = new ArrayList<>();
-    private static ArrayList <Question> addedChoices = new ArrayList<>();
+    private ArrayList <Question> addedQuestions = new ArrayList<>();
+    private ArrayList <Question> addedChoices = new ArrayList<>();
+    private ArrayList <VBox> vboxQuestions = new ArrayList<VBox>();
+
+    public SaveQuiz(ArrayList<VBox> newVboxQuestions){
+        this.vboxQuestions = newVboxQuestions;
+    }
     //retrieve's created questions
-    public static ArrayList<Question> retrieveNewQuestions(ArrayList<VBox> vboxQuestions){
+    public ArrayList<Question> retrieveNewQuestions(){
         ArrayList<Question> allQuestions = new ArrayList<>();
         for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
             Question savedQuestion = new Question();
@@ -32,10 +37,10 @@ public class SaveQuiz{
                 }else{
                     TextField choice = (TextField) eachElement.get(0);//choice text field
                     RadioButton answer = (RadioButton) eachElement.get(1);
-                    if(answer.isSelected() == true){
-                        savedQuestion.setAnswer(j);
-                    }
                     Choice choiceObject = new Choice();
+                    if(answer.isSelected()){
+                        choiceObject.setAnswer(true);
+                    }
                     choiceObject.setName(choice.getText());
                     choices.add(choiceObject);
                 }
@@ -47,7 +52,7 @@ public class SaveQuiz{
     }
 
     //retrieves edited questions
-    public static ArrayList<Question> retrieveEditedQuestions(ArrayList<VBox> vboxQuestions){
+    public ArrayList<Question> retrieveEditedQuestions(){
         ArrayList<Question> allQuestions = new ArrayList<>();
         for(int i = 0; i <vboxQuestions.size(); i++){//will cycle through each vbox
             Question savedQuestion = new Question(); //save questions and choices already in quiz
@@ -65,7 +70,6 @@ public class SaveQuiz{
                 if(j == 0){//for questions
                     TextField question = (TextField) eachElement.get(1);//question text field
                     if(question.getId() == null){//knows if question is new
-                        System.out.println("NewQuestion");
                         newQuestion = true;
                         addedQuestion.setName(question.getText());
                     }else{//for old questions and new choices
@@ -76,11 +80,11 @@ public class SaveQuiz{
                 }else{//for choices
                     TextField choice = (TextField) eachElement.get(2);//choice text field
                     RadioButton answer = (RadioButton) eachElement.get(1);
-                    if(answer.isSelected() == true){
-                        savedQuestion.setAnswer(j);
-                    }
                     Choice choiceObject = new Choice();
                     choiceObject.setName(choice.getText());
+                    if(answer.isSelected()){
+                        choiceObject.setAnswer(true);
+                    }
                     if(choice.getId() == null && newQuestion == false){
                         newChoice = true;
                         newChoices.add(choiceObject);
@@ -92,13 +96,11 @@ public class SaveQuiz{
                     }
                 }
             }
-            if(newQuestion == true){
-                System.out.println("NewQuestion");
+            if(newQuestion){
                 addedQuestion.setChoices(choices);
                 addedQuestions.add(addedQuestion);
-            }else if(newChoice == true){
-                System.out.println("NewChoice");
-                nullQuestion.setChoices(choices);
+            }else if(newChoice){
+                nullQuestion.setChoices(newChoices);
                 addedChoices.add(nullQuestion);
             }else{
                 savedQuestion.setChoices(choices);
@@ -108,11 +110,11 @@ public class SaveQuiz{
         return allQuestions;
     }
 
-    public static ArrayList<Question> getAddedChoices(){
+    public ArrayList<Question> getAddedChoices(){
         return addedChoices;
     }
 
-    public static ArrayList<Question> getAddedQuestions(){
+    public ArrayList<Question> getAddedQuestions(){
         return addedQuestions;
     }
 }

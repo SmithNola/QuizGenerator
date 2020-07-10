@@ -92,7 +92,7 @@ public class EditingController {
             RadioButton choiceOption = new RadioButton();
             //choice.setId(String.valueOf(question.getQuestionId()));
             choiceOption.setToggleGroup(group);
-            if(i == question.getAnswer()){//will toggle the answer of the question
+            if(choiceObject.getAnswer() == true){//will toggle the answer of the question
                 choiceOption.setSelected(true);
             }
             Button addNewChoice = new Button("+");
@@ -186,19 +186,23 @@ public class EditingController {
     }
 
     private void  updateQuiz() throws SQLException{
-        quiz.setQuestions(SaveQuiz.retrieveEditedQuestions(vboxQuestions));
+        SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
+        quiz.setQuestions(savedQuiz.retrieveEditedQuestions());
         if(deletedQuestions.size() != 0){
             DatabaseConnection.deleteQuestions(deletedQuestions);
         }
         if(deletedChoices.size() != 0){
             DatabaseConnection.deleteChoices(deletedChoices);
         }
-        if(SaveQuiz.getAddedQuestions().size() != 0){
-            holderQuiz.setQuestions(SaveQuiz.getAddedQuestions());
+        if(savedQuiz.getAddedQuestions().size() != 0){
+            holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
             DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
         }
-        if(SaveQuiz.getAddedChoices().size() != 0){
-            for(Question question: SaveQuiz.getAddedChoices()){
+        if(savedQuiz.getAddedChoices().size() != 0){
+            for(Question question: savedQuiz.getAddedChoices()){
+                for(Choice choice: question.getChoices()){
+                    System.out.println(choice.getName());
+                }
                 DatabaseConnection.saveChoices(question, question.getQuestionId());
             }
         }

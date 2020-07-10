@@ -86,11 +86,16 @@ public class DatabaseConnection {
     }
 
     private static void updateChoices(ArrayList <Choice> choices) throws SQLException{
-        String query = "Update choice SET choice_name = ? WHERE choice_id = ?;";
+        String query = "Update choice SET choice_name = ?, answer = ? WHERE choice_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
         for(Choice choice: choices){
             st.setString(1, choice.getName());
-            st.setInt(2, choice.getId());
+            if(choice.getAnswer() == true){
+                st.setInt(2, 1);
+            }else{
+                st.setInt(2,0);
+            }
+            st.setInt(3, choice.getId());
             st.executeUpdate();
         }
     }
@@ -149,10 +154,9 @@ public class DatabaseConnection {
 
     public static Quiz retrieveQuestions(Quiz quiz) throws SQLException{
         ArrayList<Question> questions = new ArrayList<>();
-        String query = "SELECT question.question_id, question.question_name, question.position, choice.choice_name FROM quiz " +
+        String query = "SELECT question.question_id, question.question_name, question.position FROM quiz " +
                 "LEFT JOIN question ON quiz.quiz_id = question.quiz_id " +
-                "LEFT JOIN choice ON question.question_id = choice.question_id " +
-                "WHERE quiz.quiz_id = ? AND choice.answer = 1;";
+                "WHERE quiz.quiz_id = ?";
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, quiz.getQuizId());
         ResultSet results = st.executeQuery();
@@ -162,11 +166,6 @@ public class DatabaseConnection {
             question.setQuestionId(results.getInt("question_id"));
             question.setName(results.getString("question_name"));
             question.setChoices(choices);
-            for(int i = 0; i < choices.size(); i++){
-                if(choices.get(i).getName().equals(results.getString("choice_name"))){
-                    question.setAnswer(i+1);
-                }
-            }
             question.setPosition(results.getInt("position"));
             questions.add(question);
         }
@@ -177,7 +176,7 @@ public class DatabaseConnection {
 
     private static ArrayList <Choice> retrieveChoices(int questionId) throws SQLException {
         ArrayList <Choice> choices = new ArrayList<>();
-        String query = "SELECT choice.choice_name, choice.choice_id FROM question " +
+        String query = "SELECT choice.choice_name, choice.choice_id, choice.answer FROM question " +
                         "LEFT JOIN choice ON choice.question_id = question.question_id WHERE question.question_id = ?;";
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, questionId);
@@ -186,6 +185,9 @@ public class DatabaseConnection {
             Choice choice = new Choice();
             choice.setId(results.getInt("choice_id"));
             choice.setName(results.getString("choice_name"));
+            if(results.getBoolean("answer") == true){
+                choice.setAnswer(true);
+            }
             choices.add(choice);
         }
         st.close();
@@ -312,7 +314,7 @@ public class DatabaseConnection {
             st.setString(1, choice.getName());
             st.setInt(2, questionId);
             //if choice is the answer will set as answer other wise leave answer null
-            if (question.getAnswer() == i + 1) {//if answer is equal to choice index
+            if (choice.getAnswer() == true) {//if answer is equal to choice index
                 st.setInt(3, 1);
             } else {
                 st.setInt(3, 0);
