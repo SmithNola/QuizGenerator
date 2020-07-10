@@ -47,6 +47,10 @@ public class Quiz {
         this.genre = newGenre;
     }
 
+    public void setQuizId(int newQuizId){
+        this.quizId = newQuizId;
+    }
+
     public String getName(){ return this.name; }
 
     public int getOrdered(){

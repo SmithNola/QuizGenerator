@@ -31,6 +31,7 @@ public class EditingController {
     private int count = 1;
     private ArrayList <Question> deletedQuestions = new ArrayList<>();
     private ArrayList <Choice> deletedChoices = new ArrayList<>();
+    private Quiz holderQuiz = new Quiz();
 
     @FXML
     public void initialize(){
@@ -48,6 +49,7 @@ public class EditingController {
             vboxQuestions.add(createdVbox);
             questionsBox.getChildren().add(createdVbox);//will create the layout for each question and choice
         }
+        holderQuiz.setQuizId(quiz.getQuizId());
     }
 
     private VBox createQuestionVbox(Question question, VBox questionWithChoice){
@@ -90,7 +92,7 @@ public class EditingController {
             RadioButton choiceOption = new RadioButton();
             //choice.setId(String.valueOf(question.getQuestionId()));
             choiceOption.setToggleGroup(group);
-            if(i == question.getAnswer()){//will toggle the answer of the question
+            if(choiceObject.getAnswer() == true){//will toggle the answer of the question
                 choiceOption.setSelected(true);
             }
             Button addNewChoice = new Button("+");
@@ -158,6 +160,7 @@ public class EditingController {
         HBox choiceTracker = new HBox();
         TextField choice = new TextField();
         choice.setMaxWidth(80);
+        Label choiceNum = new Label(count + ". ");
         Button addNew = new Button("+");
         RadioButton answer = new RadioButton();
         answer.setToggleGroup(group);
@@ -178,17 +181,30 @@ public class EditingController {
                 }
             }
         });
-        choiceTracker.getChildren().addAll(choice,answer,addNew,deleteOld);
+        choiceTracker.getChildren().addAll(choiceNum, answer, choice,addNew,deleteOld);
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
     private void  updateQuiz() throws SQLException{
-        quiz.setQuestions(SaveQuiz.retrieveEditedQuestions(vboxQuestions));
+        SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
+        quiz.setQuestions(savedQuiz.retrieveEditedQuestions());
         if(deletedQuestions.size() != 0){
             DatabaseConnection.deleteQuestions(deletedQuestions);
         }
         if(deletedChoices.size() != 0){
             DatabaseConnection.deleteChoices(deletedChoices);
+        }
+        if(savedQuiz.getAddedQuestions().size() != 0){
+            holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
+            DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
+        }
+        if(savedQuiz.getAddedChoices().size() != 0){
+            for(Question question: savedQuiz.getAddedChoices()){
+                for(Choice choice: question.getChoices()){
+                    System.out.println(choice.getName());
+                }
+                DatabaseConnection.saveChoices(question, question.getQuestionId());
+            }
         }
         DatabaseConnection.updateQuiz(quiz);
     }

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 public class Question {
     private int questionId;
     private String name;
-    private int answer;
     private ArrayList <Choice> choices;
     private int position;
 
     public Question(){
         questionId = 0;
         this.name = "";
-        this.answer = 1;
         this.choices = new ArrayList <Choice>();
         this.position = 0;
     }
@@ -21,10 +19,6 @@ public class Question {
 
     public void setName(String newName){
         this.name = newName;
-    }
-
-    public void setAnswer(int newAnswer) {
-        this.answer = newAnswer;
     }
 
     public void setChoices(ArrayList <Choice> newChoices){
@@ -37,10 +31,6 @@ public class Question {
 
     public void setPosition(int newPosition){
         this.position = newPosition;
-    }
-
-    public int getAnswer(){
-        return this.answer;
     }
 
     public ArrayList <Choice> getChoices(){

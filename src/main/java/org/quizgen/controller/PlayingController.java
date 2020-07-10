@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class PlayingController {
     private int questionNum = 1;
-    private static HashMap<String, Integer> chosenAnswers = new HashMap<>();
+    private static HashMap<Integer, String> chosenAnswers = new HashMap<>();
     private ArrayList<Question> questions = new ArrayList<>();
     private static Quiz quiz;
     @FXML
@@ -61,7 +61,7 @@ public class PlayingController {
                 public void handle(ActionEvent arg0) {
                     String[] a = choice.getText().split(" ");
                     int b = Integer.parseInt(a[0]);//retrieves the number from text
-                   chosenAnswers.put(choice.getId(),b);
+                   chosenAnswers.put(Integer.parseInt(choice.getId()),choice.getText());
                 }
             } );
             questionLayout.getChildren().add(choice);
@@ -75,7 +75,7 @@ public class PlayingController {
         return quiz;
     }
 
-    public static HashMap<String,Integer> getChosenAnswers(){
+    public static HashMap<Integer,String> getChosenAnswers(){
         return chosenAnswers;
     }
 

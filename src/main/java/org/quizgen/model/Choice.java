@@ -4,6 +4,11 @@ public class Choice{
 
     private int id;
     private String name;
+    private boolean answer = false;
+
+    public void setAnswer(boolean newAnswer){
+        answer = newAnswer;
+    }
 
     public void setId(int newId){
         id = newId;
@@ -19,5 +24,9 @@ public class Choice{
 
     public String getName(){
         return name;
+    }
+
+    public boolean getAnswer(){
+        return answer;
     }
 }
