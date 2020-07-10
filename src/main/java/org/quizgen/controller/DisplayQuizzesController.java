@@ -6,13 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.scenehandling.SceneHandler;
+import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.viewQuizzes.DisplayQuiz;
-import org.quizgen.domain.scenehandling.Views;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,18 +52,18 @@ public class DisplayQuizzesController{
     }
 
     @FXML
-    private void switchToQuizSettings()throws IOException {
+    private void switchToQuizSettings(){
         buttonPressed = create.getText();
         SceneHandler.setRoot(Views.QUIZSETTINGS);
     }
 
     @FXML
-    private void returnToHome() throws IOException {
+    private void returnToHome(){
         SceneHandler.setRoot(Views.HOME);
     }
 
     @FXML
-    private void returnToStart() throws IOException{
+    private void returnToStart(){
         DatabaseConnection.disconnect();
         SceneHandler.setRoot(Views.START);
     }

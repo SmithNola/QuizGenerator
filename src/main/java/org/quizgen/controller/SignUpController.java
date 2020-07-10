@@ -7,12 +7,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.domain.CustomGUI;
-import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.authentication.AuthError;
 import org.quizgen.domain.authentication.PasswordHash;
 import org.quizgen.domain.authentication.SignupAuth;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.model.User;
 
 public class SignUpController {
 

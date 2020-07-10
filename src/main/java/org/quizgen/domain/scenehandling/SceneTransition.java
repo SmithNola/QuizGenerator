@@ -4,8 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 /*
     TO-DO:
         - add animations for scene transitions

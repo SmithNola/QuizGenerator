@@ -4,12 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.model.Quiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.viewQuizzes.DisplayQuiz;
 import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
+import org.quizgen.model.Quiz;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -63,21 +62,21 @@ public class QuizSettingsController {
     }
 
     @FXML
-    private void switchToEditing() throws IOException{
+    private void switchToEditing(){
         if(nonEmptyFields()){
             saveProperties();
             SceneHandler.setRoot(Views.EDITING);
         }
     }
     @FXML
-    private void switchToCreating() throws IOException{
+    private void switchToCreating(){
         if(nonEmptyFields()){
             saveProperties();
             SceneHandler.setRoot(Views.CREATING);
         }
     }
     @FXML
-    private void deleteQuiz() throws IOException, SQLException{
+    private void deleteQuiz() throws SQLException{
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("You are attempted to delete " + quiz.getName() + " quiz. This will be permanent.");
@@ -105,7 +104,7 @@ public class QuizSettingsController {
     }
 
     @FXML
-    private void cancelCreating() throws IOException{
+    private void cancelCreating(){
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Your quiz will not be not be saved if you cancel.");

@@ -4,11 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import org.quizgen.model.Quiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.model.Quiz;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class DisplayQuiz{

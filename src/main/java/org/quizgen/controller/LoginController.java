@@ -8,10 +8,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.domain.CustomGUI;
-import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.authentication.LoginAuth;
+import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.model.User;
 
 
 public class LoginController {

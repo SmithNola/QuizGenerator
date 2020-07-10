@@ -108,7 +108,6 @@ public class DatabaseConnection {
         st.setInt(1,id);
         st.setInt(2,quizId);
         ResultSet results = st.executeQuery();
-        System.out.println(quizId);
         return results.next();
     }
 

@@ -6,7 +6,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.quizgen.controller.EditingController;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 

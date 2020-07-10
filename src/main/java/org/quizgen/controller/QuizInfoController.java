@@ -5,12 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.quizgen.model.Quiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.viewQuizzes.DisplayQuiz;
 import org.quizgen.domain.scenehandling.Views;
-
-import java.io.IOException;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
+import org.quizgen.model.Quiz;
 
 public class QuizInfoController{
     @FXML
@@ -52,11 +50,11 @@ public class QuizInfoController{
         return date;
     }
     @FXML
-    private void switchToPlaying() throws IOException{
+    private void switchToPlaying(){
         SceneHandler.setRoot(Views.PLAYING);
     }
     @FXML
-    private void switchToQuizSettings() throws IOException{
+    private void switchToQuizSettings(){
         SceneHandler.setRoot(Views.QUIZSETTINGS);
     }
 }
