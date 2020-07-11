@@ -4,11 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import org.quizgen.model.Quiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.model.Quiz;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class DisplayQuiz{
@@ -21,12 +20,12 @@ public class DisplayQuiz{
         String quizProperties = quiz.getName() + "\t" + quiz.getGenre() + "\t" + quiz.getCreator() + "\t" + formatDate(quiz.getCreationTime());
         quizButton.setText(quizProperties);
         quizButton.setId(String.valueOf(quiz.getQuizId()));
-        quizButton.setOnAction(new EventHandler<ActionEvent>() {
+        quizButton.setOnAction(new EventHandler<>(){
 
             @Override
-            public void handle(ActionEvent arg0) {
+            public void handle(ActionEvent arg0){
                 quizId = Integer.parseInt(quizButton.getId());
-                for(Quiz quiz:quizzes){
+                for(Quiz quiz : quizzes){
                     if(quiz.getQuizId() == quizId){
                         DisplayQuiz.setClickedQuiz(quiz);
                         SceneHandler.setRoot(Views.QUIZINFO);

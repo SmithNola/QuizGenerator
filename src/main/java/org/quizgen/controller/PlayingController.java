@@ -6,16 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.scenehandling.SceneHandler;
+import org.quizgen.domain.scenehandling.Views;
+import org.quizgen.domain.viewQuizzes.DisplayQuiz;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
 import org.quizgen.model.User;
-import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.playing.AnswerChecker;
-import org.quizgen.domain.viewQuizzes.DisplayQuiz;
-import org.quizgen.domain.scenehandling.Views;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,12 +55,20 @@ public class PlayingController {
             RadioButton choice = new RadioButton((i+1) + " " + choices.get(i).getName());
             choice.setId(String.valueOf(question.getQuestionId()));
             choice.setToggleGroup(group);
-            choice.setOnAction(new EventHandler<ActionEvent>() {
+            choice.setOnAction(new EventHandler<>(){
                 @Override
-                public void handle(ActionEvent arg0) {
+                public void handle(ActionEvent arg0){
                     String[] a = choice.getText().split(" ");
-                    int b = Integer.parseInt(a[0]);//retrieves the number from text
-                   chosenAnswers.put(Integer.parseInt(choice.getId()),choice.getText());
+                    StringBuilder answer = new StringBuilder();
+                    if(a.length > 2){
+                        for(int i = 1; i < a.length; i++){
+                            answer.append(a[i]).append(" ");
+                        }
+                    }else{
+                        answer.append(a[1]);
+                    }
+                    //int b = Integer.parseInt(a[0]);//retrieves the number from text
+                    chosenAnswers.put(Integer.parseInt(choice.getId()), answer.toString().strip());
                 }
             } );
             questionLayout.getChildren().add(choice);
@@ -80,7 +87,7 @@ public class PlayingController {
     }
 
     @FXML
-    private void finishPlaying() throws IOException, SQLException{
+    private void finishPlaying() throws SQLException{
         int score;
         if(AnswerChecker.allAnswered(questions, chosenAnswers)){
             score = AnswerChecker.calculateScore(questions, chosenAnswers);
@@ -97,7 +104,7 @@ public class PlayingController {
     }
 
     @FXML
-    private void cancelPlaying() throws IOException{
+    private void cancelPlaying(){
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Your answers will not be not be saved if you cancel.");

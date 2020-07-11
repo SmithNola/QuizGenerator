@@ -6,7 +6,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import org.quizgen.controller.EditingController;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 public class SaveQuiz{
     private ArrayList <Question> addedQuestions = new ArrayList<>();
     private ArrayList <Question> addedChoices = new ArrayList<>();
-    private ArrayList <VBox> vboxQuestions = new ArrayList<VBox>();
+    private ArrayList <VBox> vboxQuestions = new ArrayList<>();
 
     public SaveQuiz(ArrayList<VBox> newVboxQuestions){
         this.vboxQuestions = newVboxQuestions;
@@ -96,13 +95,13 @@ public class SaveQuiz{
                     }
                 }
             }
-            if(newQuestion){
+            if(newQuestion){//saves new questions
                 addedQuestion.setChoices(choices);
                 addedQuestions.add(addedQuestion);
-            }else if(newChoice){
+            }else if(newChoice){//saves new choices
                 nullQuestion.setChoices(newChoices);
                 addedChoices.add(nullQuestion);
-            }else{
+            }else{//saves edited questions
                 savedQuestion.setChoices(choices);
                 allQuestions.add(savedQuestion);
             }

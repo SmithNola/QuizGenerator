@@ -7,12 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.quizCreation.SaveQuiz;
+import org.quizgen.domain.scenehandling.SceneHandler;
+import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
-import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.quizCreation.SaveQuiz;
-import org.quizgen.domain.scenehandling.Views;
 
 import java.io.IOException;
 import java.sql.SQLException;

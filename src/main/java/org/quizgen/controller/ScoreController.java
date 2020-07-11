@@ -4,13 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.scenehandling.SceneHandler;
+import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
-import org.quizgen.domain.scenehandling.SceneHandler;
-import org.quizgen.domain.playing.AnswerChecker;
-import org.quizgen.domain.scenehandling.Views;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,11 +35,11 @@ public class ScoreController {
     }
 
     @FXML
-    private void switchToPlayView() throws IOException {
+    private void switchToPlayView(){
         SceneHandler.setRoot(Views.DISPLAYQUIZZES);
     }
     @FXML
-    private void returnToStart() throws IOException{
+    private void returnToStart(){
         DatabaseConnection.disconnect();
         SceneHandler.setRoot(Views.START);
     }

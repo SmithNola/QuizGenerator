@@ -8,16 +8,10 @@ import javafx.scene.input.KeyEvent;
 import org.quizgen.data.DatabaseConnection;
 import org.quizgen.domain.CustomGUI;
 import org.quizgen.domain.authentication.AuthError;
-import org.quizgen.domain.authentication.LoginAuth;
 import org.quizgen.domain.authentication.PasswordHash;
 import org.quizgen.domain.authentication.ResetAuth;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
-import org.quizgen.model.User;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ResetPasswordController {
     /*
