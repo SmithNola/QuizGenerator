@@ -27,7 +27,6 @@ public class StartPageController {
         if (isConnected()) {
             SceneHandler.setRoot(Views.SIGNUP);
         } else {
-            System.out.println("Error! could not connect to database"); //replace with error pop-up window
             errorMessage.setText("Error! could not connect to database");
         }
     }

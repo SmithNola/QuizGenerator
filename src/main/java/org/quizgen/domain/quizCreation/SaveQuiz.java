@@ -95,13 +95,13 @@ public class SaveQuiz{
                     }
                 }
             }
-            if(newQuestion){
+            if(newQuestion){//saves new questions
                 addedQuestion.setChoices(choices);
                 addedQuestions.add(addedQuestion);
-            }else if(newChoice){
+            }else if(newChoice){//saves new choices
                 nullQuestion.setChoices(newChoices);
                 addedChoices.add(nullQuestion);
-            }else{
+            }else{//saves edited questions
                 savedQuestion.setChoices(choices);
                 allQuestions.add(savedQuestion);
             }

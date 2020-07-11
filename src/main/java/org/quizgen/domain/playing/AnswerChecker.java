@@ -36,12 +36,7 @@ public class AnswerChecker{
         ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label(questionNumber + ": " + question.getName());
         Label userChoice = new Label("You Choice: " + chosenAnswer);
-        String correctAnswer = "";
-        for(Choice choice:choices){
-            if(choice.getAnswer()){
-                correctAnswer = choice.getName();
-            }
-        }
+        String correctAnswer = retrieveCorrectAnswer(choices);
         Label correctAnswerLabel = new Label("Correct Answer: " + correctAnswer);
         if(chosenAnswer.equals(correctAnswer)){//color to indicate whether right or wrong
             userChoice.setTextFill(Color.GREEN);
@@ -51,6 +46,18 @@ public class AnswerChecker{
         questionWithAnswers.getChildren().addAll(questionName,userChoice,correctAnswerLabel);
         return questionWithAnswers;
     }
+
+    //will find the correct answer among the choices
+    private static String retrieveCorrectAnswer(ArrayList<Choice> choices){
+        String correctAnswer = "";
+        for(Choice choice:choices){
+            if(choice.getAnswer()){
+                correctAnswer = choice.getName();
+            }
+        }
+        return correctAnswer;
+    }
+
     //checks if user has chosen an answer for each question
     public static boolean allAnswered(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         for(Question question : questions){
