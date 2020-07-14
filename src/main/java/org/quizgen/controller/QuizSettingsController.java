@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.AlertMessages;
+import org.quizgen.domain.Alerts;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.domain.viewQuizzes.DisplayQuiz;
@@ -77,10 +79,8 @@ public class QuizSettingsController {
     }
     @FXML
     private void deleteQuiz() throws SQLException{
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("You are attempted to delete " + quiz.getName() + " quiz. This will be permanent.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Alerts alert = new Alerts(AlertMessages.DELETEQUIZ);
+        Optional<ButtonType> result = alert.cancelAlert();
         if (result.get() == ButtonType.OK){
             quiz = DatabaseConnection.retrieveQuestions(quiz);
             DatabaseConnection.deleteEntireQuiz(quiz);
