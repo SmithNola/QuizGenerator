@@ -30,7 +30,6 @@ public class SceneHandler {
 
     // Used for switching fxml views
     public static void setRoot(Views fxml){
-        System.out.println(fxml.toString());
         scene.setRoot(loadFXML(fxml.toString()));
         setAndShowStage();
     }
@@ -38,7 +37,6 @@ public class SceneHandler {
     // Used for setting Stage
     // Configures the size of stage to the size defined in scene
     // Otherwise, app is displayed at the wrong size
-    // TO-DO: implement the correct way to display scenes
     private static void setAndShowStage(){
         stage.setScene(scene);
         stage.sizeToScene();

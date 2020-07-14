@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
-
+import org.quizgen.model.Quiz;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,6 +62,23 @@ public class AnswerChecker{
     public static boolean allAnswered(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         for(Question question : questions){
             if(!chosenAnswers.containsKey(question.getQuestionId())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean allAnswersSelected(Quiz quiz){
+        ArrayList<Question> questions = quiz.getQuestions();
+        for(Question question: questions){
+            ArrayList<Choice> choices = question.getChoices();
+            boolean answered = false;
+            for(Choice choice: choices){
+                if(choice.getAnswer()){
+                    answered = true;
+                }
+            }
+            if(!answered){
                 return false;
             }
         }

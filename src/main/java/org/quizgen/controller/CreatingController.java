@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.AlertMessages;
+import org.quizgen.domain.Alerts;
+import org.quizgen.domain.playing.AnswerChecker;
 import org.quizgen.domain.quizCreation.SaveQuiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
@@ -96,25 +99,31 @@ public class CreatingController {
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
-    private void saveQuiz() throws SQLException{
+    private boolean saveQuiz() throws SQLException{
         SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
         quiz.setQuestions(savedQuiz.retrieveNewQuestions());
-        quiz.setCreator(User.getUsername());
-        DatabaseConnection.saveQuiz(quiz);
+        if(AnswerChecker.allAnswersSelected(quiz)){
+            quiz.setCreator(User.getUsername());
+            DatabaseConnection.saveQuiz(quiz);
+            return true;
+        }else{
+            Alerts alert = new Alerts(AlertMessages.CREATIONANSWERS);
+            alert.answersAlert();
+            return false;
+        }
     }
 
     @FXML
     private void switchToCreateView() throws SQLException {
-        saveQuiz();
-        SceneHandler.setRoot(Views.DISPLAYQUIZZES);
+        if(saveQuiz()){
+            SceneHandler.setRoot(Views.DISPLAYQUIZZES);
+        }
     }
 
     @FXML
     private void cancelCreating(){
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Your quiz will not be not be saved if you cancel.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Alerts alert = new Alerts(AlertMessages.CANCELQUIZ);
+        Optional<ButtonType> result = alert.cancelAlert();
         if (result.get() == ButtonType.OK){
             SceneHandler.setRoot(Views.DISPLAYQUIZZES);
         }

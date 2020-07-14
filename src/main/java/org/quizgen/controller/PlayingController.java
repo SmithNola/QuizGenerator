@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.AlertMessages;
+import org.quizgen.domain.Alerts;
 import org.quizgen.domain.playing.AnswerChecker;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
@@ -96,19 +98,15 @@ public class PlayingController {
             }
             SceneHandler.setRoot(Views.SCORE);
         }else{
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.setAlertType(Alert.AlertType.WARNING);
-            alert.setContentText("Answer all questions");
-            alert.show();
+            Alerts alert = new Alerts(AlertMessages.PLAYINGANSWERS);
+            alert.answersAlert();
         }
     }
 
     @FXML
     private void cancelPlaying(){
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Your answers will not be not be saved if you cancel.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Alerts alert = new Alerts(AlertMessages.CANCELPLAYING);
+        Optional<ButtonType> result = alert.cancelAlert();
         if (result.get() == ButtonType.OK){
             SceneHandler.setRoot(Views.DISPLAYQUIZZES);
         }

@@ -79,6 +79,9 @@ public class SaveQuiz{
                 }else{//for choices
                     TextField choice = (TextField) eachElement.get(2);//choice text field
                     RadioButton answer = (RadioButton) eachElement.get(1);
+                    /*if(answer.getToggleGroup().getSelectedToggle() == null){
+                        System.out.println("Here");
+                    }*/
                     Choice choiceObject = new Choice();
                     choiceObject.setName(choice.getText());
                     if(answer.isSelected()){
@@ -98,6 +101,7 @@ public class SaveQuiz{
             if(newQuestion){//saves new questions
                 addedQuestion.setChoices(choices);
                 addedQuestions.add(addedQuestion);
+                allQuestions.add(addedQuestion);
             }else if(newChoice){//saves new choices
                 nullQuestion.setChoices(newChoices);
                 addedChoices.add(nullQuestion);

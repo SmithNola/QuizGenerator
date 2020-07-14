@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.AlertMessages;
+import org.quizgen.domain.Alerts;
+import org.quizgen.domain.playing.AnswerChecker;
 import org.quizgen.domain.quizCreation.SaveQuiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
@@ -185,42 +188,48 @@ public class EditingController {
         questionWithChoice.getChildren().add(choiceTracker);
     }
 
-    private void  updateQuiz() throws SQLException{
+    private boolean updateQuiz() throws SQLException{
         SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
         quiz.setQuestions(savedQuiz.retrieveEditedQuestions());
-        if(deletedQuestions.size() != 0){
-            DatabaseConnection.deleteQuestions(deletedQuestions);
-        }
-        if(deletedChoices.size() != 0){
-            DatabaseConnection.deleteChoices(deletedChoices);
-        }
-        if(savedQuiz.getAddedQuestions().size() != 0){
-            holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
-            DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
-        }
-        if(savedQuiz.getAddedChoices().size() != 0){
-            for(Question question: savedQuiz.getAddedChoices()){
-                for(Choice choice: question.getChoices()){
-                    System.out.println(choice.getName());
-                }
-                DatabaseConnection.saveChoices(question, question.getQuestionId());
+        if(AnswerChecker.allAnswersSelected(quiz)){
+            if(deletedQuestions.size() != 0){
+                DatabaseConnection.deleteQuestions(deletedQuestions);
             }
+            if(deletedChoices.size() != 0){
+                DatabaseConnection.deleteChoices(deletedChoices);
+            }
+            if(savedQuiz.getAddedQuestions().size() != 0){
+                holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
+                DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
+            }
+            if(savedQuiz.getAddedChoices().size() != 0){
+                for(Question question : savedQuiz.getAddedChoices()){
+                    for(Choice choice : question.getChoices()){
+                        System.out.println(choice.getName());
+                    }
+                    DatabaseConnection.saveChoices(question, question.getQuestionId());
+                }
+            }
+            DatabaseConnection.updateQuiz(quiz);
+            return true;
+        }else{
+            Alerts alert = new Alerts(AlertMessages.CREATIONANSWERS);
+            alert.answersAlert();
+            return false;
         }
-        DatabaseConnection.updateQuiz(quiz);
     }
 
     @FXML
-    private void switchToCreateView() throws SQLException, IOException{
-        updateQuiz();
-        SceneHandler.setRoot(Views.DISPLAYQUIZZES);
+    private void switchToCreateView() throws SQLException {
+        if(updateQuiz()){
+            SceneHandler.setRoot(Views.DISPLAYQUIZZES);
+        }
     }
 
     @FXML
     private void cancelEditing() throws IOException{
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Your quiz will not be not be saved if you cancel.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Alerts alert = new Alerts(AlertMessages.CANCELQUIZ);
+        Optional<ButtonType> result = alert.cancelAlert();
         if (result.get() == ButtonType.OK){
             SceneHandler.setRoot(Views.DISPLAYQUIZZES);
         }
