@@ -1,28 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.quizgen.controller.QuizSettingsController" prefHeight="400.0" prefWidth="600.0"
-      stylesheets="@../stylesheet/quizsettingssheet.css">
-    <HBox>
-        <Label text="Quiz Name: "/>
-        <TextField fx:id="quizName"/>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="overall" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" stylesheets="@../stylesheet/quizsettingssheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.QuizSettingsController">
+    <Label id="title" text="Quiz Settings">
+        <VBox.margin>
+            <Insets right="285.0" />
+        </VBox.margin>
+    </Label>
+   <Separator layoutX="70.0" layoutY="249.0" maxWidth="500.0">
+      <padding>
+         <Insets bottom="10.0" top="10.0" />
+      </padding>
+      <VBox.margin>
+         <Insets left="55.0" right="55.0" />
+      </VBox.margin>
+   </Separator>
+    <VBox id="other-img" alignment="CENTER" maxWidth="500.0" prefWidth="350.0" spacing="15.0" stylesheets="@../stylesheet/blue_matrix_img.css">
+      <children>
+         <JFXTextField fx:id="quizName" promptText="Quiz Name" />
+         <HBox prefWidth="350.0">
+            <children>
+                 <Label text="Ordered?" textFill="WHITE">
+                  <padding>
+                     <Insets right="10.0" />
+                  </padding>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Label>
+                 <RadioButton fx:id="yes" text="Yes" textFill="WHITE">
+                  <padding>
+                     <Insets right="10.0" />
+                  </padding></RadioButton>
+                 <RadioButton fx:id="no" text="No" textFill="WHITE" />
+            </children>
+         </HBox>
+         <JFXTextField fx:id="quizGenre" layoutX="10.0" layoutY="39.0" prefHeight="25.0" prefWidth="234.0" promptText="Genre" />
+      </children>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
+   </VBox>
+    <HBox />
+    <HBox />
+    <HBox />
+   <Separator maxWidth="500.0">
+      <VBox.margin>
+         <Insets left="55.0" right="55.0" />
+      </VBox.margin>
+      <padding>
+         <Insets top="10.0" />
+      </padding>
+   </Separator>
+    <HBox fx:id="buttons" spacing="15.0">
+      <JFXButton fx:id="create" onAction="#switchToCreating" text="Create">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></JFXButton>
+      <JFXButton fx:id="edit" onAction="#switchToEditing" text="Edit">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></JFXButton>
+      <JFXButton fx:id="delete" onAction="#deleteQuiz" text="Delete">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></JFXButton>
+      <JFXButton fx:id="cancel" onAction="#cancelCreating" text="Cancel">
+         <HBox.margin>
+            <Insets />
+         </HBox.margin></JFXButton>
+      <padding>
+         <Insets top="10.0" />
+      </padding>
     </HBox>
-    <HBox>
-        <Label text="Ordered?"/>
-        <RadioButton fx:id="yes" text="Yes"/>
-        <RadioButton fx:id="no" text="No"/>
-    </HBox>
-    <HBox>
-        <Label text="Genre: "/>
-        <TextField fx:id="quizGenre"/>
-    </HBox>
-    <HBox fx:id="buttons">
-        <Button fx:id="create" text="Create" onAction="#switchToCreating"/>
-        <Button fx:id="edit" text="Edit" onAction="#switchToEditing"/>
-        <Button text="Delete" onAction="#deleteQuiz"/>
-        <Button text="Cancel" onAction="#cancelCreating"/>
-    </HBox>
-    <Label fx:id="errorMessage"/>
+    <Label fx:id="errorMessage" />
 </VBox>
