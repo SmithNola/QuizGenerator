@@ -3,25 +3,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.QuizInfoController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/quizinfosheet.css">
-    <HBox>
-        <Label text="Quiz Name: "/>
-        <Text fx:id="nameText"/>
-    </HBox>
-    <HBox fx:id="creatorBox">
-        <Label text="Creator: "/>
-        <Text fx:id="creatorText"/>
-    </HBox>
-    <HBox>
-        <Label text="Date Created: "/>
-        <Text fx:id="creationDateText"/>
-    </HBox>
-    <HBox>
-        <Label text="# of Questions: "/>
-        <Text fx:id="numText"/>
-    </HBox>
-    <HBox fx:id="buttons">
-        <Button fx:id="play" text="Play" onAction="#switchToPlaying"/>
-        <Button fx:id="edit" text="Edit" onAction="#switchToQuizSettings"/>
-    </HBox>
+<?import com.jfoenix.controls.JFXButton?>
+<VBox id="other-img" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.QuizInfoController" prefHeight="400.0" prefWidth="600.0" alignment="CENTER" stylesheets="@../stylesheet/blue_matrix_img.css">
+    <VBox fx:id="overall" style="-fx-background-color: #000000;" alignment="CENTER" maxWidth="250.0" prefWidth="175.0" spacing="15.0" stylesheets="@../stylesheet/quizinfosheet.css">
+        <HBox>
+            <Label text="Quiz Name: "/>
+            <Label fx:id="nameText"/>
+        </HBox>
+        <HBox fx:id="creatorBox">
+            <Label text="Creator: "/>
+            <Label fx:id="creatorText"/>
+        </HBox>
+        <HBox>
+            <Label text="Date Created: "/>
+            <Label fx:id="creationDateText"/>
+        </HBox>
+        <HBox>
+            <Label text="# of Questions: "/>
+            <Label fx:id="numText"/>
+        </HBox>
+        <HBox fx:id="buttons" alignment="CENTER">
+            <JFXButton fx:id="play" text="Play" onAction="#switchToPlaying"/>
+            <JFXButton fx:id="edit" text="Edit" onAction="#switchToQuizSettings"/>
+        </HBox>
+    </VBox>
 </VBox>

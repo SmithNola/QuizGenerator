@@ -2,9 +2,9 @@ package org.quizgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.domain.viewQuizzes.DisplayQuiz;
@@ -12,13 +12,13 @@ import org.quizgen.model.Quiz;
 
 public class QuizInfoController{
     @FXML
-    private Text nameText = new Text();
+    private Label nameText = new Label();
     @FXML
-    private Text creatorText = new Text();
+    private Label creatorText = new Label();
     @FXML
-    private Text numText = new Text();
+    private Label numText = new Label();
     @FXML
-    private Text creationDateText = new Text();
+    private Label creationDateText = new Label();
     @FXML
     private VBox overall;
     @FXML
