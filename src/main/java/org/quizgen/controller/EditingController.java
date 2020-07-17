@@ -7,9 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.domain.AlertMessages;
-import org.quizgen.domain.Alerts;
-import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.errors.AlertMessages;
+import org.quizgen.domain.errors.Alerts;
+import org.quizgen.domain.answers.AnswerChecker;
 import org.quizgen.domain.quizCreation.SaveQuiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
@@ -204,9 +204,6 @@ public class EditingController {
             }
             if(savedQuiz.getAddedChoices().size() != 0){
                 for(Question question : savedQuiz.getAddedChoices()){
-                    for(Choice choice : question.getChoices()){
-                        System.out.println(choice.getName());
-                    }
                     DatabaseConnection.saveChoices(question, question.getQuestionId());
                 }
             }

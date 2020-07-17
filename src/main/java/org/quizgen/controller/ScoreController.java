@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.answers.AnswerChecker;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.model.Question;
