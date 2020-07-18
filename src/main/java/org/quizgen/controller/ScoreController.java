@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.answers.AnswerChecker;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.model.Question;
@@ -26,8 +26,12 @@ public class ScoreController {
         score.setText(AnswerChecker.getScore() + "%");
         Quiz quiz = PlayingController.getQuiz();
         quizName.setText(quiz.getName());
-        HashMap<Integer,String> chosenAnswers = PlayingController.getChosenAnswers();
         ArrayList<Question> questions = quiz.getQuestions();
+        displayResults(questions);
+    }
+
+    private void displayResults(ArrayList<Question> questions){
+        HashMap<Integer,String> chosenAnswers = PlayingController.getChosenAnswers();
         for(int i = 0; i < questions.size(); i++){
             String CA = chosenAnswers.get(questions.get(i).getQuestionId());
             results.getChildren().add(AnswerChecker.showRightWrong(questions.get(i),CA,i+1));

@@ -1,4 +1,4 @@
-package org.quizgen.domain;
+package org.quizgen.domain.errors;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

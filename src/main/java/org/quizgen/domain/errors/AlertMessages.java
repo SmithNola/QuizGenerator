@@ -1,4 +1,4 @@
-package org.quizgen.domain;
+package org.quizgen.domain.errors;
 
 public enum AlertMessages{
     DELETEQUIZ("You are attempted to delete this quiz. This will be permanent."),

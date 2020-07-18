@@ -3,12 +3,15 @@ package org.quizgen.controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
-import org.quizgen.domain.AlertMessages;
-import org.quizgen.domain.Alerts;
-import org.quizgen.domain.playing.AnswerChecker;
+import org.quizgen.domain.answers.AnswerChecker;
+import org.quizgen.domain.errors.AlertMessages;
+import org.quizgen.domain.errors.Alerts;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
 import org.quizgen.domain.viewQuizzes.DisplayQuiz;
@@ -60,17 +63,7 @@ public class PlayingController {
             choice.setOnAction(new EventHandler<>(){
                 @Override
                 public void handle(ActionEvent arg0){
-                    String[] a = choice.getText().split(" ");
-                    StringBuilder answer = new StringBuilder();
-                    if(a.length > 2){
-                        for(int i = 1; i < a.length; i++){
-                            answer.append(a[i]).append(" ");
-                        }
-                    }else{
-                        answer.append(a[1]);
-                    }
-                    //int b = Integer.parseInt(a[0]);//retrieves the number from text
-                    chosenAnswers.put(Integer.parseInt(choice.getId()), answer.toString().strip());
+                    chosenAnswers.put(Integer.parseInt(choice.getId()), setAnswer(choice.getText()));
                 }
             } );
             questionLayout.getChildren().add(choice);
@@ -78,6 +71,19 @@ public class PlayingController {
         questionNum++;
 
         return questionLayout;
+    }
+
+    private String setAnswer(String choice){
+        String[] a = choice.split(" ");
+        StringBuilder answer = new StringBuilder();
+        if(a.length > 2){
+            for(int i = 1; i < a.length; i++){
+                answer.append(a[i]).append(" ");
+            }
+        }else{
+            answer.append(a[1]);
+        }
+        return answer.toString().strip();
     }
 
     public static Quiz getQuiz(){
