@@ -2,7 +2,6 @@ package org.quizgen.domain.errors;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import org.quizgen.domain.errors.AlertMessages;
 
 import java.util.Optional;
 

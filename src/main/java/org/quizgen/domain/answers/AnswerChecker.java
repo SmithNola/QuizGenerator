@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

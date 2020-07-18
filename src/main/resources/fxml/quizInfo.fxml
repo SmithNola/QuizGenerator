@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<?import com.jfoenix.controls.JFXButton?>
 <VBox id="other-img" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.QuizInfoController" prefHeight="400.0" prefWidth="600.0" alignment="CENTER" stylesheets="@../stylesheet/blue_matrix_img.css">
     <VBox fx:id="overall" style="-fx-background-color: #000000;" alignment="CENTER" maxWidth="250.0" prefWidth="175.0" spacing="15.0" stylesheets="@../stylesheet/quizinfosheet.css">
         <HBox>

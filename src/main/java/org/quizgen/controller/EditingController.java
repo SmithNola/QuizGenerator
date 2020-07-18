@@ -7,9 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.quizgen.data.DatabaseConnection;
+import org.quizgen.domain.answers.AnswerChecker;
 import org.quizgen.domain.errors.AlertMessages;
 import org.quizgen.domain.errors.Alerts;
-import org.quizgen.domain.answers.AnswerChecker;
 import org.quizgen.domain.quizCreation.SaveQuiz;
 import org.quizgen.domain.scenehandling.SceneHandler;
 import org.quizgen.domain.scenehandling.Views;
@@ -192,27 +192,43 @@ public class EditingController {
         SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
         quiz.setQuestions(savedQuiz.retrieveEditedQuestions());
         if(AnswerChecker.allAnswersSelected(quiz)){
-            if(deletedQuestions.size() != 0){
-                DatabaseConnection.deleteQuestions(deletedQuestions);
-            }
-            if(deletedChoices.size() != 0){
-                DatabaseConnection.deleteChoices(deletedChoices);
-            }
-            if(savedQuiz.getAddedQuestions().size() != 0){
-                holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
-                DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
-            }
-            if(savedQuiz.getAddedChoices().size() != 0){
-                for(Question question : savedQuiz.getAddedChoices()){
-                    DatabaseConnection.saveChoices(question, question.getQuestionId());
-                }
-            }
+            updateDeletedQuestions();
+            updateDeletedChoices();
+            updateAddedQuestions(savedQuiz);
+            updateAddedChoices(savedQuiz);
             DatabaseConnection.updateQuiz(quiz);
             return true;
         }else{
             Alerts alert = new Alerts(AlertMessages.CREATIONANSWERS);
             alert.answersAlert();
             return false;
+        }
+    }
+
+    private void updateAddedChoices(SaveQuiz savedQuiz) throws SQLException{
+        if(savedQuiz.getAddedChoices().size() != 0){
+            for(Question question : savedQuiz.getAddedChoices()){
+                DatabaseConnection.saveChoices(question, question.getQuestionId());
+            }
+        }
+    }
+
+    private void updateAddedQuestions(SaveQuiz savedQuiz) throws SQLException{
+        if(savedQuiz.getAddedQuestions().size() != 0){
+            holderQuiz.setQuestions(savedQuiz.getAddedQuestions());
+            DatabaseConnection.saveQuestions(holderQuiz, holderQuiz.getQuizId());
+        }
+    }
+
+    private void updateDeletedChoices() throws SQLException{
+        if(deletedChoices.size() != 0){
+            DatabaseConnection.deleteChoices(deletedChoices);
+        }
+    }
+
+    private void updateDeletedQuestions() throws SQLException{
+        if(deletedQuestions.size() != 0){
+            DatabaseConnection.deleteQuestions(deletedQuestions);
         }
     }
 
