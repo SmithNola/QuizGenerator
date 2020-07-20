@@ -11,14 +11,16 @@ public class Quiz {
     private String genre;
     private ArrayList<Question> questions = new ArrayList<>();
     private int numberOfQuestions;
+    private int numberOfPlays;
 
-    public Quiz (int newQuizId, String newName, String newGenre, String newCreationTime, String newCreator, int newNumberOfQuestions){
+    public Quiz (int newQuizId, String newName, String newGenre, String newCreationTime, String newCreator, int newNumberOfQuestions, int newNumberOfPlays){
         this.quizId = newQuizId;
         this.name = newName;
         this.genre = newGenre;
         this.creationTime = newCreationTime;
         this.creator = newCreator;
         this.numberOfQuestions = newNumberOfQuestions;
+        this.numberOfPlays = newNumberOfPlays;
     }
 
     public Quiz (){
@@ -26,6 +28,11 @@ public class Quiz {
         this.name = "";
         this.ordered = 0;
         this.genre = "";
+        this.numberOfPlays = 0;
+    }
+
+    public void setNumberOfPlays(int newNumberOfPlays){
+        this.numberOfPlays = newNumberOfPlays;
     }
 
     public void setName(String newName) {
@@ -77,4 +84,6 @@ public class Quiz {
     }
 
     public int getQuizId(){return this.quizId;}
+
+    public int getNumberOfPlays(){return this.numberOfPlays;}
 }

@@ -229,6 +229,19 @@ public class DatabaseConnection {
         return choices;
     }
 
+    private static int retrieveNumberOfPlays(int quizId) throws SQLException{
+        String query = "SELECT COUNT(quiz_played.quiz_id) as number_of_plays FROM quiz LEFT JOIN quiz_played ON quiz.quiz_id = quiz_played.quiz_id WHERE quiz.quiz_id = ?;";
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, quizId);
+        ResultSet results = st.executeQuery();
+        int plays = 0;
+        while (results.next()) {
+            plays = results.getInt("number_of_plays");
+        }
+        st.close();
+        return plays;
+    }
+
     public static ArrayList<Quiz> retrieveAllQuizzes() throws SQLException{
         Quiz quiz;
         ArrayList <Quiz> quizzes = new ArrayList<>();
@@ -239,7 +252,7 @@ public class DatabaseConnection {
         ResultSet results = st.executeQuery();
         while (results.next()) {//puts each quiz property into one string for view
             quiz = new Quiz(results.getInt("quiz_Id"), results.getString("quiz_name"), results.getString("genre"),
-                    results.getString("time_created"), results.getString("username"), results.getInt("number_of_questions"));
+                    results.getString("time_created"), results.getString("username"), results.getInt("number_of_questions"), retrieveNumberOfPlays(results.getInt("quiz_Id")));
             quizzes.add(quiz);
         }
         st.close();
@@ -257,7 +270,7 @@ public class DatabaseConnection {
         ResultSet results = st.executeQuery();
         while (results.next()) {//puts each quiz property into one string for view
             quiz = new Quiz(results.getInt("quiz_Id"), results.getString("quiz_name"), results.getString("genre"),
-                    results.getString("time_created"), username, results.getInt("number_of_questions"));
+                    results.getString("time_created"), username, results.getInt("number_of_questions"), retrieveNumberOfPlays(results.getInt("quiz_Id")));
             quizzes.add(quiz);
         }
         st.close();

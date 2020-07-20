@@ -21,6 +21,10 @@
             <Label text="# of Questions: "/>
             <Label fx:id="numText"/>
         </HBox>
+        <HBox>
+            <Label text="# of Plays: "/>
+            <Label fx:id="playsText"/>
+        </HBox>
         <HBox fx:id="buttons" alignment="CENTER">
             <JFXButton fx:id="play" text="Play" onAction="#switchToPlaying"/>
             <JFXButton fx:id="edit" text="Edit" onAction="#switchToQuizSettings"/>
