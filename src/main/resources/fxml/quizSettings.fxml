@@ -25,7 +25,9 @@
       </VBox.margin>
    </Separator>
     <VBox id="other-img" alignment="CENTER" maxWidth="500.0" prefWidth="350.0" spacing="15.0" stylesheets="@../stylesheet/blue_matrix_img.css">
-      <children>
+        <VBox fx:id = "results">
+        </VBox>
+        <children>
          <JFXTextField fx:id="quizName" promptText="Quiz Name" />
          <HBox prefWidth="350.0">
             <children>

@@ -23,6 +23,12 @@ HBox{
     -fx-background-color: #1e88e5;
 }
 
+#center{
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+
 #title{
     -fx-text-fill: #FFFFFF;
     -fx-text-alignment: center;
@@ -35,5 +41,9 @@ HBox{
     -fx-background-radius: 5;
     -fx-border-radius: 5;
     -fx-border-width: 1;
+}
 
+#other-img{
+    -fx-background-image: url("../img/blue_matrix_numbers.jpg");
+    -fx-background-radius: 5;
 }
