@@ -27,6 +27,9 @@
       <padding>
          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
       </padding>
+        <VBox fx:id="results">
+
+        </VBox>
     </VBox>
    <Separator maxWidth="500.0" />
     <HBox spacing="15.0">
