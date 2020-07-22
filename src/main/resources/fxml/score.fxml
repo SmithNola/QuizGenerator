@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.ScoreController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/scoresheet.css">
-    <VBox>
-        <Label fx:id="quizName"/>
-        <Label fx:id="score"/>
-    </VBox>
-    <VBox fx:id="results">
+<?import javafx.scene.text.Font?>
 
+<VBox id="other-img" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" stylesheets="@../stylesheet/scoresheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.quizgen.controller.ScoreController">
+   <Label id="title" text="Score">
+      <VBox.margin>
+         <Insets right="410.0" />
+      </VBox.margin>
+   </Label>
+   <Separator maxWidth="500.0" />
+    <VBox id="center" alignment="center" maxWidth="500.0" prefWidth="350.0" spacing="15.0" style="-fx-background-color: #000000;">
+        <Label fx:id="quizName" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+        <Label fx:id="score" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <padding>
+         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+      </padding>
+        <VBox fx:id="results">
+
+        </VBox>
     </VBox>
-    <HBox>
-        <Button text="Done" onAction="#switchToPlayView"/>
-        <Button text="Sign Out" onAction="#returnToStart"/>
+   <Separator maxWidth="500.0" />
+    <HBox spacing="15.0">
+      <JFXButton onAction="#switchToPlayView" text="Done" />
+      <JFXButton onAction="#returnToStart" text="Sign Out" />
     </HBox>
 </VBox>

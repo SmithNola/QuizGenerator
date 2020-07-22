@@ -1,8 +1,52 @@
 VBox{
     -fx-alignment: center;
-    -fx-background-color: lightblue;
     -fx-spacing: 10;
 }
 HBox{
     -fx-alignment: center;
+}
+
+Label{
+    -fx-text-fill: white;
+}
+
+.jfx-button {
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: white;
+    -fx-font-family: Monospaced;
+    -fx-font-weight: bold;
+    -fx-font-size: 12.0;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+.jfx-button:hover{
+    -fx-background-color: #1e88e5;
+}
+
+#center{
+    -fx-border-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+}
+
+#title{
+    -fx-text-fill: #FFFFFF;
+    -fx-text-alignment: center;
+    -fx-font-family: Monospaced;
+    -fx-font-weight: bold;
+    -fx-font-size: 24.0;
+    -fx-background-color: #000000;
+    -fx-border-color: #FFFFFF;
+    -fx-padding: 8;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+#other-img{
+    -fx-background-image: url("../img/blue_matrix_numbers.jpg");
+    -fx-background-radius: 5;
 }
