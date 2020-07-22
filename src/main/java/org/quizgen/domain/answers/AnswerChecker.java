@@ -1,4 +1,4 @@
-package org.quizgen.domain.playing;
+package org.quizgen.domain.answers;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import org.quizgen.model.Choice;
 import org.quizgen.model.Question;
 import org.quizgen.model.Quiz;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

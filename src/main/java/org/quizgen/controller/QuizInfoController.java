@@ -20,6 +20,8 @@ public class QuizInfoController{
     @FXML
     private Label creationDateText = new Label();
     @FXML
+    private Label playsText = new Label();
+    @FXML
     private VBox overall;
     @FXML
     private HBox creatorBox;
@@ -35,6 +37,7 @@ public class QuizInfoController{
         nameText.setText(quiz.getName());
         numText.setText(String.valueOf(quiz.getNumberOfQuestions()));
         creationDateText.setText(formatDate(quiz.getCreationTime()));
+        playsText.setText(String.valueOf(quiz.getNumberOfPlays()));
         if(HomePageController.getButtonPressed().equals("Play")){//if previous was the PlayView
             creatorText.setText(quiz.getCreator());
             buttons.getChildren().remove(edit);
