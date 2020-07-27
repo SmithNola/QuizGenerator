@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox fx:id="overall" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.DisplayQuizzesController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/displayquizzesstylesheet.css">
+<ScrollPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.quizgen.controller.DisplayQuizzesController" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet/displayquizzesstylesheet.css">
+<VBox fx:id="overall">
     <HBox>
         <Label text="Name"/>
         <Label text="Genre"/>
@@ -21,3 +22,4 @@
         </children>
     </HBox>
 </VBox>
+</ScrollPane>

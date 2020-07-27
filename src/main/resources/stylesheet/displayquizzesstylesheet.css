@@ -1,5 +1,11 @@
+ScrollPane{
+    -fx-background: black;
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+
 VBox{
-    -fx-background-color: lightblue;
+    -fx-background: black;
     -fx-spacing: 20px;
 }
 #top{
