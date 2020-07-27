@@ -1,4 +1,5 @@
 ScrollPane{
-    -fx-background: lightblue;
+    -fx-background: black;
     -fx-alignment: center;
+    -fx-text-fill: white;
 }
