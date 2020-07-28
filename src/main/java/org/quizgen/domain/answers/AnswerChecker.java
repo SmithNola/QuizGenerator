@@ -14,7 +14,7 @@ public class AnswerChecker{
 
     private static int score;
 
-    public static int calculateScore(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
+    public int calculateScore(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         double correctAnswers = 0;
         String answer = "";
 
@@ -32,7 +32,7 @@ public class AnswerChecker{
         return score;
     }
     //Will display which answers are wrong and right
-    public static VBox showRightWrong(Question question, String chosenAnswer, int questionNumber){
+    public VBox showRightWrong(Question question, String chosenAnswer, int questionNumber){
         VBox questionWithAnswers = new VBox();
         ArrayList<Choice> choices = question.getChoices();
         Label questionName = new Label(questionNumber + ": " + question.getName());
@@ -49,7 +49,7 @@ public class AnswerChecker{
     }
 
     //will find the correct answer among the choices
-    private static String retrieveCorrectAnswer(ArrayList<Choice> choices){
+    private String retrieveCorrectAnswer(ArrayList<Choice> choices){
         String correctAnswer = "";
         for(Choice choice:choices){
             if(choice.getAnswer()){
@@ -60,7 +60,7 @@ public class AnswerChecker{
     }
 
     //checks if user has chosen an answer for each question
-    public static boolean allAnswered(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
+    public boolean allAnswered(ArrayList<Question> questions, HashMap<Integer, String> chosenAnswers){
         for(Question question : questions){
             if(!chosenAnswers.containsKey(question.getQuestionId())){
                 return false;
@@ -69,7 +69,7 @@ public class AnswerChecker{
         return true;
     }
 
-    public static boolean allAnswersSelected(Quiz quiz){
+    public boolean allAnswersSelected(Quiz quiz){
         ArrayList<Question> questions = quiz.getQuestions();
         for(Question question: questions){
             ArrayList<Choice> choices = question.getChoices();

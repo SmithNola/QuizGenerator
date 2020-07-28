@@ -189,9 +189,10 @@ public class EditingController {
     }
 
     private boolean updateQuiz() throws SQLException{
+        AnswerChecker ac = new AnswerChecker();
         SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
         quiz.setQuestions(savedQuiz.retrieveEditedQuestions());
-        if(AnswerChecker.allAnswersSelected(quiz)){
+        if(ac.allAnswersSelected(quiz)){
             updateDeletedQuestions();
             updateDeletedChoices();
             updateAddedQuestions(savedQuiz);

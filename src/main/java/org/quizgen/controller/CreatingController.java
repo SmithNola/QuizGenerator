@@ -100,9 +100,10 @@ public class CreatingController {
     }
 
     private boolean saveQuiz() throws SQLException{
+        AnswerChecker ac = new AnswerChecker();
         SaveQuiz savedQuiz = new SaveQuiz(vboxQuestions);
         quiz.setQuestions(savedQuiz.retrieveNewQuestions());
-        if(AnswerChecker.allAnswersSelected(quiz)){
+        if(ac.allAnswersSelected(quiz)){
             quiz.setCreator(User.getUsername());
             DatabaseConnection.saveQuiz(quiz);
             return true;
