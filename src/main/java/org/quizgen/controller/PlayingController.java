@@ -96,9 +96,10 @@ public class PlayingController {
 
     @FXML
     private void finishPlaying() throws SQLException{
+        AnswerChecker ac = new AnswerChecker();
         int score;
-        if(AnswerChecker.allAnswered(questions, chosenAnswers)){
-            score = AnswerChecker.calculateScore(questions, chosenAnswers);
+        if(ac.allAnswered(questions, chosenAnswers)){
+            score = ac.calculateScore(questions, chosenAnswers);
             if(!DatabaseConnection.checkIfPlayed(User.getUsername(), quiz.getQuizId())){
                 DatabaseConnection.saveScore(score, User.getUsername(), quiz.getQuizId());
             }

@@ -32,9 +32,10 @@ public class ScoreController {
 
     private void displayResults(ArrayList<Question> questions){
         HashMap<Integer,String> chosenAnswers = PlayingController.getChosenAnswers();
+        AnswerChecker ac = new AnswerChecker();
         for(int i = 0; i < questions.size(); i++){
             String CA = chosenAnswers.get(questions.get(i).getQuestionId());
-            results.getChildren().add(AnswerChecker.showRightWrong(questions.get(i),CA,i+1));
+            results.getChildren().add(ac.showRightWrong(questions.get(i),CA,i+1));
         }
     }
 
