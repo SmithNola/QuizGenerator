@@ -14,7 +14,7 @@ A desktop quiz creation application where users can create and play quizzes.
 - IntelliJ
 - Maven
 - SQLite
--JavaFx
+- JavaFX
 
 ### Contributors
 - [SmithNola](https://github.com/SmithNola)
