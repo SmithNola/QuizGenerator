@@ -46,13 +46,17 @@ public class EditingController {
             throwables.printStackTrace();
         }
         questions = quiz.getQuestions();
+        displayQuestions();
+        holderQuiz.setQuizId(quiz.getQuizId());
+    }
+
+    private void displayQuestions(){
         for(Question question: questions){
             VBox questionWithChoice = new VBox(question.getChoices().size()+1);
             VBox createdVbox = createQuestionVbox(question, questionWithChoice);
             vboxQuestions.add(createdVbox);
             questionsBox.getChildren().add(createdVbox);//will create the layout for each question and choice
         }
-        holderQuiz.setQuizId(quiz.getQuizId());
     }
 
     private VBox createQuestionVbox(Question question, VBox questionWithChoice){
@@ -61,15 +65,7 @@ public class EditingController {
         Label questionTracker = new Label(questionNum + ". ");
         TextField questionName = new TextField (question.getName());
         questionName.setId(String.valueOf(question.getQuestionId()));
-        Button addNewQuestion = new Button("+");
-        addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
-
-            @Override
-            public void handle(ActionEvent arg0){
-                addNewQuestion.setVisible(false);
-                newQuestion();
-            }
-        } );
+        Button addNewQuestion = addQuestionButton();
         Button deleteOldQuestion = new Button("-");
         deleteOldQuestion.setOnAction(new EventHandler<ActionEvent>(){
             @Override
@@ -123,6 +119,19 @@ public class EditingController {
         questionNum++;
 
         return questionWithChoice;
+    }
+
+    private Button addQuestionButton(){
+        Button addNewQuestion = new Button("+");
+        addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {//Will add a new question with choice
+
+            @Override
+            public void handle(ActionEvent arg0){
+                addNewQuestion.setVisible(false);
+                newQuestion();
+            }
+        } );
+        return addNewQuestion;
     }
 
     private void newQuestion(){
