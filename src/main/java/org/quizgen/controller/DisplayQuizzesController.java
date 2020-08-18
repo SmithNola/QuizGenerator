@@ -44,7 +44,10 @@ public class DisplayQuizzesController{
         }catch(SQLException throwables){
             throwables.printStackTrace();
         }
-
+        displayQuizzes();
+    }
+    //creates the the quiz layout for each quiz
+    private void displayQuizzes(){
         for(Quiz quiz: quizzes){
             HBox quizLayout = new HBox(4);
             showQuizzes.getChildren().add(DisplayQuiz.createQuizVbox(quiz, quizLayout, quizzes));
